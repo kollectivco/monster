@@ -581,8 +581,15 @@ export default function StageDisplay({
                     <Trophy className="w-20 h-20 mx-auto mb-4 text-primary" style={{ filter: 'drop-shadow(var(--green-glow))' }} />
                   </motion.div>
                   <div className="mono font-bold text-primary mb-3" style={{ textShadow: 'var(--green-glow)', fontSize: '5rem', lineHeight: '1' }}>1</div>
-                  <div className="text-4xl font-bold mb-3">{sortedResults[0].rapper.name}</div>
-                  <div className="text-lg text-muted-foreground mb-5 tracking-wide">{sortedResults[0].team?.name}</div>
+                  <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-5">
+                    {getRapperPngImage(sortedResults[0].rapper.name) && (
+                      <img src={getRapperPngImage(sortedResults[0].rapper.name)!} alt={sortedResults[0].rapper.name} className="w-32 h-32 object-cover rounded-full border-4 border-primary bg-primary/10 shadow-[0_0_20px_rgba(146,208,32,0.3)]" style={{ objectPosition: 'top' }} />
+                    )}
+                    <div className="flex flex-col md:text-left">
+                      <div className="text-4xl font-bold mb-1">{sortedResults[0].rapper.name}</div>
+                      <div className="text-lg text-muted-foreground tracking-wide">{sortedResults[0].team?.name}</div>
+                    </div>
+                  </div>
                   <motion.div
                     className="mono text-6xl font-bold text-primary"
                     style={{ textShadow: 'var(--green-glow)' }}
@@ -613,9 +620,14 @@ export default function StageDisplay({
                       <Medal className="w-10 h-10 mx-auto mb-1 text-secondary" />
                       <div className="mono text-4xl font-bold text-secondary" style={{ lineHeight: '1' }}>2</div>
                     </div>
-                    <div>
-                      <div className="text-xl font-bold mb-1">{sortedResults[1].rapper.name}</div>
-                      <div className="text-xs text-muted-foreground tracking-wide">{sortedResults[1].team?.name}</div>
+                    <div className="flex items-center gap-3 text-left">
+                      {getRapperPngImage(sortedResults[1].rapper.name) && (
+                        <img src={getRapperPngImage(sortedResults[1].rapper.name)!} alt={sortedResults[1].rapper.name} className="w-16 h-16 object-cover rounded-full border-2 border-secondary bg-secondary/10" style={{ objectPosition: 'top' }} />
+                      )}
+                      <div>
+                        <div className="text-xl font-bold mb-1">{sortedResults[1].rapper.name}</div>
+                        <div className="text-xs text-muted-foreground tracking-wide">{sortedResults[1].team?.name}</div>
+                      </div>
                     </div>
                     <div className="mono text-3xl font-bold text-foreground">{sortedResults[1].cumulative}</div>
                   </div>
@@ -637,9 +649,14 @@ export default function StageDisplay({
                       <Award className="w-10 h-10 mx-auto mb-1" style={{ color: '#5a7a2a' }} />
                       <div className="mono text-4xl font-bold" style={{ color: '#5a7a2a', lineHeight: '1' }}>3</div>
                     </div>
-                    <div>
-                      <div className="text-xl font-bold mb-1">{sortedResults[2].rapper.name}</div>
-                      <div className="text-xs text-muted-foreground tracking-wide">{sortedResults[2].team?.name}</div>
+                    <div className="flex items-center gap-3 text-left">
+                      {getRapperPngImage(sortedResults[2].rapper.name) && (
+                        <img src={getRapperPngImage(sortedResults[2].rapper.name)!} alt={sortedResults[2].rapper.name} className="w-16 h-16 object-cover rounded-full border-2 border-[#5a7a2a] bg-card" style={{ objectPosition: 'top' }} />
+                      )}
+                      <div>
+                        <div className="text-xl font-bold mb-1">{sortedResults[2].rapper.name}</div>
+                        <div className="text-xs text-muted-foreground tracking-wide">{sortedResults[2].team?.name}</div>
+                      </div>
                     </div>
                     <div className="mono text-3xl font-bold text-foreground">{sortedResults[2].cumulative}</div>
                   </div>
@@ -663,9 +680,14 @@ export default function StageDisplay({
                     <Award className="w-8 h-8 mx-auto mb-1" style={{ color: '#3a5a1a' }} />
                     <div className="mono text-3xl font-bold" style={{ color: '#3a5a1a', lineHeight: '1' }}>4</div>
                   </div>
-                  <div>
-                    <div className="text-lg mb-1">{sortedResults[3].rapper.name}</div>
-                    <div className="text-xs text-muted-foreground tracking-wide">{sortedResults[3].team?.name}</div>
+                  <div className="flex items-center gap-3 text-left">
+                    {getRapperPngImage(sortedResults[3].rapper.name) && (
+                      <img src={getRapperPngImage(sortedResults[3].rapper.name)!} alt={sortedResults[3].rapper.name} className="w-12 h-12 object-cover rounded-full border border-[#3a5a1a] bg-card" style={{ objectPosition: 'top' }} />
+                    )}
+                    <div>
+                      <div className="text-lg mb-1">{sortedResults[3].rapper.name}</div>
+                      <div className="text-xs text-muted-foreground tracking-wide">{sortedResults[3].team?.name}</div>
+                    </div>
                   </div>
                   <div className="mono text-2xl font-bold text-foreground">{sortedResults[3].cumulative}</div>
                 </div>
