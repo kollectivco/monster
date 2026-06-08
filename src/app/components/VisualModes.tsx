@@ -367,8 +367,8 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-          className="absolute w-[600px] h-[600px] md:w-[900px] md:h-[900px] lg:w-[1400px] lg:h-[1400px] border-[16px] md:border-[24px] lg:border-[32px] border-dashed border-primary/40 rounded-full pointer-events-none"
-          style={{ filter: 'drop-shadow(0 0 30px rgba(146, 208, 32, 0.4))' }}
+          className="absolute w-[500px] h-[700px] md:w-[700px] md:h-[1000px] lg:w-[1000px] lg:h-[1400px] border-[8px] md:border-[16px] lg:border-[20px] border-primary/40 rounded-3xl pointer-events-none"
+          style={{ filter: 'drop-shadow(0 0 40px rgba(146, 208, 32, 0.4))' }}
         />
         
         {winner ? (
