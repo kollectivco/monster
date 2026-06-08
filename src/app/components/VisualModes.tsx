@@ -48,7 +48,7 @@ export function GeneralVisuals({ state }: VisualProps) {
           src={logo}
           alt="Beast Beats"
           className="w-[350px] md:w-[500px] lg:w-[650px] object-contain relative z-10 max-h-[80vh]"
-          style={{ mixBlendMode: 'lighten', filter: 'drop-shadow(0 0 30px rgba(146, 208, 32, 0.5))' }}
+          style={{ filter: 'drop-shadow(0 0 30px rgba(146, 208, 32, 0.5))' }}
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.5, ease: "easeOut" }}
