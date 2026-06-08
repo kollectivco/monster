@@ -362,21 +362,13 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: 'spring', bounce: 0.5, duration: 2 }}
-        className="flex flex-col items-center justify-center min-h-screen text-center relative overflow-hidden"
+        className="flex flex-col items-center justify-center min-h-screen text-center relative"
       >
         <motion.div
-          animate={{ 
-            rotate: 360,
-            opacity: [0.1, 0.6, 0.1],
-            boxShadow: ['0 0 0px rgba(146,208,32,0)', '0 0 40px rgba(146,208,32,0.5)', '0 0 0px rgba(146,208,32,0)']
-          }}
-          transition={{ 
-            rotate: { duration: 30, repeat: Infinity, ease: 'linear' },
-            opacity: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
-            boxShadow: { duration: 2, repeat: Infinity, ease: 'easeInOut' }
-          }}
-          className="absolute top-1/2 left-1/2 w-[500px] h-[500px] md:w-[750px] md:h-[750px] border-[16px] border-dashed border-primary rounded-full pointer-events-none"
-          style={{ x: '-50%', y: '-50%' }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+          className="absolute w-[600px] h-[600px] md:w-[900px] md:h-[900px] lg:w-[1400px] lg:h-[1400px] border-[16px] md:border-[24px] lg:border-[32px] border-dashed border-primary/40 rounded-full pointer-events-none"
+          style={{ filter: 'drop-shadow(0 0 30px rgba(146, 208, 32, 0.4))' }}
         />
         
         {winner ? (
