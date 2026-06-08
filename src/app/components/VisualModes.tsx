@@ -10,6 +10,20 @@ import shahynPhoto from '../../styles/photos/shahyn.jpg';
 import alyPhoto from '../../styles/photos/aly.jpg';
 import shehabPhoto from '../../styles/photos/shehab.jpg';
 
+const photos = import.meta.glob('../../styles/photos/*.{jpeg,JPEG,jpg,png}', { query: '?url', import: 'default', eager: true }) as Record<string, string>;
+
+const getRapperPngImage = (name: string) => {
+  const normalizedName = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const customMap: Record<string, string> = {
+    'therealdopie': 'therealdopie',
+    'dezelelgenral': 'dezel',
+    'hazemhany': 'hazem',
+  };
+  const searchKey = customMap[normalizedName] || normalizedName;
+  const match = Object.keys(photos).find(path => path.toLowerCase().includes(searchKey) && path.toLowerCase().endsWith('.png'));
+  return match ? photos[match] : null;
+};
+
 interface VisualProps {
   state: BroadcastState;
   rappers: Rapper[];
@@ -268,16 +282,36 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
           WILD CARD
         </h1>
         {wildCardRapper ? (
-          <motion.div 
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", bounce: 0.5 }}
-            className="w-96 h-96 border-4 border-primary bg-primary/10 rounded-full flex flex-col items-center justify-center text-center p-8" 
-            style={{ boxShadow: '0 0 80px rgba(146, 208, 32, 0.4)' }}
-          >
-             <h2 className="text-5xl text-primary font-bold mb-2">{wildCardRapper.name}</h2>
-             <p className="text-xl text-muted-foreground tracking-widest">{team?.name}</p>
-          </motion.div>
+          <div className="flex flex-col items-center">
+            <motion.div 
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", bounce: 0.5 }}
+              className="w-80 h-80 md:w-96 md:h-96 border-4 border-primary bg-primary/10 rounded-full flex flex-col items-center justify-center text-center overflow-hidden mb-8 relative" 
+              style={{ boxShadow: '0 0 80px rgba(146, 208, 32, 0.4)' }}
+            >
+              {getRapperPngImage(wildCardRapper.name) ? (
+                <img 
+                  src={getRapperPngImage(wildCardRapper.name)!} 
+                  alt={wildCardRapper.name} 
+                  className="w-full h-full object-cover" 
+                  style={{ objectPosition: 'top' }}
+                />
+              ) : (
+                <h2 className="text-5xl text-primary font-bold">{wildCardRapper.name}</h2>
+              )}
+            </motion.div>
+            
+            <motion.div
+               initial={{ y: 20, opacity: 0 }}
+               animate={{ y: 0, opacity: 1 }}
+               transition={{ delay: 0.3 }}
+               className="text-center"
+            >
+               <h2 className="text-5xl md:text-6xl text-primary font-bold mb-2" style={{ textShadow: 'var(--green-glow-strong)' }}>{wildCardRapper.name}</h2>
+               <p className="text-2xl text-secondary tracking-widest" style={{ fontFamily: 'Rocketbrush' }}>{team?.name}</p>
+            </motion.div>
+          </div>
         ) : (
           <div className="w-96 h-96 border-4 border-secondary rounded-full flex items-center justify-center" style={{ boxShadow: '0 0 80px rgba(0, 255, 255, 0.4)' }}>
              <h2 className="text-6xl text-primary font-bold">???</h2>
@@ -412,6 +446,14 @@ function TimerVisual({ seconds: initialSeconds, label, alertAt = 10 }: { seconds
       animate={{ opacity: 1, y: 0 }}
       className="flex flex-col items-center justify-center min-h-screen"
     >
+      <div className="flex justify-center mb-8">
+        <img
+          src={logo}
+          alt="Beast Beats Logo"
+          className="h-32 md:h-48 lg:h-56 w-auto object-contain"
+          style={{ mixBlendMode: 'lighten' }}
+        />
+      </div>
       <h2 className="text-4xl text-muted-foreground tracking-widest mb-12" style={{ fontFamily: 'Rocketbrush' }}>{label}</h2>
       <motion.div
         animate={isAlert ? { scale: [1, 1.05, 1], color: ['#ef4444', '#ffffff', '#ef4444'] } : {}}
