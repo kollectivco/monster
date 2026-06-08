@@ -406,7 +406,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
                 </motion.div>
               )}
 
-              <h2 className="text-7xl md:text-9xl text-primary font-bold mb-2 relative z-10" style={{ textShadow: 'var(--green-glow-strong)' }}>
+              <h2 className={`${winner.rapper.name.length > 10 ? 'text-4xl sm:text-5xl md:text-6xl lg:text-7xl' : 'text-5xl sm:text-7xl md:text-8xl lg:text-9xl'} text-primary font-bold mb-2 relative z-10 break-words`} style={{ textShadow: 'var(--green-glow-strong)', wordBreak: 'keep-all' }}>
                 {winner.rapper.name}
               </h2>
               <p className="text-2xl md:text-3xl text-secondary tracking-[0.2em] uppercase mb-0 relative z-10" style={{ fontFamily: 'Rocketbrush' }}>{winner.team?.name}</p>
