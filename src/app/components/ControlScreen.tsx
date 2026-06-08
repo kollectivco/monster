@@ -86,13 +86,13 @@ export default function ControlScreen({
               window.open(
                 '/#/stage', 
                 'StageDisplay', 
-                'width=1536,height=768,menubar=no,toolbar=no,location=no,status=no'
+                'width=768,height=1536,menubar=no,toolbar=no,location=no,status=no'
               );
             }}
             className="text-xs text-primary border border-primary/30 bg-primary/10 px-3 py-1.5 rounded hover:bg-primary/20 transition-colors flex items-center gap-1.5"
           >
             <Tv className="w-3.5 h-3.5" />
-            OPEN 1536x768 WINDOW
+            OPEN 768x1536 WINDOW
           </button>
         </div>
 

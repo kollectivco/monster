@@ -243,5 +243,17 @@ export default function App() {
     );
   }
 
+  if (currentRoute.type === 'mc') {
+    return (
+      <MCScreen
+        rappers={data.rappers}
+        teams={data.teams}
+        judges={data.judges}
+        scores={data.scores}
+        broadcastState={broadcastState}
+      />
+    );
+  }
+
   return <ScreenSelector onSelectScreen={handleSelectScreen} />;
 }
