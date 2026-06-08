@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Rapper, Team, BroadcastState } from '../types';
-import { AlertTriangle, Clock } from 'lucide-react';
+import { Smile, Clock } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import logo from '../../imports/Monster_Beast_Beats_To_Ehab_Fahem-1_copy.png';
 
@@ -106,38 +106,39 @@ export function GeneralVisuals({ state }: VisualProps) {
           <motion.div
             animate={{ 
               opacity: [0.7, 1, 0.7],
-              filter: ['drop-shadow(0 0 10px rgba(146,208,32,0.3))', 'drop-shadow(0 0 30px rgba(146,208,32,0.8))', 'drop-shadow(0 0 10px rgba(146,208,32,0.3))'] 
+              scale: [0.95, 1.05, 0.95],
+              filter: ['drop-shadow(0 0 10px rgba(146,208,32,0.3))', 'drop-shadow(0 0 40px rgba(146,208,32,0.9))', 'drop-shadow(0 0 10px rgba(146,208,32,0.3))'] 
             }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="mb-4"
+            className="mb-8"
           >
-            <AlertTriangle className="w-16 h-16 text-primary" />
+            <Smile className="w-32 h-32 md:w-48 md:h-48 text-primary" strokeWidth={1.5} />
           </motion.div>
 
           <motion.div 
-            className="flex items-center gap-3 mb-2 text-primary font-mono text-xs tracking-[0.4em] opacity-80"
-            animate={{ opacity: [0.3, 0.8, 0.3] }}
+            className="flex items-center gap-3 mb-4 text-primary font-mono text-sm tracking-[0.5em] opacity-80"
+            animate={{ opacity: [0.3, 1, 0.3] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
             <span>[</span>
-            <span>SYSTEM ALERT</span>
+            <span>BEAST BEATS CAMERA ALERT</span>
             <span>]</span>
           </motion.div>
 
           <motion.h1 
-            className="text-6xl md:text-8xl text-primary leading-none mb-2 tracking-wider" 
-            style={{ fontFamily: 'Rocketbrush', textShadow: '0 0 20px rgba(146, 208, 32, 0.5)' }}
-            animate={{ x: [-2, 2, -2, 2, 0], opacity: [1, 0.8, 1, 0.9, 1] }}
-            transition={{ duration: 0.3, repeat: Infinity, repeatDelay: 5 }}
+            className="text-7xl md:text-9xl text-primary leading-none mb-4 tracking-widest" 
+            style={{ fontFamily: 'Rocketbrush', textShadow: '0 0 30px rgba(146, 208, 32, 0.6)' }}
+            animate={{ scale: [1, 1.02, 1], textShadow: ['0 0 20px rgba(146,208,32,0.4)', '0 0 40px rgba(146,208,32,0.8)', '0 0 20px rgba(146,208,32,0.4)'] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
           >
             SMILE
           </motion.h1>
           
-          <h2 className="text-xl md:text-3xl font-light text-foreground tracking-[0.3em] uppercase mt-2">
-            You Are On Spots
+          <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-[0.4em] uppercase mt-2">
+            YOU ARE ON CAMERA
           </h2>
           
-          <div className="mt-8 flex gap-2">
+          <div className="mt-12 flex gap-3">
             {[...Array(5)].map((_, i) => (
               <motion.div 
                 key={i}
