@@ -8,6 +8,7 @@ interface BroadcastControlProps {
   scores: Record<string, Score>;
   broadcastState: BroadcastState;
   onUpdateBroadcast: (updates: Partial<BroadcastState>) => void;
+  onUpdateScore?: (judgeId: string, rapperId: string, round: number, updates: any) => void;
 }
 
 export default function BroadcastControl({
@@ -17,6 +18,7 @@ export default function BroadcastControl({
   scores,
   broadcastState,
   onUpdateBroadcast,
+  onUpdateScore,
 }: BroadcastControlProps) {
   const calculateRapperScore = (rapperId: string, targetRound: number): number => {
     let total = 0;
@@ -33,6 +35,30 @@ export default function BroadcastControl({
       }
     });
     return total;
+  };
+
+  const fillMockScores = () => {
+    if (!onUpdateScore) return;
+    if (!window.confirm("Fill ALL scores with random data?")) return;
+    
+    judges.forEach(judge => {
+      rappers.forEach(rapper => {
+        [1, 2, 3].forEach(round => {
+          onUpdateScore(judge.id, rapper.id, round, {
+            criteria: [
+              Math.floor(Math.random() * 5) + 6,
+              Math.floor(Math.random() * 5) + 6,
+              Math.floor(Math.random() * 5) + 6
+            ],
+            deductions: {
+              restart: false,
+              preRecorded: false,
+              technical: 0
+            }
+          });
+        });
+      });
+    });
   };
 
   const getTopFour = () => {
@@ -59,10 +85,20 @@ export default function BroadcastControl({
   return (
     <div className="grid gap-6">
       <div className="border p-6" style={{ borderRadius: 'var(--bento-radius)', borderColor: 'var(--border-muted)', backgroundColor: 'var(--card)', boxShadow: 'var(--bento-shadow)' }}>
-        <h2 className="text-xl mb-2 text-primary flex items-center gap-2.5">
-          <Tv className="w-5 h-5" />
-          BROADCAST CONTROL
-        </h2>
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-xl text-primary flex items-center gap-2.5">
+            <Tv className="w-5 h-5" />
+            BROADCAST CONTROL
+          </h2>
+          {onUpdateScore && (
+            <button
+              onClick={fillMockScores}
+              className="px-3 py-1 bg-primary/20 hover:bg-primary/40 text-primary text-xs rounded border border-primary transition-colors font-bold uppercase tracking-wider"
+            >
+              Fill Mock Scores (Temp)
+            </button>
+          )}
+        </div>
         <p className="text-xs text-muted-foreground mb-6" style={{ fontSize: '0.7rem' }}>
           Control what appears on the Stage Display screen
         </p>

@@ -227,6 +227,7 @@ export default function App() {
         onUpdateRapper={updateRapperName}
         onUpdateJudge={updateJudgeName}
         onUpdateBroadcast={handleUpdateBroadcast}
+        onUpdateScore={updateScore}
         onReset={resetAll}
         onSwitchScreen={handleSwitchScreen}
         connectionStatus={connectionStatus}

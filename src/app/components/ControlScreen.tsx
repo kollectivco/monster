@@ -16,6 +16,7 @@ interface ControlScreenProps {
   onUpdateRapper: (id: string, name: string) => void;
   onUpdateJudge: (id: string, name: string) => void;
   onUpdateBroadcast: (updates: Partial<BroadcastState>) => void;
+  onUpdateScore: (judgeId: string, rapperId: string, round: number, updates: any) => void;
   onReset: () => void;
   onSwitchScreen: () => void;
   connectionStatus: ConnectionStatus;
@@ -29,6 +30,7 @@ export default function ControlScreen({
   onUpdateRapper,
   onUpdateJudge,
   onUpdateBroadcast,
+  onUpdateScore,
   onReset,
   onSwitchScreen,
   connectionStatus,
@@ -239,6 +241,7 @@ export default function ControlScreen({
               scores={data.scores}
               broadcastState={broadcastState}
               onUpdateBroadcast={onUpdateBroadcast}
+              onUpdateScore={onUpdateScore}
             />
           </TabsContent>
 
