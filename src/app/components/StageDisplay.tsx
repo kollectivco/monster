@@ -7,6 +7,20 @@ import { motion, AnimatePresence } from 'motion/react';
 import type { ConnectionStatus, SyncDiagnostics } from '../hooks/useSupabaseSync';
 import { GeneralVisuals, RoundIntros, FinalistsVisuals } from './VisualModes';
 
+const photos = import.meta.glob('../../styles/photos/*.{jpeg,JPEG,jpg,png}', { query: '?url', import: 'default', eager: true }) as Record<string, string>;
+
+const getRapperImage = (name: string) => {
+  const normalizedName = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const customMap: Record<string, string> = {
+    'therealdopie': 'therealdopie',
+    'dezelelgenral': 'dezel',
+    'hazemhany': 'hazem',
+  };
+  const searchKey = customMap[normalizedName] || normalizedName;
+  const match = Object.keys(photos).find(path => path.toLowerCase().includes(searchKey));
+  return match ? photos[match] : null;
+};
+
 interface StageDisplayProps {
   rappers: Rapper[];
   teams: Team[];
@@ -167,7 +181,7 @@ export default function StageDisplay({
   ].includes(broadcastState.mode);
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-6 md:p-8 relative overflow-hidden" style={{ fontFamily: 'Anton, sans-serif' }}>
+    <div className="bg-background text-foreground p-6 md:p-8 relative overflow-hidden mx-auto" style={{ width: '768px', height: '1536px', fontFamily: 'Anton, sans-serif' }}>
       {/* Animated background */}
       <StageBackground showEqualizer={!isGeneralVisual} />
 
@@ -216,7 +230,7 @@ export default function StageDisplay({
       )}
 
       {/* Content layer */}
-      <div className="relative flex flex-col min-h-screen w-full justify-center" style={{ zIndex: 2 }}>
+      <div className="relative flex flex-col h-full w-full justify-center" style={{ zIndex: 2 }}>
         <AnimatePresence mode="wait">
           {isSpecialVisualMode ? (
             <motion.div key={broadcastState.mode} className="w-full h-full flex flex-col items-center justify-center">
@@ -436,6 +450,17 @@ export default function StageDisplay({
                       >
                         {index + 1}
                       </motion.div>
+                      {getRapperImage(result.rapper.name) && (
+                        <motion.img 
+                          src={getRapperImage(result.rapper.name)!} 
+                          alt={result.rapper.name}
+                          className="w-16 h-16 md:w-20 md:h-20 object-cover rounded-full border-2"
+                          style={{ borderColor: index === 0 ? 'var(--primary)' : 'var(--border-muted)' }}
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ delay: index * 0.15 + 0.3, duration: 0.4 }}
+                        />
+                      )}
                       <div>
                         <div className="text-3xl mb-2">{result.rapper.name}</div>
                         <div className="text-sm text-muted-foreground tracking-wide">

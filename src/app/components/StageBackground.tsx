@@ -11,8 +11,13 @@ export default function StageBackground({ showEqualizer = true }: { showEqualize
     if (!ctx) return;
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      if (canvas.parentElement) {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+      } else {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
     };
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
@@ -78,13 +83,13 @@ export default function StageBackground({ showEqualizer = true }: { showEqualize
       {/* Canvas for particles */}
       <canvas
         ref={canvasRef}
-        className="fixed top-0 left-0 w-full h-full pointer-events-none"
+        className="absolute top-0 left-0 w-full h-full pointer-events-none"
         style={{ zIndex: 1 }}
       />
 
       {/* Pulsing radial glow */}
       <div
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{
           background: 'radial-gradient(circle, rgba(146, 208, 32, 0.15) 0%, transparent 70%)',
           animation: 'pulse-beat 0.8s ease-in-out infinite',
@@ -94,7 +99,7 @@ export default function StageBackground({ showEqualizer = true }: { showEqualize
 
       {/* Audio equalizer bars */}
       {showEqualizer && (
-        <div className="fixed bottom-0 left-0 right-0 flex items-end justify-center gap-1 px-4 pb-4 pointer-events-none" style={{ zIndex: 1, height: '120px' }}>
+        <div className="absolute bottom-0 left-0 right-0 flex items-end justify-center gap-1 px-4 pb-4 pointer-events-none" style={{ zIndex: 1, height: '120px' }}>
           {[...Array(40)].map((_, i) => (
             <div
               key={i}
