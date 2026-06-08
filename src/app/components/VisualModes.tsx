@@ -221,9 +221,9 @@ export function GeneralVisuals({ state }: VisualProps) {
 export function RoundIntros({ state }: VisualProps) {
   if (state.mode === 'round-1-intro' || state.mode === 'round-2-intro' || state.mode === 'round-3-intro') {
     const roundMap = {
-      'round-1-intro': { title: 'ROUND ONE', subtitle: 'FREESTYLE & CYPHER' },
+      'round-1-intro': { title: 'ROUND ONE', subtitle: 'FREESTYLE' },
       'round-2-intro': { title: 'ROUND TWO', subtitle: 'BEAT ROULETTE' },
-      'round-3-intro': { title: 'ROUND THREE', subtitle: 'THE FINAL CLASH' }
+      'round-3-intro': { title: 'ROUND THREE', subtitle: 'THE FINAL' }
     };
     const { title, subtitle } = roundMap[state.mode as keyof typeof roundMap];
 
