@@ -21,6 +21,18 @@ const getRapperImage = (name: string) => {
   return match ? photos[match] : null;
 };
 
+const getRapperPngImage = (name: string) => {
+  const normalizedName = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const customMap: Record<string, string> = {
+    'therealdopie': 'therealdopie',
+    'dezelelgenral': 'dezel',
+    'hazemhany': 'hazem',
+  };
+  const searchKey = customMap[normalizedName] || normalizedName;
+  const match = Object.keys(photos).find(path => path.toLowerCase().includes(searchKey) && path.toLowerCase().endsWith('.png'));
+  return match ? photos[match] : null;
+};
+
 interface StageDisplayProps {
   rappers: Rapper[];
   teams: Team[];
@@ -317,6 +329,21 @@ export default function StageDisplay({
                 >
                   NOW PERFORMING
                 </motion.p>
+
+                {getRapperPngImage(currentRapper.name) && (
+                  <motion.div
+                    className="relative z-10 flex justify-center mb-6"
+                    initial={{ scale: 0.8, opacity: 0, y: 20 }}
+                    animate={{ scale: 1, opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15, duration: 0.6, type: 'spring', bounce: 0.5 }}
+                  >
+                    <img 
+                      src={getRapperPngImage(currentRapper.name)!}
+                      alt={currentRapper.name}
+                      className="w-48 h-48 md:w-64 md:h-64 object-contain drop-shadow-[0_0_30px_rgba(146,208,32,0.5)]"
+                    />
+                  </motion.div>
+                )}
 
                 <motion.h2
                   className="text-6xl md:text-9xl mb-4 text-primary relative z-10"
