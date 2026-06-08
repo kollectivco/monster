@@ -320,73 +320,77 @@ export default function StageDisplay({
                 {/* Glow behind text */}
                 <div className="absolute inset-0 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
                 
-                <motion.p 
-                  className="text-xs tracking-widest text-muted-foreground mb-6 relative z-10" 
-                  style={{ fontSize: '0.65rem' }}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.4 }}
-                >
-                  NOW PERFORMING
-                </motion.p>
-
-                {getRapperPngImage(currentRapper.name) && (
-                  <motion.div
-                    className="relative z-10 flex justify-center mb-6"
-                    initial={{ scale: 0.8, opacity: 0, y: 20 }}
-                    animate={{ scale: 1, opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15, duration: 0.6, type: 'spring', bounce: 0.5 }}
-                  >
-                    <img 
-                      src={getRapperPngImage(currentRapper.name)!}
-                      alt={currentRapper.name}
-                      className="w-48 h-48 md:w-64 md:h-64 object-contain drop-shadow-[0_0_30px_rgba(146,208,32,0.5)]"
-                    />
-                  </motion.div>
-                )}
-
-                <motion.h2
-                  className="text-6xl md:text-9xl mb-4 text-primary relative z-10"
-                  style={{ textShadow: 'var(--green-glow-strong)', lineHeight: '1' }}
-                  initial={{ y: 20, opacity: 0, filter: 'blur(8px)' }}
-                  animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                  transition={{
-                    delay: 0.1,
-                    duration: 0.6,
-                    ease: [0.22, 1, 0.36, 1]
-                  }}
-                >
-                  {currentRapper.name}
-                </motion.h2>
-
-                <motion.p 
-                  className="text-3xl md:text-5xl text-secondary mb-8 relative z-10"
-                  style={{ fontFamily: 'Rocketbrush' }}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {currentRapperTeam?.name}
-                </motion.p>
-
-                {broadcastState.showScore && (
-                  <motion.div
-                    initial={{ scale: 0.8, opacity: 0, y: 20 }}
-                    animate={{ scale: 1, opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-                    className="inline-block px-10 py-6 border border-primary relative z-10"
-                    style={{ borderRadius: 'var(--bento-radius)', backgroundColor: 'var(--muted)', boxShadow: 'var(--green-glow)' }}
-                  >
-                    <p className="text-xs text-muted-foreground mb-2 tracking-widest" style={{ fontSize: '0.65rem' }}>CURRENT SCORE</p>
-                    <p
-                      className="mono font-bold text-primary"
-                      style={{ textShadow: 'var(--green-glow)', fontSize: '4rem', lineHeight: '1' }}
+                <div className={`relative z-10 w-full flex ${getRapperPngImage(currentRapper.name) ? 'flex-col md:flex-row items-center justify-between gap-8 md:gap-12' : 'flex-col items-center justify-center text-center'}`}>
+                  {getRapperPngImage(currentRapper.name) && (
+                    <motion.div
+                      className="w-full md:w-1/2 flex justify-center md:justify-end items-center"
+                      initial={{ scale: 0.8, opacity: 0, x: -50 }}
+                      animate={{ scale: 1, opacity: 1, x: 0 }}
+                      transition={{ delay: 0.15, duration: 0.6, type: 'spring', bounce: 0.5 }}
                     >
-                      {currentRapperScore}
-                      <span className="text-3xl text-muted-foreground">/40</span>
-                    </p>
-                  </motion.div>
-                )}
+                      <img 
+                        src={getRapperPngImage(currentRapper.name)!}
+                        alt={currentRapper.name}
+                        className="w-[280px] h-[280px] md:w-[450px] md:h-[450px] lg:w-[500px] lg:h-[500px] object-contain drop-shadow-[0_0_60px_rgba(146,208,32,0.8)]"
+                      />
+                    </motion.div>
+                  )}
+
+                  <div className={`w-full flex flex-col justify-center ${getRapperPngImage(currentRapper.name) ? 'md:w-1/2 text-center md:text-left items-center md:items-start' : 'text-center items-center'}`}>
+                    <motion.p 
+                      className="text-xs tracking-widest text-muted-foreground mb-6" 
+                      style={{ fontSize: '0.65rem' }}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2, duration: 0.4 }}
+                    >
+                      NOW PERFORMING
+                    </motion.p>
+
+                    <motion.h2
+                      className="text-6xl md:text-8xl lg:text-9xl mb-4 text-primary"
+                      style={{ textShadow: 'var(--green-glow-strong)', lineHeight: '1' }}
+                      initial={{ y: 20, opacity: 0, filter: 'blur(8px)' }}
+                      animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                      transition={{
+                        delay: 0.1,
+                        duration: 0.6,
+                        ease: [0.22, 1, 0.36, 1]
+                      }}
+                    >
+                      {currentRapper.name}
+                    </motion.h2>
+
+                    <motion.p 
+                      className="text-3xl md:text-4xl lg:text-5xl text-secondary mb-8"
+                      style={{ fontFamily: 'Rocketbrush' }}
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      {currentRapperTeam?.name}
+                    </motion.p>
+
+                    {broadcastState.showScore && (
+                      <motion.div
+                        initial={{ scale: 0.8, opacity: 0, y: 20 }}
+                        animate={{ scale: 1, opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3, duration: 0.5, type: "spring", stiffness: 200, damping: 20 }}
+                        className="inline-block px-10 py-6 border border-primary relative z-10"
+                        style={{ borderRadius: 'var(--bento-radius)', backgroundColor: 'var(--muted)', boxShadow: 'var(--green-glow)' }}
+                      >
+                        <p className="text-xs text-muted-foreground mb-2 tracking-widest" style={{ fontSize: '0.65rem' }}>CURRENT SCORE</p>
+                        <p
+                          className="mono font-bold text-primary"
+                          style={{ textShadow: 'var(--green-glow)', fontSize: '4rem', lineHeight: '1' }}
+                        >
+                          {currentRapperScore}
+                          <span className="text-3xl text-muted-foreground">/40</span>
+                        </p>
+                      </motion.div>
+                    )}
+                  </div>
+                </div>
 
                 {broadcastState.showScore && (
                   <motion.div
