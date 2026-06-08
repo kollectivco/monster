@@ -257,7 +257,7 @@ export default function StageDisplay({
                   <img
                     src={logo}
                     alt="Beast Beats Logo"
-                    className="h-24 md:h-32 w-auto object-contain"
+                    className="h-32 md:h-48 lg:h-56 w-auto object-contain"
                     style={{ mixBlendMode: 'lighten' }}
                   />
                 </div>
@@ -273,7 +273,7 @@ export default function StageDisplay({
                 <img
                   src={logo}
                   alt="Beast Beats Logo"
-                  className="h-48 md:h-64 w-auto object-contain"
+                  className="h-[300px] md:h-[400px] lg:h-[450px] w-auto object-contain"
                   style={{ mixBlendMode: 'lighten' }}
                 />
               </div>
