@@ -362,12 +362,21 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: 'spring', bounce: 0.5, duration: 2 }}
-        className="flex flex-col items-center justify-center min-h-screen text-center relative"
+        className="flex flex-col items-center justify-center min-h-screen text-center relative overflow-hidden"
       >
         <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          className="absolute w-[800px] h-[800px] border-[20px] border-dashed border-primary/20 rounded-full"
+          animate={{ 
+            rotate: 360,
+            opacity: [0.1, 0.6, 0.1],
+            boxShadow: ['0 0 0px rgba(146,208,32,0)', '0 0 40px rgba(146,208,32,0.5)', '0 0 0px rgba(146,208,32,0)']
+          }}
+          transition={{ 
+            rotate: { duration: 30, repeat: Infinity, ease: 'linear' },
+            opacity: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
+            boxShadow: { duration: 2, repeat: Infinity, ease: 'easeInOut' }
+          }}
+          className="absolute top-1/2 left-1/2 w-[500px] h-[500px] md:w-[750px] md:h-[750px] border-[16px] border-dashed border-primary rounded-full pointer-events-none"
+          style={{ x: '-50%', y: '-50%' }}
         />
         
         {winner ? (
@@ -376,9 +385,9 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1, duration: 1 }}
-              className="relative z-10"
+              className="relative z-10 mb-[-2rem] md:mb-[-4rem] lg:mb-[-6rem]"
             >
-              <h1 className="text-4xl md:text-6xl text-secondary mb-2 tracking-widest" style={{ fontFamily: 'Rocketbrush' }}>
+              <h1 className="text-6xl md:text-8xl lg:text-[8rem] text-secondary tracking-widest" style={{ fontFamily: 'Rocketbrush' }}>
                 THE CHAMPION
               </h1>
             </motion.div>
@@ -387,7 +396,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 1.5, type: 'spring', bounce: 0.6 }}
-              className="relative z-10 flex flex-col items-center mt-6"
+              className="relative z-10 flex flex-col items-center mt-0"
             >
               {getRapperPngImage(winner.rapper.name) && (
                 <motion.div
@@ -407,11 +416,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
               <h2 className="text-7xl md:text-9xl text-primary font-bold mb-2 relative z-10" style={{ textShadow: 'var(--green-glow-strong)' }}>
                 {winner.rapper.name}
               </h2>
-              <p className="text-2xl md:text-3xl text-secondary tracking-[0.2em] uppercase mb-6 relative z-10" style={{ fontFamily: 'Rocketbrush' }}>{winner.team?.name}</p>
-              
-              <div className="text-4xl md:text-5xl text-foreground font-mono font-bold bg-primary/10 px-8 py-4 rounded-xl border border-primary/50 relative z-10" style={{ boxShadow: '0 0 30px rgba(146,208,32,0.3)' }}>
-                SCORE: {winner.cumulative}
-              </div>
+              <p className="text-2xl md:text-3xl text-secondary tracking-[0.2em] uppercase mb-0 relative z-10" style={{ fontFamily: 'Rocketbrush' }}>{winner.team?.name}</p>
             </motion.div>
           </>
         ) : (
