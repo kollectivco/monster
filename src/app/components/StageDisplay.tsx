@@ -333,7 +333,7 @@ export default function StageDisplay({
                       <img 
                         src={getRapperPngImage(currentRapper.name)!}
                         alt={currentRapper.name}
-                        className="w-[240px] h-[240px] sm:w-[280px] sm:h-[280px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px] object-contain drop-shadow-[0_0_60px_rgba(146,208,32,0.8)]"
+                        className="w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] object-contain drop-shadow-[0_0_60px_rgba(146,208,32,0.8)] scale-110 md:scale-125 lg:scale-150 origin-center md:origin-right"
                       />
                     </motion.div>
                   )}
