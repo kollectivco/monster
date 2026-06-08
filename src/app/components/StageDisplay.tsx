@@ -4,7 +4,7 @@ import { Rapper, Team, Judge, Score, BroadcastState } from '../types';
 import logo from '../../imports/Monster_Beast_Beats_To_Ehab_Fahem-1_copy-1.png';
 import StageBackground from './StageBackground';
 import { motion, AnimatePresence } from 'motion/react';
-import type { ConnectionStatus, SyncDiagnostics } from '../hooks/useSupabaseSync';
+import type { ConnectionStatus, SyncDiagnostics } from '../hooks/useRelationalSync';
 import { GeneralVisuals, RoundIntros, FinalistsVisuals } from './VisualModes';
 
 const photos = import.meta.glob('../../styles/photos/*.{jpeg,JPEG,jpg,png}', { query: '?url', import: 'default', eager: true }) as Record<string, string>;

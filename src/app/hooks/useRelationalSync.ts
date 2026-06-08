@@ -4,6 +4,16 @@ import type { RealtimeChannel } from '@supabase/supabase-js';
 
 export type ConnectionStatus = 'connected' | 'syncing' | 'offline' | 'disabled' | 'polling';
 
+export interface SyncDiagnostics {
+  lastWriteTime: Date | null;
+  lastWriteSuccess: boolean | null;
+  lastWriteError: string | null;
+  lastReadTime: Date | null;
+  realtimeStatus: 'subscribed' | 'connecting' | 'error' | 'disabled' | null;
+  realtimeError: string | null;
+  eventId: string;
+}
+
 export interface Rapper {
   id: string;
   name: string;
@@ -44,7 +54,7 @@ export interface EventControl {
   updated_at: string;
 }
 
-const POLLING_INTERVAL = 1000;
+const POLLING_INTERVAL = 500;
 const DEBOUNCE_DELAY = 50;
 
 // Fill in any columns missing from a partial score update with safe defaults,
@@ -82,7 +92,8 @@ export function useRelationalSync() {
 
   const channelsRef = useRef<RealtimeChannel[]>([]);
   const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const isRealtimeWorkingRef = useRef(false);
+  const isScoresRealtimeWorkingRef = useRef(false);
+  const isControlRealtimeWorkingRef = useRef(false);
   const pendingWritesRef = useRef<Map<string, NodeJS.Timeout>>(new Map());
 
   // Compute score for a single judge/rapper/round
@@ -120,7 +131,7 @@ export function useRelationalSync() {
       if (scoresRes.data) setScores(scoresRes.data);
       if (controlRes.data) setEventControl(controlRes.data);
 
-      setConnectionStatus(isRealtimeWorkingRef.current ? 'connected' : 'polling');
+      setConnectionStatus((isScoresRealtimeWorkingRef.current && isControlRealtimeWorkingRef.current) ? 'connected' : 'polling');
       setIsInitialized(true);
     } catch (err) {
       console.error('[RELATIONAL] Failed to load data:', err);
@@ -196,7 +207,7 @@ export function useRelationalSync() {
           setLastWriteSuccess(false);
           setLastWriteError(error.message);
         } else {
-          setConnectionStatus(isRealtimeWorkingRef.current ? 'connected' : 'polling');
+          setConnectionStatus((isScoresRealtimeWorkingRef.current && isControlRealtimeWorkingRef.current) ? 'connected' : 'polling');
           setLastWriteTime(new Date());
           setLastWriteSuccess(true);
           setLastWriteError(null);
@@ -275,7 +286,7 @@ export function useRelationalSync() {
         console.error('[WRITE] Failed to update event control:', error);
         setConnectionStatus('offline');
       } else {
-        setConnectionStatus(isRealtimeWorkingRef.current ? 'connected' : 'polling');
+        setConnectionStatus((isScoresRealtimeWorkingRef.current && isControlRealtimeWorkingRef.current) ? 'connected' : 'polling');
       }
     } catch (err) {
       console.error('[WRITE] Error updating event control:', err);
@@ -301,7 +312,7 @@ export function useRelationalSync() {
         { event: '*', schema: 'public', table: 'scores' },
         (payload) => {
           console.log('[REALTIME] Scores payload received:', payload);
-          isRealtimeWorkingRef.current = true;
+          isScoresRealtimeWorkingRef.current = true;
 
           if (payload.eventType === 'INSERT' || payload.eventType === 'UPDATE') {
             setScores(prev => {
@@ -320,13 +331,15 @@ export function useRelationalSync() {
       .subscribe((status) => {
         console.log('[REALTIME] Scores channel:', status);
         if (status === 'SUBSCRIBED') {
-          isRealtimeWorkingRef.current = true;
-          setConnectionStatus('connected');
-          // Polling will only be cleared if we successfully subscribe.
-          if (pollingIntervalRef.current) {
-            clearInterval(pollingIntervalRef.current);
+          isScoresRealtimeWorkingRef.current = true;
+          if (isControlRealtimeWorkingRef.current) {
+            setConnectionStatus('connected');
+            if (pollingIntervalRef.current) {
+              clearInterval(pollingIntervalRef.current);
+            }
           }
         } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+          isScoresRealtimeWorkingRef.current = false;
           startPolling();
         }
       });
@@ -348,6 +361,18 @@ export function useRelationalSync() {
       )
       .subscribe((status) => {
         console.log('[REALTIME] Control channel:', status);
+        if (status === 'SUBSCRIBED') {
+          isControlRealtimeWorkingRef.current = true;
+          if (isScoresRealtimeWorkingRef.current) {
+            setConnectionStatus('connected');
+            if (pollingIntervalRef.current) {
+              clearInterval(pollingIntervalRef.current);
+            }
+          }
+        } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+          isControlRealtimeWorkingRef.current = false;
+          startPolling();
+        }
       });
 
     // Subscribe to rappers
@@ -406,7 +431,7 @@ export function useRelationalSync() {
 
     // Fallback to polling if Realtime doesn't connect
     const realtimeTimeout = setTimeout(() => {
-      if (!isRealtimeWorkingRef.current) {
+      if (!isScoresRealtimeWorkingRef.current || !isControlRealtimeWorkingRef.current) {
         console.warn('[REALTIME] No subscription after 5s, falling back to polling');
         startPolling();
       }

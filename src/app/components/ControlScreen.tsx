@@ -7,7 +7,7 @@ import JudgeProgress from './JudgeProgress';
 import BroadcastControl from './BroadcastControl';
 import { AppData, BroadcastState } from '../types';
 import logo from '../../imports/Monster_Beast_Beats_To_Ehab_Fahem-1_copy-1.png';
-import type { ConnectionStatus, SyncDiagnostics } from '../hooks/useSupabaseSync';
+import type { ConnectionStatus, SyncDiagnostics } from '../hooks/useRelationalSync';
 
 interface ControlScreenProps {
   data: AppData;
