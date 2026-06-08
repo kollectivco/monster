@@ -46,9 +46,11 @@ export default function BroadcastControl({
         [1, 2, 3].forEach(round => {
           onUpdateScore(judge.id, rapper.id, round, {
             criteria: [
-              Math.floor(Math.random() * 5) + 6,
-              Math.floor(Math.random() * 5) + 6,
-              Math.floor(Math.random() * 5) + 6
+              Math.floor(Math.random() * 5) + 6, // 6-10
+              Math.floor(Math.random() * 5) + 6, // 6-10
+              Math.floor(Math.random() * 5) + 6, // 6-10
+              Math.floor(Math.random() * 3) + 3, // 3-5
+              Math.floor(Math.random() * 3) + 3  // 3-5
             ],
             deductions: {
               restart: false,

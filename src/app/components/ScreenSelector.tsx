@@ -63,7 +63,7 @@ export default function ScreenSelector({ onSelectScreen }: ScreenSelectorProps) 
 
           <section>
             <h2 className="text-lg mb-5 text-secondary tracking-wider">DISPLAY & CONTROL</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div
                 onClick={() => onSelectScreen('stage')}
                 className="border p-8 hover:border-primary transition-all cursor-pointer hover:translate-y-[-2px] group"
@@ -99,6 +99,25 @@ export default function ScreenSelector({ onSelectScreen }: ScreenSelectorProps) 
                 </div>
                 <p className="text-xs text-muted-foreground tracking-widest" style={{ fontSize: '0.65rem' }}>
                   ADMIN DASHBOARD
+                </p>
+              </div>
+
+              <div
+                onClick={() => onSelectScreen('mc')}
+                className="border p-8 hover:border-primary transition-all cursor-pointer hover:translate-y-[-2px] group"
+                style={{
+                  borderColor: 'var(--border-muted)',
+                  backgroundColor: 'var(--card)',
+                  borderRadius: 'var(--bento-radius)',
+                  boxShadow: 'var(--bento-shadow)',
+                }}
+              >
+                <div className="flex items-center gap-4 mb-3">
+                  <User className="w-8 h-8 text-primary group-hover:opacity-100 opacity-80 transition-opacity" />
+                  <h3 className="text-2xl">MC SCREEN</h3>
+                </div>
+                <p className="text-xs text-muted-foreground tracking-widest" style={{ fontSize: '0.65rem' }}>
+                  HOST ANNOUNCER VIEW
                 </p>
               </div>
             </div>

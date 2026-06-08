@@ -4,6 +4,7 @@ import JudgeScreen from './components/JudgeScreen';
 import StageDisplay from './components/StageDisplay';
 import ControlScreen from './components/ControlScreen';
 import LoadingScreen from './components/LoadingScreen';
+import MCScreen from './components/MCScreen';
 import { AppData, Score, BroadcastState, Judge } from './types';
 import { useRelationalSync } from './hooks/useRelationalSync';
 import { useHashRouter, nameToSlug } from './hooks/useHashRouter';
@@ -94,6 +95,10 @@ export default function App() {
       return { type: 'control' as const };
     }
 
+    if (hash === '/mc') {
+      return { type: 'mc' as const };
+    }
+
     // Match /judge/:slug
     const judgeMatch = hash.match(/^\/judge\/(.+)$/);
     if (judgeMatch) {
@@ -116,6 +121,8 @@ export default function App() {
       navigate('/stage');
     } else if (screen === 'control') {
       navigate('/control');
+    } else if (screen === 'mc') {
+      navigate('/mc');
     }
   };
 

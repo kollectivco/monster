@@ -333,12 +333,12 @@ export default function StageDisplay({
                       <img 
                         src={getRapperPngImage(currentRapper.name)!}
                         alt={currentRapper.name}
-                        className="w-[280px] h-[280px] md:w-[450px] md:h-[450px] lg:w-[500px] lg:h-[500px] object-contain drop-shadow-[0_0_60px_rgba(146,208,32,0.8)]"
+                        className="w-[200px] h-[200px] sm:w-[280px] sm:h-[280px] md:w-[450px] md:h-[450px] lg:w-[500px] lg:h-[500px] object-contain drop-shadow-[0_0_60px_rgba(146,208,32,0.8)]"
                       />
                     </motion.div>
                   )}
 
-                  <div className={`w-full flex flex-col justify-center ${getRapperPngImage(currentRapper.name) ? 'md:w-1/2 text-center md:text-left items-center md:items-start' : 'text-center items-center'}`}>
+                  <div className={`w-full min-w-0 flex flex-col justify-center ${getRapperPngImage(currentRapper.name) ? 'md:w-1/2 text-center md:text-left items-center md:items-start' : 'text-center items-center'}`}>
                     <motion.p 
                       className="text-xs tracking-widest text-muted-foreground mb-6" 
                       style={{ fontSize: '0.65rem' }}
@@ -350,7 +350,7 @@ export default function StageDisplay({
                     </motion.p>
 
                     <motion.h2
-                      className="text-6xl md:text-8xl lg:text-9xl mb-4 text-primary"
+                      className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl mb-4 text-primary break-all sm:break-words whitespace-normal"
                       style={{ textShadow: 'var(--green-glow-strong)', lineHeight: '1' }}
                       initial={{ y: 20, opacity: 0, filter: 'blur(8px)' }}
                       animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
