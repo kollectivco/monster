@@ -252,19 +252,21 @@ export default function StageDisplay({
             </motion.div>
           ) : (
             <motion.div key="standard-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full w-full px-2 md:px-6 lg:px-12 mx-auto">
-              <header className="mb-12 text-center">
-                <div className="flex justify-center mb-4">
-                  <img
-                    src={logo}
-                    alt="Beast Beats Logo"
-                    className="h-32 md:h-48 lg:h-56 w-auto object-contain"
-                    style={{ mixBlendMode: 'lighten' }}
-                  />
-                </div>
-                <p className="text-xl md:text-2xl tracking-widest text-muted-foreground" style={{ fontFamily: 'Rocketbrush' }}>
-                  ROUND {broadcastState.round}
-                </p>
-              </header>
+              {!(broadcastState.mode === 'now-performing' && !currentRapper) && (
+                <header className="mb-12 text-center">
+                  <div className="flex justify-center mb-4">
+                    <img
+                      src={logo}
+                      alt="Beast Beats Logo"
+                      className="h-32 md:h-48 lg:h-56 w-auto object-contain"
+                      style={{ mixBlendMode: 'lighten' }}
+                    />
+                  </div>
+                  <p className="text-xl md:text-2xl tracking-widest text-muted-foreground" style={{ fontFamily: 'Rocketbrush' }}>
+                    ROUND {broadcastState.round}
+                  </p>
+                </header>
+              )}
 
         {broadcastState.mode === 'now-performing' && !currentRapper && (
           <div className="min-h-[60vh] flex flex-col items-center justify-center gap-8">

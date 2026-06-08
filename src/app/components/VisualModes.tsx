@@ -226,6 +226,14 @@ export function RoundIntros({ state }: VisualProps) {
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="flex flex-col items-center justify-center min-h-screen text-center"
       >
+        <div className="flex justify-center mb-8 md:mb-12">
+          <img
+            src={logo}
+            alt="Beast Beats Logo"
+            className="w-[250px] md:w-[350px] lg:w-[450px] object-contain"
+            style={{ mixBlendMode: 'lighten' }}
+          />
+        </div>
         <h1 className="text-7xl md:text-[10rem] text-primary mb-6" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>
           {title}
         </h1>
