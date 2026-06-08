@@ -229,10 +229,11 @@ export function RoundIntros({ state }: VisualProps) {
 
     return (
       <motion.div 
-        initial={{ opacity: 0, scale: 2, filter: 'blur(20px)' }}
-        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-        exit={{ opacity: 0, scale: 0.8, filter: 'blur(10px)' }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
+        initial={{ opacity: 0, scale: 1.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.8, ease: "circOut" }}
+        style={{ willChange: 'transform, opacity' }}
         className="flex flex-col items-center justify-center min-h-screen text-center"
       >
         <div className="flex justify-center mb-8 md:mb-12">
