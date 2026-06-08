@@ -5,10 +5,10 @@ import { useEffect, useState } from 'react';
 import logo from '../../imports/Monster_Beast_Beats_To_Ehab_Fahem-1_copy.png';
 
 // Import judge photos
-import ziadPhoto from '../../styles/photos/ziad.jpeg';
-import shahynPhoto from '../../styles/photos/shahyn.jpeg';
-import alyPhoto from '../../styles/photos/aly.jpeg';
-import shehabPhoto from '../../styles/photos/shehab.jpeg';
+import ziadPhoto from '../../styles/photos/ziad.jpg';
+import shahynPhoto from '../../styles/photos/shahyn.jpg';
+import alyPhoto from '../../styles/photos/aly.jpg';
+import shehabPhoto from '../../styles/photos/shehab.jpg';
 
 interface VisualProps {
   state: BroadcastState;
