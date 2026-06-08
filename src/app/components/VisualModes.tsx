@@ -96,13 +96,7 @@ export function GeneralVisuals({ state }: VisualProps) {
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
         />
 
-        <div className="relative z-10 flex flex-col items-center justify-center max-w-3xl border border-primary/30 p-12 md:p-20" style={{ backgroundColor: 'var(--card)', borderRadius: 'var(--bento-radius)', boxShadow: 'var(--bento-shadow), 0 0 40px rgba(146, 208, 32, 0.1)' }}>
-          {/* Corner accents */}
-          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary" />
-          <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary" />
-          <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary" />
-          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary" />
-
+        <div className="relative z-10 flex flex-col items-center justify-center max-w-3xl p-12 md:p-20">
           <motion.div
             animate={{ 
               opacity: [0.7, 1, 0.7],
@@ -121,7 +115,7 @@ export function GeneralVisuals({ state }: VisualProps) {
             transition={{ duration: 2, repeat: Infinity }}
           >
             <span>[</span>
-            <span>BEAST BEATS CAMERA ALERT</span>
+            <span>BEAST BEATS ON SPOT</span>
             <span>]</span>
           </motion.div>
 
@@ -134,8 +128,8 @@ export function GeneralVisuals({ state }: VisualProps) {
             SMILE
           </motion.h1>
           
-          <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-[0.4em] uppercase mt-2">
-            YOU ARE ON CAMERA
+          <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-[0.4em] uppercase mt-2 text-center">
+            YOU ARE ON SPOT
           </h2>
           
           <div className="mt-12 flex gap-3">
