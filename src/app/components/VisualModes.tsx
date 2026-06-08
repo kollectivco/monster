@@ -365,10 +365,10 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
         className="flex flex-col items-center justify-center min-h-screen text-center relative"
       >
         <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-          className="absolute w-[500px] h-[700px] md:w-[700px] md:h-[1000px] lg:w-[1000px] lg:h-[1400px] border-[8px] md:border-[16px] lg:border-[20px] border-primary/40 rounded-3xl pointer-events-none"
-          style={{ filter: 'drop-shadow(0 0 40px rgba(146, 208, 32, 0.4))' }}
+          animate={{ opacity: [0.3, 1, 0.3], scale: [0.98, 1.02, 0.98] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute w-[500px] h-[700px] md:w-[700px] md:h-[1000px] lg:w-[1000px] lg:h-[1400px] border-[8px] md:border-[16px] lg:border-[20px] border-primary/80 rounded-3xl pointer-events-none"
+          style={{ filter: 'drop-shadow(0 0 40px rgba(146, 208, 32, 0.6))' }}
         />
         
         {winner ? (
