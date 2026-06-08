@@ -74,12 +74,23 @@ export function convertToBroadcastState(control: EventControl | null): Broadcast
     };
   }
 
+  let mode = control.display_mode as BroadcastState['mode'];
+  let timerSeconds: number | undefined;
+
+  // Check if mode has timer encoded like "countdown-timer:300"
+  if (control.display_mode && control.display_mode.includes(':')) {
+    const [baseMode, timerStr] = control.display_mode.split(':');
+    mode = baseMode as BroadcastState['mode'];
+    timerSeconds = parseInt(timerStr, 10);
+  }
+
   return {
     round: control.current_round as 1 | 2 | 3,
-    mode: control.display_mode as 'now-performing' | 'round-standings' | 'podium',
+    mode,
     currentRapperId: control.now_performing,
     nextRapperId: control.next_up,
     showScore: control.show_score,
+    timerSeconds,
   };
 }
 
@@ -129,9 +140,18 @@ export function convertBroadcastUpdate(updates: Partial<BroadcastState>): Partia
   if (updates.round !== undefined) {
     result.current_round = updates.round;
   }
+  
   if (updates.mode !== undefined) {
-    result.display_mode = updates.mode;
+    if (updates.timerSeconds !== undefined) {
+      result.display_mode = `${updates.mode}:${updates.timerSeconds}`;
+    } else {
+      result.display_mode = updates.mode;
+    }
+  } else if (updates.timerSeconds !== undefined) {
+    // If we only got a timer update, we don't know the mode here. 
+    // This is a limitation, but BroadcastControl usually sends mode alongside timer
   }
+
   if (updates.currentRapperId !== undefined) {
     result.now_performing = updates.currentRapperId;
   }

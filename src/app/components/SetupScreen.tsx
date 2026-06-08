@@ -81,7 +81,7 @@ export default function SetupScreen({
         className="w-full bg-destructive text-destructive-foreground py-3 px-4 rounded flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
       >
         <RotateCcw className="w-4 h-4" />
-        RESET ALL DATA
+        RESET SCORING TO ZERO
       </button>
     </div>
   );

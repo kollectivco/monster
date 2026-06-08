@@ -44,8 +44,8 @@ export interface EventControl {
   updated_at: string;
 }
 
-const POLLING_INTERVAL = 2000;
-const DEBOUNCE_DELAY = 300;
+const POLLING_INTERVAL = 1000;
+const DEBOUNCE_DELAY = 50;
 
 // Fill in any columns missing from a partial score update with safe defaults,
 // so optimistic local rows are never partially-undefined (which produces NaN totals)

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export default function StageBackground() {
+export default function StageBackground({ showEqualizer = true }: { showEqualizer?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -93,21 +93,23 @@ export default function StageBackground() {
       />
 
       {/* Audio equalizer bars */}
-      <div className="fixed bottom-0 left-0 right-0 flex items-end justify-center gap-1 px-4 pb-4 pointer-events-none" style={{ zIndex: 1, height: '120px' }}>
-        {[...Array(40)].map((_, i) => (
-          <div
-            key={i}
-            className="flex-1 max-w-[12px] rounded-t-sm"
-            style={{
-              backgroundColor: 'rgba(146, 208, 32, 0.6)',
-              height: '20%',
-              animation: `equalizer ${Math.random() * 0.3 + 0.4}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 0.5}s`,
-              boxShadow: i % 5 === 0 ? '0 0 10px rgba(146, 208, 32, 0.8)' : 'none',
-            }}
-          />
-        ))}
-      </div>
+      {showEqualizer && (
+        <div className="fixed bottom-0 left-0 right-0 flex items-end justify-center gap-1 px-4 pb-4 pointer-events-none" style={{ zIndex: 1, height: '120px' }}>
+          {[...Array(40)].map((_, i) => (
+            <div
+              key={i}
+              className="flex-1 max-w-[12px] rounded-t-sm"
+              style={{
+                backgroundColor: 'rgba(146, 208, 32, 0.6)',
+                height: '20%',
+                animation: `equalizer ${Math.random() * 0.3 + 0.4}s ease-in-out infinite`,
+                animationDelay: `${Math.random() * 0.5}s`,
+                boxShadow: i % 5 === 0 ? '0 0 10px rgba(146, 208, 32, 0.8)' : 'none',
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       <style>{`
         @keyframes pulse-beat {

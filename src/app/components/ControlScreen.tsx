@@ -70,13 +70,29 @@ export default function ControlScreen({
   return (
     <div className="min-h-screen bg-background text-foreground p-4 md:p-6 pb-24">
       <div className="max-w-7xl mx-auto">
-        <button
-          onClick={onSwitchScreen}
-          className="mb-6 text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-1.5"
-        >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          SWITCH SCREEN
-        </button>
+        <div className="flex justify-between items-center mb-6">
+          <button
+            onClick={onSwitchScreen}
+            className="text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-1.5"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            SWITCH SCREEN
+          </button>
+          
+          <button
+            onClick={() => {
+              window.open(
+                '/#/stage', 
+                'StageDisplay', 
+                'width=1536,height=768,menubar=no,toolbar=no,location=no,status=no'
+              );
+            }}
+            className="text-xs text-primary border border-primary/30 bg-primary/10 px-3 py-1.5 rounded hover:bg-primary/20 transition-colors flex items-center gap-1.5"
+          >
+            <Tv className="w-3.5 h-3.5" />
+            OPEN 1536x768 WINDOW
+          </button>
+        </div>
 
         <header className="mb-8">
           <div className="flex justify-center mb-3">
