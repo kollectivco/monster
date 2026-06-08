@@ -394,22 +394,22 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
                   initial={{ y: 50, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 1.8, duration: 0.8, type: 'spring' }}
-                  className="mb-[-2rem] md:mb-[-4rem]"
+                  className="mb-[-4rem] md:mb-[-8rem] lg:mb-[-16rem] relative z-0"
                 >
                   <img 
                     src={getRapperPngImage(winner.rapper.name)!}
                     alt={winner.rapper.name}
-                    className="w-[400px] h-[400px] md:w-[700px] md:h-[700px] lg:w-[1000px] lg:h-[1000px] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)]"
+                    className="w-[500px] h-[500px] md:w-[800px] md:h-[800px] lg:w-[1200px] lg:h-[1200px] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-110"
                   />
                 </motion.div>
               )}
 
-              <h2 className="text-7xl md:text-9xl text-primary font-bold mb-4" style={{ textShadow: 'var(--green-glow-strong)' }}>
+              <h2 className="text-7xl md:text-9xl text-primary font-bold mb-2 relative z-10" style={{ textShadow: 'var(--green-glow-strong)' }}>
                 {winner.rapper.name}
               </h2>
-              <p className="text-3xl text-secondary tracking-[0.2em] uppercase mb-8" style={{ fontFamily: 'Rocketbrush' }}>{winner.team?.name}</p>
+              <p className="text-2xl md:text-3xl text-secondary tracking-[0.2em] uppercase mb-6 relative z-10" style={{ fontFamily: 'Rocketbrush' }}>{winner.team?.name}</p>
               
-              <div className="text-6xl text-foreground font-mono font-bold bg-primary/10 px-12 py-6 rounded-2xl border-2 border-primary" style={{ boxShadow: 'var(--green-glow-strong)' }}>
+              <div className="text-4xl md:text-5xl text-foreground font-mono font-bold bg-primary/10 px-8 py-4 rounded-xl border border-primary/50 relative z-10" style={{ boxShadow: '0 0 30px rgba(146,208,32,0.3)' }}>
                 SCORE: {winner.cumulative}
               </div>
             </motion.div>
