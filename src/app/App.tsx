@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import ScreenSelector from './components/ScreenSelector';
 import JudgeScreen from './components/JudgeScreen';
 import StageDisplay from './components/StageDisplay';
@@ -195,65 +196,83 @@ export default function App() {
             </div>
           </div>
         )}
+        <SpeedInsights />
       </>
     );
   }
 
   if (currentRoute.type === 'judge') {
     return (
-      <JudgeScreen
-        judge={currentRoute.judge}
-        data={data}
-        onUpdateScore={updateScore}
-        onSwitchScreen={handleSwitchScreen}
-      />
+      <>
+        <JudgeScreen
+          judge={currentRoute.judge}
+          data={data}
+          onUpdateScore={updateScore}
+          onSwitchScreen={handleSwitchScreen}
+        />
+        <SpeedInsights />
+      </>
     );
   }
 
   if (currentRoute.type === 'stage') {
     return (
-      <StageDisplay
-        rappers={data.rappers}
-        teams={data.teams}
-        judges={data.judges}
-        scores={data.scores}
-        broadcastState={broadcastState}
-        connectionStatus={connectionStatus}
-        diagnostics={diagnostics}
-        onSwitchScreen={handleSwitchScreen}
-      />
+      <>
+        <StageDisplay
+          rappers={data.rappers}
+          teams={data.teams}
+          judges={data.judges}
+          scores={data.scores}
+          broadcastState={broadcastState}
+          connectionStatus={connectionStatus}
+          diagnostics={diagnostics}
+          onSwitchScreen={handleSwitchScreen}
+        />
+        <SpeedInsights />
+      </>
     );
   }
 
   if (currentRoute.type === 'control') {
     return (
-      <ControlScreen
-        data={data}
-        broadcastState={broadcastState}
-        onUpdateTeam={updateTeamName}
-        onUpdateRapper={updateRapperName}
-        onUpdateJudge={updateJudgeName}
-        onUpdateBroadcast={handleUpdateBroadcast}
-        onUpdateScore={updateScore}
-        onReset={resetAll}
-        onSwitchScreen={handleSwitchScreen}
-        connectionStatus={connectionStatus}
-        diagnostics={diagnostics}
-      />
+      <>
+        <ControlScreen
+          data={data}
+          broadcastState={broadcastState}
+          onUpdateTeam={updateTeamName}
+          onUpdateRapper={updateRapperName}
+          onUpdateJudge={updateJudgeName}
+          onUpdateBroadcast={handleUpdateBroadcast}
+          onUpdateScore={updateScore}
+          onReset={resetAll}
+          onSwitchScreen={handleSwitchScreen}
+          connectionStatus={connectionStatus}
+          diagnostics={diagnostics}
+        />
+        <SpeedInsights />
+      </>
     );
   }
 
   if (currentRoute.type === 'mc') {
     return (
-      <MCScreen
-        rappers={data.rappers}
-        teams={data.teams}
-        judges={data.judges}
-        scores={data.scores}
-        broadcastState={broadcastState}
-      />
+      <>
+        <MCScreen
+          rappers={data.rappers}
+          teams={data.teams}
+          judges={data.judges}
+          scores={data.scores}
+          broadcastState={broadcastState}
+        />
+        <SpeedInsights />
+      </>
     );
   }
 
-  return <ScreenSelector onSelectScreen={handleSelectScreen} />;
+  return (
+    <>
+      <ScreenSelector onSelectScreen={handleSelectScreen} />
+      <SpeedInsights />
+    </>
+  );
 }
