@@ -39,7 +39,7 @@ export function GeneralVisuals({ state }: VisualProps) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0, scale: 1.2 }}
         transition={{ duration: 1.5, ease: "easeInOut" }}
-        className="flex flex-col items-center justify-center min-h-screen relative"
+        className="flex flex-col items-center justify-center min-h-screen w-full relative"
       >
         {/* Pulse Fade Effect */}
         <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
@@ -77,7 +77,7 @@ export function GeneralVisuals({ state }: VisualProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="flex flex-col items-center justify-center min-h-screen relative overflow-hidden bg-background"
+        className="flex flex-col items-center justify-center min-h-screen w-full relative overflow-hidden bg-background"
       >
         {/* Subtle grid background */}
         <div 
@@ -272,7 +272,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
         animate={{ opacity: 1, rotate: 0, scale: 1 }}
         exit={{ opacity: 0, scale: 0 }}
         transition={{ type: 'spring', damping: 15, stiffness: 100 }}
-        className="flex flex-col items-center justify-center min-h-screen"
+        className="flex flex-col items-center justify-center min-h-screen w-full"
       >
         <h1 className="text-7xl md:text-[8rem] text-secondary mb-12" style={{ fontFamily: 'Rocketbrush' }}>
           WILD CARD
@@ -322,7 +322,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
       <motion.div 
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col items-center justify-center min-h-screen px-8"
+        className="flex flex-col items-center justify-center min-h-screen w-full px-8"
       >
         <h1 className="text-6xl md:text-8xl text-primary mb-16" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>TOP 4 FINALISTS</h1>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-7xl">
@@ -363,7 +363,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: 'spring', bounce: 0.5, duration: 2 }}
-        className="flex flex-col items-center justify-center min-h-screen text-center relative"
+        className="flex flex-col items-center justify-center min-h-screen w-full text-center relative"
       >
         <motion.div
           animate={{ opacity: [0.3, 1, 0.3], scale: [0.98, 1.02, 0.98] }}
@@ -452,7 +452,7 @@ function TimerVisual({ seconds: initialSeconds, label, alertAt = 10 }: { seconds
     <motion.div 
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col items-center justify-center min-h-screen"
+      className="flex flex-col items-center justify-center min-h-screen w-full"
     >
       <div className="flex justify-center mb-8">
         <img

@@ -193,7 +193,7 @@ export default function StageDisplay({
   ].includes(broadcastState.mode);
 
   return (
-    <div className="bg-background text-foreground p-6 md:p-8 relative overflow-hidden mx-auto" style={{ width: '768px', height: '1536px', fontFamily: 'Anton, sans-serif' }}>
+    <div className="bg-background text-foreground relative overflow-hidden mx-auto" style={{ width: '768px', height: '1536px', fontFamily: 'Anton, sans-serif' }}>
       {/* Animated background */}
       <StageBackground showEqualizer={!isGeneralVisual} />
 
@@ -305,7 +305,7 @@ export default function StageDisplay({
                 duration: 0.5,
                 ease: [0.22, 1, 0.36, 1] // Cinematic ease out
               }}
-              className="min-h-[50vh] flex flex-col items-center justify-center gap-4 md:gap-6 w-full max-w-6xl mx-auto"
+              className="min-h-[50vh] flex flex-col items-center justify-center gap-4 md:gap-6 w-full max-w-6xl mx-auto p-6 md:p-8"
             >
               <motion.div
                 className="text-center border p-6 md:p-10 relative overflow-hidden w-full"
@@ -442,7 +442,7 @@ export default function StageDisplay({
   </AnimatePresence>
 
       {broadcastState.mode === 'round-standings' && (
-          <div className="grid gap-4">
+          <div className="grid gap-4 w-full p-6 md:p-8">
             {[...results]
               .sort((a, b) => {
                 const aScore = broadcastState.round === 1 ? a.round1 : broadcastState.round === 2 ? a.round2 : a.round3;
