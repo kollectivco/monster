@@ -528,7 +528,7 @@ export default function StageDisplay({
             <h1 className="text-3xl md:text-5xl text-primary mb-2 md:mb-4 shrink-0" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
               {broadcastState.mode === 'final-scoring-grid' ? 'FINAL SCORES' : 'ROUND STANDINGS'}
             </h1>
-            <div className="grid gap-2 w-full max-w-5xl h-full max-h-full overflow-hidden">
+            <div className="grid gap-2 w-full max-w-5xl overflow-hidden">
               {(broadcastState.round === 3 ? championResults : [...results].sort((a, b) => {
                 const aTotal = broadcastState.round === 1 ? a.round1 : a.round1 + a.round2;
                 const bTotal = broadcastState.round === 1 ? b.round1 : b.round1 + b.round2;
