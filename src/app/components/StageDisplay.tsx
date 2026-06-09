@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Trophy, Medal, Award, Activity, Lock } from 'lucide-react';
+import { ArrowLeft, Trophy, Medal, Award, Activity, Lock, AlertTriangle } from 'lucide-react';
 import { Rapper, Team, Judge, Score, BroadcastState } from '../types';
 import logo from '../../imports/logo.webp';
 import StageBackground from './StageBackground';
@@ -151,6 +151,12 @@ export default function StageDisplay({
     });
   }
 
+  const championResults = [...topFourAfterR2]
+    .filter(t => t.rapper.id !== 'tbd')
+    .sort((a, b) => b.round3 - a.round3);
+
+  const isChampionTie = championResults.length >= 2 && championResults[0].round3 === championResults[1].round3;
+
   const isRound3FullyScored = () => {
     const top4 = topFourAfterR2.filter(t => t.rapper.id !== 'tbd');
     if (top4.length !== 4 || judges.length === 0) return false;
@@ -245,6 +251,23 @@ export default function StageDisplay({
     );
   }
 
+  if (['winner-graphic', 'podium'].includes(broadcastState.mode) && isChampionTie && r3Complete) {
+    return (
+      <div className="bg-background text-foreground relative overflow-hidden mx-auto flex items-center justify-center" style={{ width: '768px', height: '1536px', fontFamily: 'Anton, sans-serif' }}>
+        <StageBackground showEqualizer={false} />
+        <div className="relative z-10 flex flex-col items-center justify-center p-8 text-center bg-black/60 backdrop-blur-md border-4 border-orange-500 rounded-3xl" style={{ boxShadow: '0 0 50px rgba(249,115,22,0.4)', width: '600px' }}>
+          <AlertTriangle className="w-24 h-24 text-orange-500 mx-auto mb-6" />
+          <h1 className="text-6xl text-orange-500 mb-4 uppercase" style={{ fontFamily: 'Rocketbrush', textShadow: '0 0 20px rgba(249,115,22,0.6)' }}>TIE FOR 1ST PLACE</h1>
+          <p className="text-3xl text-white mb-4 tracking-widest leading-relaxed">
+            {championResults[0].rapper.name} & {championResults[1].rapper.name}
+          </p>
+          <p className="text-2xl text-orange-400 mb-8 font-mono font-bold">Round 3 Score: {championResults[0].round3}</p>
+          <p className="text-lg text-muted-foreground">Please resolve the tie before announcing.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-background text-foreground relative overflow-hidden mx-auto" style={{ width: '768px', height: '1536px', fontFamily: 'Anton, sans-serif' }}>
       {/* Animated background */}
@@ -301,7 +324,7 @@ export default function StageDisplay({
             <motion.div key={broadcastState.mode} className="w-full h-full flex flex-col items-center justify-center">
               <GeneralVisuals state={broadcastState} rappers={rappers} teams={teams} />
               <RoundIntros state={broadcastState} rappers={rappers} teams={teams} />
-              <FinalistsVisuals state={broadcastState} rappers={rappers} teams={teams} winner={sortedResults[0]} topFour={topFourAfterR2} />
+              <FinalistsVisuals state={broadcastState} rappers={rappers} teams={teams} winner={championResults[0]} topFour={topFourAfterR2} />
             </motion.div>
           ) : (
             <motion.div key="standard-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full w-full px-2 md:px-6 lg:px-12 mx-auto">
@@ -501,8 +524,8 @@ export default function StageDisplay({
   </AnimatePresence>
 
       {['round-standings', 'final-scoring-grid'].includes(broadcastState.mode) && (
-          <div className="flex flex-col items-center justify-center w-full h-full p-6 md:p-8">
-            <h1 className="text-4xl md:text-6xl text-primary mb-6" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
+          <div className="absolute inset-0 flex flex-col items-center justify-center w-full h-full p-6 md:p-8 z-10 bg-background/50 backdrop-blur-sm">
+            <h1 className="text-4xl md:text-6xl text-primary mb-12" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
               {broadcastState.mode === 'final-scoring-grid' ? 'FINAL SCORES' : 'ROUND STANDINGS'}
             </h1>
             <div className="grid gap-4 w-full max-w-5xl">
@@ -596,9 +619,9 @@ export default function StageDisplay({
           </div>
         )}
 
-        {broadcastState.mode === 'podium' && sortedResults.slice(0, 4).length === 4 && (
+        {broadcastState.mode === 'podium' && championResults.slice(0, 4).length === 4 && (
           <motion.div
-            className="mb-4"
+            className="absolute inset-0 flex flex-col justify-center items-center z-10 w-full bg-background/50 backdrop-blur-sm mb-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
@@ -654,12 +677,12 @@ export default function StageDisplay({
                   </motion.div>
                   <div className="mono font-bold text-primary mb-3" style={{ textShadow: 'var(--green-glow)', fontSize: '5rem', lineHeight: '1' }}>1</div>
                   <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-5">
-                    {getRapperPngImage(sortedResults[0].rapper.name) && (
-                      <img src={getRapperPngImage(sortedResults[0].rapper.name)!} alt={sortedResults[0].rapper.name} loading="lazy" className="w-32 h-32 object-cover rounded-full border-4 border-primary bg-primary/10 shadow-[0_0_20px_rgba(146,208,32,0.3)]" style={{ objectPosition: 'top' }} />
+                    {getRapperPngImage(championResults[0].rapper.name) && (
+                      <img src={getRapperPngImage(championResults[0].rapper.name)!} alt={championResults[0].rapper.name} loading="lazy" className="w-32 h-32 object-cover rounded-full border-4 border-primary bg-primary/10 shadow-[0_0_20px_rgba(146,208,32,0.3)]" style={{ objectPosition: 'top' }} />
                     )}
                     <div className="flex flex-col md:text-left">
-                      <div className="text-4xl font-bold mb-1">{sortedResults[0].rapper.name}</div>
-                      <div className="text-lg text-muted-foreground tracking-wide">{sortedResults[0].team?.name}</div>
+                      <div className="text-4xl font-bold mb-1">{championResults[0].rapper.name}</div>
+                      <div className="text-lg text-muted-foreground tracking-wide">{championResults[0].team?.name}</div>
                     </div>
                   </div>
                   <motion.div
@@ -669,7 +692,7 @@ export default function StageDisplay({
                     animate={revealedPositions.includes(0) ? { scale: [0, 1.5, 1] } : {}}
                     transition={{ delay: 0.5, duration: 0.6 }}
                   >
-                    {sortedResults[0].cumulative}
+                    {championResults[0].round3}
                   </motion.div>
                 </div>
               </motion.div>
@@ -692,17 +715,20 @@ export default function StageDisplay({
                       <Medal className="w-10 h-10 mx-auto mb-1 text-secondary" />
                       <div className="mono text-4xl font-bold text-secondary" style={{ lineHeight: '1' }}>2</div>
                     </div>
-                    <div className="flex items-center gap-3 text-left">
-                      {getRapperPngImage(sortedResults[1].rapper.name) && (
-                        <img src={getRapperPngImage(sortedResults[1].rapper.name)!} alt={sortedResults[1].rapper.name} loading="lazy" className="w-16 h-16 object-cover rounded-full border-2 border-secondary bg-secondary/10" style={{ objectPosition: 'top' }} />
+                    {revealedPositions.includes(1) && (
+                    <div className="flex items-center gap-3">
+                      {getRapperPngImage(championResults[1].rapper.name) && (
+                        <img src={getRapperPngImage(championResults[1].rapper.name)!} alt={championResults[1].rapper.name} loading="lazy" className="w-16 h-16 object-cover rounded-full border-2 border-secondary bg-secondary/10" style={{ objectPosition: 'top' }} />
                       )}
                       <div>
-                        <div className="text-xl font-bold mb-1">{sortedResults[1].rapper.name}</div>
-                        <div className="text-xs text-muted-foreground tracking-wide">{sortedResults[1].team?.name}</div>
+                        <div className="text-xl font-bold mb-1">{championResults[1].rapper.name}</div>
+                        <div className="text-xs text-muted-foreground tracking-wide">{championResults[1].team?.name}</div>
                       </div>
                     </div>
-                    <div className="mono text-3xl font-bold text-foreground">{sortedResults[1].cumulative}</div>
-                  </div>
+                  )}
+                  {revealedPositions.includes(1) && (
+                    <div className="mono text-3xl font-bold text-foreground">{championResults[1].round3}</div>
+                  )}  </div>
                 </motion.div>
 
                 <motion.div
@@ -721,17 +747,20 @@ export default function StageDisplay({
                       <Award className="w-10 h-10 mx-auto mb-1" style={{ color: '#5a7a2a' }} />
                       <div className="mono text-4xl font-bold" style={{ color: '#5a7a2a', lineHeight: '1' }}>3</div>
                     </div>
-                    <div className="flex items-center gap-3 text-left">
-                      {getRapperPngImage(sortedResults[2].rapper.name) && (
-                        <img src={getRapperPngImage(sortedResults[2].rapper.name)!} alt={sortedResults[2].rapper.name} loading="lazy" className="w-16 h-16 object-cover rounded-full border-2 border-[#5a7a2a] bg-card" style={{ objectPosition: 'top' }} />
+                    {revealedPositions.includes(2) && (
+                    <div className="flex items-center gap-3">
+                      {getRapperPngImage(championResults[2].rapper.name) && (
+                        <img src={getRapperPngImage(championResults[2].rapper.name)!} alt={championResults[2].rapper.name} loading="lazy" className="w-16 h-16 object-cover rounded-full border-2 border-[#5a7a2a] bg-card" style={{ objectPosition: 'top' }} />
                       )}
                       <div>
-                        <div className="text-xl font-bold mb-1">{sortedResults[2].rapper.name}</div>
-                        <div className="text-xs text-muted-foreground tracking-wide">{sortedResults[2].team?.name}</div>
+                        <div className="text-xl font-bold mb-1">{championResults[2].rapper.name}</div>
+                        <div className="text-xs text-muted-foreground tracking-wide">{championResults[2].team?.name}</div>
                       </div>
                     </div>
-                    <div className="mono text-3xl font-bold text-foreground">{sortedResults[2].cumulative}</div>
-                  </div>
+                  )}
+                  {revealedPositions.includes(2) && (
+                    <div className="mono text-3xl font-bold text-foreground">{championResults[2].round3}</div>
+                  )}  </div>
                 </motion.div>
               </div>
 
@@ -752,17 +781,20 @@ export default function StageDisplay({
                     <Award className="w-8 h-8 mx-auto mb-1" style={{ color: '#3a5a1a' }} />
                     <div className="mono text-3xl font-bold" style={{ color: '#3a5a1a', lineHeight: '1' }}>4</div>
                   </div>
-                  <div className="flex items-center gap-3 text-left">
-                    {getRapperPngImage(sortedResults[3].rapper.name) && (
-                      <img src={getRapperPngImage(sortedResults[3].rapper.name)!} alt={sortedResults[3].rapper.name} loading="lazy" className="w-12 h-12 object-cover rounded-full border border-[#3a5a1a] bg-card" style={{ objectPosition: 'top' }} />
-                    )}
-                    <div>
-                      <div className="text-lg mb-1">{sortedResults[3].rapper.name}</div>
-                      <div className="text-xs text-muted-foreground tracking-wide">{sortedResults[3].team?.name}</div>
+                  {revealedPositions.includes(3) && (
+                    <div className="flex items-center gap-3">
+                      {getRapperPngImage(championResults[3].rapper.name) && (
+                        <img src={getRapperPngImage(championResults[3].rapper.name)!} alt={championResults[3].rapper.name} loading="lazy" className="w-12 h-12 object-cover rounded-full border border-[#3a5a1a] bg-card" style={{ objectPosition: 'top' }} />
+                      )}
+                      <div>
+                        <div className="text-lg mb-1">{championResults[3].rapper.name}</div>
+                        <div className="text-xs text-muted-foreground tracking-wide">{championResults[3].team?.name}</div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="mono text-2xl font-bold text-foreground">{sortedResults[3].cumulative}</div>
-                </div>
+                  )}
+                  {revealedPositions.includes(3) && (
+                    <div className="mono text-2xl font-bold text-foreground">{championResults[3].round3}</div>
+                  )}  </div>
               </motion.div>
             </div>
           </motion.div>
