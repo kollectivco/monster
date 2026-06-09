@@ -578,8 +578,16 @@ export default function StageDisplay({
                         />
                       )}
                       <div>
-                        <div className="text-3xl mb-2">{result.rapper.name}</div>
-                        <div className="text-sm text-muted-foreground tracking-wide">
+                        <div 
+                          className="text-3xl md:text-4xl text-primary font-bold uppercase mb-0 leading-none" 
+                          style={{ fontFamily: 'Anton, sans-serif', textShadow: '0 0 10px rgba(146, 208, 32, 0.6), 0 0 20px rgba(146, 208, 32, 0.4)', letterSpacing: '0.02em' }}
+                        >
+                          {result.rapper.name}
+                        </div>
+                        <div 
+                          className="text-base md:text-lg text-white tracking-[0.1em] italic opacity-90 mt-1" 
+                          style={{ fontFamily: 'Rocketbrush, cursive' }}
+                        >
                           {result.team?.name}
                         </div>
                       </div>
