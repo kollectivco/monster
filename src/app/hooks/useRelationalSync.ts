@@ -51,6 +51,7 @@ export interface EventControl {
   next_up: string | null;
   display_mode: string;
   show_score: boolean;
+  wildcard_rapper_id?: string | null;
   updated_at: string;
 }
 

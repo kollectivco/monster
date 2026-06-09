@@ -91,6 +91,7 @@ export function convertToBroadcastState(control: EventControl | null): Broadcast
     nextRapperId: control.next_up,
     showScore: control.show_score,
     timerSeconds,
+    wildcardRapperId: control.wildcard_rapper_id,
   };
 }
 
@@ -160,6 +161,9 @@ export function convertBroadcastUpdate(updates: Partial<BroadcastState>): Partia
   }
   if (updates.showScore !== undefined) {
     result.show_score = updates.showScore;
+  }
+  if (updates.wildcardRapperId !== undefined) {
+    result.wildcard_rapper_id = updates.wildcardRapperId;
   }
 
   return result;

@@ -260,7 +260,7 @@ export default function BroadcastControl({
         {broadcastState.mode === 'wild-card' && (
           <div className="grid gap-4 mt-6">
             <div>
-              <label className="text-xs text-muted-foreground mb-3 block tracking-widest" style={{ fontSize: '0.65rem' }}>SET STAGE DISPLAY FOR WILD CARD REVEAL</label>
+              <label className="text-xs text-muted-foreground mb-3 block tracking-widest" style={{ fontSize: '0.65rem' }}>WILD CARD REVEAL (display only)</label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                 <button
                   onClick={() => onUpdateBroadcast({ currentRapperId: null })}
@@ -288,7 +288,7 @@ export default function BroadcastControl({
         )}
 
         <div className="mt-8 pt-8 border-t" style={{ borderColor: 'var(--border-muted)' }}>
-          <label className="text-xs text-muted-foreground mb-3 block tracking-widest" style={{ fontSize: '0.65rem' }}>PERMANENT WILD CARD SELECTION (FILLS 4TH SPOT)</label>
+          <label className="text-xs text-muted-foreground mb-3 block tracking-widest" style={{ fontSize: '0.65rem' }}>SELECT WILD CARD (4th finalist → advances to R3)</label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             <button
               onClick={() => onUpdateBroadcast({ wildcardRapperId: null })}
