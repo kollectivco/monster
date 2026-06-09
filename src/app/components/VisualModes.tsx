@@ -333,17 +333,49 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
           {finalists.slice(0, 4).map((item, index) => {
             const isTBD = !item.rapper || item.rapper.id.startsWith('tbd');
             return (
-              <div key={item.rapper?.id || index} className="aspect-square border border-primary/50 bg-card/50 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden">
-                <span className="text-8xl text-muted-foreground/20 font-bold absolute z-0">0{index + 1}</span>
-                {!isTBD && getRapperPngImage(item.rapper.name) && (
-                  <img src={getRapperPngImage(item.rapper.name)!} alt={item.rapper.name} loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-screen z-0" />
-                )}
-                <h3 className={`text-4xl ${isTBD ? 'text-primary' : 'text-primary'} z-10`} style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--bento-shadow)' }}>
-                  {item.rapper?.name || 'TBD'}
-                </h3>
-                {index === 3 && isTBD && (
-                  <p className="text-xs tracking-widest text-muted-foreground absolute bottom-6 z-10 uppercase">Wild Card</p>
-                )}
+              <div key={item.rapper?.id || index} className="flex flex-col items-center w-full">
+                {/* 1. RANK NUMBER ABOVE */}
+                <div className="text-6xl md:text-7xl text-muted-foreground/50 font-bold mb-4">
+                  0{index + 1}
+                </div>
+
+                {/* 2. IMAGE INSIDE THE BOX */}
+                <div 
+                  className="aspect-square w-full border-4 border-primary bg-card/80 rounded-2xl flex flex-col items-center justify-center overflow-hidden mb-6" 
+                  style={{ boxShadow: 'var(--green-glow-strong)' }}
+                >
+                  {!isTBD && getRapperPngImage(item.rapper.name) ? (
+                    <img 
+                      src={getRapperPngImage(item.rapper.name)!} 
+                      alt={item.rapper.name} 
+                      loading="lazy" 
+                      className="w-full h-full object-cover" 
+                      style={{ objectPosition: 'top' }}
+                    />
+                  ) : (
+                    <div className="text-center p-4">
+                      <h3 className="text-4xl text-primary mb-2" style={{ fontFamily: 'Rocketbrush' }}>TBD</h3>
+                      {index === 3 && (
+                        <p className="text-sm tracking-widest text-muted-foreground uppercase font-bold">Wild Card</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* 3. NAME (+ team) BELOW */}
+                <div className="text-center w-full px-2">
+                  <h3 
+                    className="text-4xl md:text-5xl text-primary break-words leading-tight" 
+                    style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--bento-shadow)' }}
+                  >
+                    {!isTBD ? item.rapper.name : 'TBD'}
+                  </h3>
+                  {!isTBD && item.team && (
+                    <p className="text-sm md:text-base text-secondary tracking-widest mt-2 uppercase font-bold">
+                      {item.team.name}
+                    </p>
+                  )}
+                </div>
               </div>
             );
           })}
