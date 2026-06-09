@@ -571,7 +571,7 @@ export default function StageDisplay({
   </AnimatePresence>
 
       {['round-standings', 'final-scoring-grid'].includes(broadcastState.mode) && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center w-full h-screen max-h-screen overflow-hidden p-2 md:p-4 z-10 bg-background/50 backdrop-blur-sm">
+          <div className="absolute inset-0 flex flex-col items-center justify-center w-full h-full overflow-hidden p-2 md:p-4 z-10 bg-background/50 backdrop-blur-sm">
             <motion.img
               src={logo}
               alt="Beast Beats Logo"
