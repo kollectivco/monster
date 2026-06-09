@@ -248,7 +248,7 @@ export function RoundIntros({ state }: VisualProps) {
             style={{ mixBlendMode: 'lighten' }}
           />
         </div>
-        <h1 className="text-7xl md:text-[10rem] text-primary mb-6" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>
+        <h1 className="text-primary mb-6 whitespace-nowrap w-full px-4 text-center overflow-visible" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)', fontSize: 'clamp(3rem, 12vw, 15rem)' }}>
           {title}
         </h1>
         <motion.h2 
@@ -330,6 +330,12 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col items-center justify-center h-screen max-h-screen overflow-hidden w-full px-4 md:px-8 py-2"
       >
+        <img
+          src={logo}
+          alt="Beast Beats"
+          className="h-12 sm:h-16 md:h-20 lg:h-24 mb-2 md:mb-4 object-contain"
+          style={{ filter: 'drop-shadow(0 0 20px rgba(146, 208, 32, 0.4))' }}
+        />
         <h1 className="text-4xl md:text-6xl text-primary mb-4 md:mb-6" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>TOP 4 FINALISTS</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 md:gap-x-8 md:gap-y-4 w-full max-w-5xl">
           {finalists.slice(0, 4).map((item, index) => {
