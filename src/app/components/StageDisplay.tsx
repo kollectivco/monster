@@ -570,7 +570,7 @@ export default function StageDisplay({
                         <motion.img 
                           src={getRapperImage(result.rapper.name)!} 
                           alt={result.rapper.name}
-                          className="w-16 h-16 md:w-20 md:h-20 object-cover rounded-full border-2"
+                          className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-full border-2"
                           style={{ borderColor: index === 0 ? 'var(--primary)' : 'var(--border-muted)' }}
                           initial={{ scale: 0, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
