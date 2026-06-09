@@ -333,7 +333,7 @@ export default function StageDisplay({
                 {/* Glow behind text */}
                 <div className="absolute inset-0 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
                 
-                <div className="relative z-10 w-full flex flex-col items-center justify-center gap-8 md:gap-12 text-center">
+                <div className="relative z-10 w-full flex flex-col items-center justify-center gap-0 text-center">
                   {getRapperPngImage(currentRapper.name) && (
                     <motion.div
                       className="w-full flex justify-center items-center relative z-0"
@@ -344,12 +344,12 @@ export default function StageDisplay({
                       <img 
                         src={getRapperPngImage(currentRapper.name)!}
                         alt={currentRapper.name}
-                        className="w-[400px] h-[400px] md:w-[700px] md:h-[700px] lg:w-[900px] lg:h-[900px] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-110 origin-bottom mb-[-4rem] md:mb-[-8rem]"
+                        className="w-[400px] h-[400px] md:w-[700px] md:h-[700px] lg:w-[900px] lg:h-[900px] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-110 origin-bottom"
                       />
                     </motion.div>
                   )}
 
-                  <div className="w-full flex flex-col justify-center text-center items-center relative z-10 mt-4">
+                  <div className="w-full flex flex-col justify-center text-center items-center relative z-10 mt-[-2rem] md:mt-[-6rem] lg:mt-[-10rem]">
                     <motion.p 
                       className="text-xs tracking-widest text-muted-foreground mb-6" 
                       style={{ fontSize: '0.65rem' }}
