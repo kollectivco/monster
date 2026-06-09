@@ -524,11 +524,11 @@ export default function StageDisplay({
   </AnimatePresence>
 
       {['round-standings', 'final-scoring-grid'].includes(broadcastState.mode) && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center w-full h-full p-6 md:p-8 z-10 bg-background/50 backdrop-blur-sm">
-            <h1 className="text-4xl md:text-6xl text-primary mb-12" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
+          <div className="absolute inset-0 flex flex-col items-center justify-center w-full h-screen max-h-screen overflow-hidden p-2 md:p-4 z-10 bg-background/50 backdrop-blur-sm">
+            <h1 className="text-3xl md:text-5xl text-primary mb-2 md:mb-4 shrink-0" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
               {broadcastState.mode === 'final-scoring-grid' ? 'FINAL SCORES' : 'ROUND STANDINGS'}
             </h1>
-            <div className="grid gap-4 w-full max-w-5xl">
+            <div className="grid gap-2 w-full max-w-5xl h-full max-h-full overflow-hidden">
               {(broadcastState.round === 3 ? championResults : [...results].sort((a, b) => {
                 const aTotal = broadcastState.round === 1 ? a.round1 : a.round1 + a.round2;
                 const bTotal = broadcastState.round === 1 ? b.round1 : b.round1 + b.round2;
@@ -553,13 +553,13 @@ export default function StageDisplay({
                       duration: 0.5,
                       ease: [0.34, 1.56, 0.64, 1]
                     }}
-                    className="bg-card border p-4 md:p-6 flex items-center justify-between"
+                    className="bg-card border py-2 px-4 flex items-center justify-between min-h-0"
                     style={{ borderColor: index === 0 ? 'var(--primary)' : 'var(--border-muted)', borderRadius: 'var(--bento-radius)', boxShadow: index === 0 ? 'var(--green-glow), var(--bento-shadow)' : 'var(--bento-shadow)' }}
                   >
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-4">
                       <motion.div
-                        className="mono font-bold text-muted-foreground"
-                        style={{ fontSize: '3.5rem', lineHeight: '1', width: '4rem' }}
+                        className="mono font-bold text-muted-foreground shrink-0"
+                        style={{ fontSize: '2.5rem', lineHeight: '1', width: '3rem' }}
                         initial={{ scale: 0 }}
                         animate={{ scale: [0, 1.2, 1] }}
                         transition={{ delay: index * 0.15 + 0.2, duration: 0.4 }}
@@ -570,22 +570,22 @@ export default function StageDisplay({
                         <motion.img 
                           src={getRapperImage(result.rapper.name)!} 
                           alt={result.rapper.name}
-                          className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-full border-2"
+                          className="w-14 h-14 md:w-16 md:h-16 object-cover rounded-full border-2 shrink-0"
                           style={{ borderColor: index === 0 ? 'var(--primary)' : 'var(--border-muted)' }}
                           initial={{ scale: 0, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
                           transition={{ delay: index * 0.15 + 0.3, duration: 0.4 }}
                         />
                       )}
-                      <div>
+                      <div className="flex flex-col justify-center">
                         <div 
-                          className="text-3xl md:text-4xl text-primary font-bold uppercase mb-0 leading-none" 
+                          className="text-2xl md:text-3xl text-primary font-bold uppercase mb-0 leading-none" 
                           style={{ fontFamily: 'Anton, sans-serif', textShadow: '0 0 10px rgba(146, 208, 32, 0.6), 0 0 20px rgba(146, 208, 32, 0.4)', letterSpacing: '0.02em' }}
                         >
                           {result.rapper.name}
                         </div>
                         <div 
-                          className="text-base md:text-lg text-white tracking-[0.1em] italic opacity-90 mt-1" 
+                          className="text-sm md:text-base text-white tracking-[0.1em] italic opacity-90 mt-0.5" 
                           style={{ fontFamily: 'Rocketbrush, cursive' }}
                         >
                           {result.team?.name}
@@ -593,7 +593,7 @@ export default function StageDisplay({
                       </div>
                     </div>
                     <motion.div
-                      className="text-right"
+                      className="text-right flex items-center gap-4 shrink-0"
                       initial={{ scale: 0 }}
                       animate={{
                         scale: [0, 1.3, 1],
@@ -605,27 +605,27 @@ export default function StageDisplay({
                         ease: [0.34, 1.56, 0.64, 1]
                       }}
                     >
-                      <div className="mono font-bold text-foreground" style={{ fontSize: '3.5rem', lineHeight: '1' }}>
-                        {totalScore}
-                        <span className="text-2xl text-muted-foreground">/{maxTotal}</span>
-                      </div>
                       {broadcastState.round === 2 && (
-                        <div className="flex flex-col items-end mt-1 gap-0.5">
-                          <div className="mono text-lg tracking-widest text-primary" style={{ textShadow: 'var(--green-glow)' }}>
+                        <div className="flex flex-col items-end gap-0">
+                          <div className="mono text-sm tracking-widest text-primary leading-none" style={{ textShadow: 'var(--green-glow)' }}>
                             R1: {result.round1}/40
                           </div>
-                          <div className="mono text-lg tracking-widest text-primary" style={{ textShadow: 'var(--green-glow)' }}>
+                          <div className="mono text-sm tracking-widest text-primary leading-none mt-1" style={{ textShadow: 'var(--green-glow)' }}>
                             R2: {result.round2}/40
                           </div>
                         </div>
                       )}
                       {broadcastState.round === 3 && (
-                        <div className="flex flex-col items-end mt-1 gap-0.5">
-                          <div className="mono text-xl tracking-widest text-primary" style={{ textShadow: 'var(--green-glow)' }}>
+                        <div className="flex flex-col items-end gap-0">
+                          <div className="mono text-base tracking-widest text-primary leading-none" style={{ textShadow: 'var(--green-glow)' }}>
                             R3: {result.round3}/40
                           </div>
                         </div>
                       )}
+                      <div className="mono font-bold text-foreground leading-none" style={{ fontSize: '2.5rem' }}>
+                        {totalScore}
+                        <span className="text-xl text-muted-foreground ml-1">/{maxTotal}</span>
+                      </div>
                     </motion.div>
                   </motion.div>
                 );
