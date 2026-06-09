@@ -42,7 +42,7 @@ export function GeneralVisuals({ state, topFour }: VisualProps) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0, scale: 1.2 }}
         transition={{ duration: 1.5, ease: "easeInOut" }}
-        className="flex flex-col items-center justify-center min-h-screen w-full relative"
+        className="flex flex-col items-center justify-center h-full min-h-full w-full relative"
       >
         {/* Pulse Fade Effect */}
         <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
@@ -80,7 +80,7 @@ export function GeneralVisuals({ state, topFour }: VisualProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="flex flex-col items-center justify-center min-h-screen w-full relative overflow-hidden bg-background"
+        className="flex flex-col items-center justify-center h-full min-h-full w-full relative overflow-hidden bg-background"
       >
         {/* Subtle grid background */}
         <div 
@@ -151,7 +151,7 @@ export function GeneralVisuals({ state, topFour }: VisualProps) {
   }
 
   if (state.mode === 'countdown-timer') {
-    return <TimerVisual seconds={state.timerSeconds || 300} label="STARTING IN" />;
+    return <TimerVisual seconds={state.timerSeconds || 300} label="STARTING IN" isCountdown={true} />;
   }
 
   if (state.mode === 'minute-timer') {
@@ -177,7 +177,7 @@ export function GeneralVisuals({ state, topFour }: VisualProps) {
     const judgesToShow = state.mode.startsWith('judge-') ? [judgeMapping[state.mode]] : allJudges;
 
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen gap-12 w-full px-12">
+      <div className="flex flex-col items-center justify-center h-full min-h-full gap-12 w-full px-12">
         {state.mode === 'judges-cards' && <h2 className="text-4xl text-primary tracking-widest mb-8" style={{ fontFamily: 'Rocketbrush' }}>THE JUDGES</h2>}
         <div className={`grid gap-8 w-full ${judgesToShow.length === 1 ? 'max-w-md' : 'grid-cols-2 md:grid-cols-4 max-w-7xl'}`}>
           {judgesToShow.map((j, i) => (
@@ -238,7 +238,7 @@ export function RoundIntros({ state }: VisualProps) {
         exit={{ opacity: 0, scale: 0.9 }}
         transition={{ duration: 0.8, ease: "circOut" }}
         style={{ willChange: 'transform, opacity' }}
-        className="flex flex-col items-center justify-center min-h-screen text-center"
+        className="flex flex-col items-center justify-center h-full min-h-full text-center pb-[120px]"
       >
         <div className="flex justify-center mb-8 md:mb-12">
           <img
@@ -276,7 +276,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
         animate={{ opacity: 1, rotate: 0, scale: 1 }}
         exit={{ opacity: 0, scale: 0 }}
         transition={{ type: 'spring', damping: 15, stiffness: 100 }}
-        className="flex flex-col items-center justify-center min-h-screen w-full"
+        className="flex flex-col items-center justify-center h-full min-h-full w-full pb-[120px]"
       >
         <h1 className="text-7xl md:text-[8rem] text-secondary mb-12" style={{ fontFamily: 'Rocketbrush' }}>
           WILD CARD
@@ -328,7 +328,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
       <motion.div 
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col items-center justify-center h-screen max-h-screen overflow-hidden w-full px-4 md:px-8 py-2"
+        className="flex flex-col items-center justify-center h-full max-h-full overflow-hidden w-full px-4 md:px-8 py-2 pb-[120px]"
       >
         <img
           src={logo}
@@ -402,15 +402,15 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
       <motion.div 
         initial={{ opacity: 0, scale: 1.5 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="flex flex-row items-center justify-center min-h-screen w-full relative overflow-hidden"
+        className="flex flex-row items-center justify-center h-full min-h-full w-full relative overflow-hidden"
       >
-        <div className="flex-1 h-screen bg-primary/10 border-r-4 border-primary flex items-center justify-center">
+        <div className="flex-1 h-full bg-primary/10 border-r-4 border-primary flex items-center justify-center pb-[120px]">
           <h2 className="text-6xl md:text-9xl text-primary" style={{ fontFamily: 'Rocketbrush' }}>FINALIST A</h2>
         </div>
         <div className="absolute z-10 w-48 h-48 bg-background border-4 border-primary rounded-full flex items-center justify-center" style={{ boxShadow: 'var(--green-glow-strong)' }}>
           <span className="text-6xl text-primary font-bold italic">VS</span>
         </div>
-        <div className="flex-1 h-screen bg-secondary/10 border-l-4 border-secondary flex items-center justify-center">
+        <div className="flex-1 h-full bg-secondary/10 border-l-4 border-secondary flex items-center justify-center pb-[120px]">
           <h2 className="text-6xl md:text-9xl text-secondary" style={{ fontFamily: 'Rocketbrush' }}>FINALIST B</h2>
         </div>
       </motion.div>
@@ -423,7 +423,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: 'spring', bounce: 0.5, duration: 2 }}
-        className="flex flex-col items-center justify-center min-h-screen w-full text-center relative"
+        className="flex flex-col items-center justify-center h-full min-h-full w-full text-center relative pb-[120px]"
       >
         {/* Removed the border rectangle from the background entirely per user request */}
         
@@ -493,7 +493,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
   return null;
 }
 
-function TimerVisual({ seconds: initialSeconds, label, alertAt = 10 }: { seconds: number, label: string, alertAt?: number }) {
+function TimerVisual({ seconds: initialSeconds, label, alertAt = 10, isCountdown = false }: { seconds: number, label: string, alertAt?: number, isCountdown?: boolean }) {
   const [timeLeft, setTimeLeft] = useState(initialSeconds);
 
   useEffect(() => {
@@ -516,7 +516,7 @@ function TimerVisual({ seconds: initialSeconds, label, alertAt = 10 }: { seconds
     <motion.div 
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col items-center justify-center min-h-screen w-full"
+      className={`flex flex-col items-center justify-center h-full min-h-full w-full ${!isCountdown ? 'pb-[120px]' : ''}`}
     >
       <div className="flex justify-center mb-8">
         <img

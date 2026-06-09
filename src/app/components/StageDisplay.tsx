@@ -392,7 +392,7 @@ export default function StageDisplay({
               )}
 
         {broadcastState.mode === 'now-performing' && !currentRapper && (
-          <div className="min-h-[60vh] flex flex-col items-center justify-center gap-8">
+          <div className="min-h-[60vh] flex flex-col items-center justify-center gap-8 pb-[120px]">
             <div className="text-center">
               <div className="flex justify-center mb-8">
                 <img
@@ -571,7 +571,7 @@ export default function StageDisplay({
   </AnimatePresence>
 
       {['round-standings', 'final-scoring-grid'].includes(broadcastState.mode) && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center w-full h-full overflow-hidden p-2 md:p-4 z-10 bg-background/50 backdrop-blur-sm">
+          <div className="absolute inset-0 flex flex-col items-center justify-center w-full h-full overflow-hidden p-2 md:p-4 z-10 bg-background/50 backdrop-blur-sm pb-[120px]">
             <motion.img
               src={logo}
               alt="Beast Beats Logo"
@@ -692,7 +692,7 @@ export default function StageDisplay({
 
         {broadcastState.mode === 'podium' && championResults.slice(0, 4).length === 4 && (
           <motion.div
-            className="absolute inset-0 flex flex-col justify-center items-center z-10 w-full bg-background/50 backdrop-blur-sm"
+            className="absolute inset-0 flex flex-col justify-center items-center z-10 w-full bg-background/50 backdrop-blur-sm pb-[120px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
