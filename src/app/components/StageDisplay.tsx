@@ -67,6 +67,21 @@ export default function StageDisplay({
   const [revealedPositions, setRevealedPositions] = useState<number[]>([]);
   const [showDebug, setShowDebug] = useState(false);
 
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const scaleX = window.innerWidth / 768;
+      const scaleY = window.innerHeight / 1536;
+      setScale(Math.min(scaleX, scaleY));
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial calculation
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     if (broadcastState.mode === 'podium') {
       setShowPodium(true);
@@ -240,12 +255,23 @@ export default function StageDisplay({
 
   if (['winner-graphic', 'podium', 'final-scoring-grid'].includes(broadcastState.mode) && !r3Complete) {
     return (
-      <div className="bg-background text-foreground relative overflow-hidden mx-auto flex items-center justify-center" style={{ width: '768px', height: '1536px', fontFamily: 'Anton, sans-serif' }}>
-        <StageBackground showEqualizer={false} />
-        <div className="relative z-10 text-center">
-          <Lock className="w-24 h-24 text-primary mx-auto mb-8 opacity-50" />
-          <h1 className="text-6xl text-primary mb-4" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>RESULTS PENDING</h1>
-          <p className="text-3xl text-secondary tracking-widest uppercase" style={{ textShadow: '0 0 10px rgba(0,0,0,0.5)' }}>Round 3 Not Fully Scored</p>
+      <div className="w-screen h-screen bg-black overflow-hidden flex items-center justify-center">
+        <div 
+          className="bg-background text-foreground relative overflow-hidden flex items-center justify-center" 
+          style={{ 
+            width: '768px', 
+            height: '1536px', 
+            fontFamily: 'Anton, sans-serif',
+            transform: `scale(${scale})`,
+            transformOrigin: 'center center'
+          }}
+        >
+          <StageBackground showEqualizer={false} />
+          <div className="relative z-10 text-center">
+            <Lock className="w-24 h-24 text-primary mx-auto mb-8 opacity-50" />
+            <h1 className="text-6xl text-primary mb-4" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>RESULTS PENDING</h1>
+            <p className="text-3xl text-secondary tracking-widest uppercase" style={{ textShadow: '0 0 10px rgba(0,0,0,0.5)' }}>Round 3 Not Fully Scored</p>
+          </div>
         </div>
       </div>
     );
@@ -253,23 +279,44 @@ export default function StageDisplay({
 
   if (['winner-graphic', 'podium'].includes(broadcastState.mode) && isChampionTie && r3Complete) {
     return (
-      <div className="bg-background text-foreground relative overflow-hidden mx-auto flex items-center justify-center" style={{ width: '768px', height: '1536px', fontFamily: 'Anton, sans-serif' }}>
-        <StageBackground showEqualizer={false} />
-        <div className="relative z-10 flex flex-col items-center justify-center p-8 text-center bg-black/60 backdrop-blur-md border-4 border-orange-500 rounded-3xl" style={{ boxShadow: '0 0 50px rgba(249,115,22,0.4)', width: '600px' }}>
-          <AlertTriangle className="w-24 h-24 text-orange-500 mx-auto mb-6" />
-          <h1 className="text-6xl text-orange-500 mb-4 uppercase" style={{ fontFamily: 'Rocketbrush', textShadow: '0 0 20px rgba(249,115,22,0.6)' }}>TIE FOR 1ST PLACE</h1>
-          <p className="text-3xl text-white mb-4 tracking-widest leading-relaxed">
-            {championResults[0].rapper.name} & {championResults[1].rapper.name}
-          </p>
-          <p className="text-2xl text-orange-400 mb-8 font-mono font-bold">Round 3 Score: {championResults[0].round3}</p>
-          <p className="text-lg text-muted-foreground">Please resolve the tie before announcing.</p>
+      <div className="w-screen h-screen bg-black overflow-hidden flex items-center justify-center">
+        <div 
+          className="bg-background text-foreground relative overflow-hidden flex items-center justify-center" 
+          style={{ 
+            width: '768px', 
+            height: '1536px', 
+            fontFamily: 'Anton, sans-serif',
+            transform: `scale(${scale})`,
+            transformOrigin: 'center center'
+          }}
+        >
+          <StageBackground showEqualizer={false} />
+          <div className="relative z-10 flex flex-col items-center justify-center p-8 text-center bg-black/60 backdrop-blur-md border-4 border-orange-500 rounded-3xl" style={{ boxShadow: '0 0 50px rgba(249,115,22,0.4)', width: '600px' }}>
+            <AlertTriangle className="w-24 h-24 text-orange-500 mx-auto mb-6" />
+            <h1 className="text-6xl text-orange-500 mb-4 uppercase" style={{ fontFamily: 'Rocketbrush', textShadow: '0 0 20px rgba(249,115,22,0.6)' }}>TIE FOR 1ST PLACE</h1>
+            <p className="text-3xl text-white mb-4 tracking-widest leading-relaxed">
+              {championResults[0].rapper.name} & {championResults[1].rapper.name}
+            </p>
+            <p className="text-2xl text-orange-400 mb-8 font-mono font-bold">Round 3 Score: {championResults[0].round3}</p>
+            <p className="text-lg text-muted-foreground">Please resolve the tie before announcing.</p>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-background text-foreground relative overflow-hidden w-full h-screen" style={{ fontFamily: 'Anton, sans-serif' }}>
+    <div className="w-screen h-screen bg-black overflow-hidden flex items-center justify-center">
+      <div 
+        className="bg-background text-foreground relative overflow-hidden" 
+        style={{ 
+          width: '768px', 
+          height: '1536px', 
+          fontFamily: 'Anton, sans-serif',
+          transform: `scale(${scale})`,
+          transformOrigin: 'center center'
+        }}
+      >
       {/* Animated background */}
       <StageBackground showEqualizer={!isGeneralVisual} />
 
@@ -834,6 +881,7 @@ export default function StageDisplay({
           </motion.div>
         )}
       </div>
+    </div>
     </div>
   );
 }
