@@ -333,23 +333,23 @@ export default function StageDisplay({
                 {/* Glow behind text */}
                 <div className="absolute inset-0 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
                 
-                <div className={`relative z-10 w-full flex ${getRapperPngImage(currentRapper.name) ? 'flex-col md:flex-row items-center justify-center gap-8 md:gap-12' : 'flex-col items-center justify-center text-center'}`}>
+                <div className="relative z-10 w-full flex flex-col items-center justify-center gap-8 md:gap-12 text-center">
                   {getRapperPngImage(currentRapper.name) && (
                     <motion.div
-                      className="w-full md:w-[45%] flex-shrink-0 flex justify-center md:justify-end items-center"
-                      initial={{ scale: 0.8, opacity: 0, x: -50 }}
-                      animate={{ scale: 1, opacity: 1, x: 0 }}
+                      className="w-full flex justify-center items-center relative z-0"
+                      initial={{ scale: 0.8, opacity: 0, y: -50 }}
+                      animate={{ scale: 1, opacity: 1, y: 0 }}
                       transition={{ delay: 0.15, duration: 0.6, type: 'spring', bounce: 0.5 }}
                     >
                       <img 
                         src={getRapperPngImage(currentRapper.name)!}
                         alt={currentRapper.name}
-                        className="w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] object-contain drop-shadow-[0_0_60px_rgba(146,208,32,0.8)] scale-110 md:scale-125 lg:scale-150 origin-center md:origin-right"
+                        className="w-[400px] h-[400px] md:w-[700px] md:h-[700px] lg:w-[900px] lg:h-[900px] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-110 origin-bottom mb-[-4rem] md:mb-[-8rem]"
                       />
                     </motion.div>
                   )}
 
-                  <div className={`w-full flex flex-col justify-center ${getRapperPngImage(currentRapper.name) ? 'md:w-[55%] text-center md:text-left items-center md:items-start' : 'text-center items-center'}`}>
+                  <div className="w-full flex flex-col justify-center text-center items-center relative z-10 mt-4">
                     <motion.p 
                       className="text-xs tracking-widest text-muted-foreground mb-6" 
                       style={{ fontSize: '0.65rem' }}
