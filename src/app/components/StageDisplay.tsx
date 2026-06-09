@@ -269,7 +269,7 @@ export default function StageDisplay({
   }
 
   return (
-    <div className="bg-background text-foreground relative overflow-hidden w-full min-h-screen flex flex-col items-center justify-center" style={{ fontFamily: 'Anton, sans-serif' }}>
+    <div className="bg-background text-foreground relative overflow-hidden w-full h-screen" style={{ fontFamily: 'Anton, sans-serif' }}>
       {/* Animated background */}
       <StageBackground showEqualizer={!isGeneralVisual} />
 
@@ -645,7 +645,7 @@ export default function StageDisplay({
 
         {broadcastState.mode === 'podium' && championResults.slice(0, 4).length === 4 && (
           <motion.div
-            className="absolute inset-0 flex flex-col justify-center items-center z-10 w-full bg-background/50 backdrop-blur-sm mb-4"
+            className="absolute inset-0 flex flex-col justify-center items-center z-10 w-full bg-background/50 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
