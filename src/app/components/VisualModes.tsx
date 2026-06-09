@@ -429,6 +429,15 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
         
         {winner ? (
           <>
+            <motion.img
+              src={logo}
+              alt="Beast Beats Logo"
+              className="h-20 md:h-28 lg:h-32 w-auto object-contain mb-4 md:mb-6 relative z-10"
+              style={{ mixBlendMode: 'lighten' }}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            />
             <motion.div
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
