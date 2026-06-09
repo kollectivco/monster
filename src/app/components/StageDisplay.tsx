@@ -622,6 +622,16 @@ export default function StageDisplay({
             transition={{ duration: 0.3 }}
           >
             <div className="flex flex-col items-center gap-3 md:gap-4 w-full max-w-5xl mx-auto mb-4">
+              {/* Logo */}
+              <motion.img
+                src={logo}
+                alt="Beast Beats Logo"
+                className="h-24 md:h-32 w-auto object-contain mb-2 md:mb-4"
+                style={{ mixBlendMode: 'lighten' }}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              />
               {/* 1st Place */}
               <motion.div
                 className="w-full md:w-2/3 bg-gradient-to-b from-primary/20 to-card border border-primary p-4 md:p-6 relative overflow-hidden"
