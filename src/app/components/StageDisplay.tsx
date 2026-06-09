@@ -345,7 +345,7 @@ export default function StageDisplay({
                 <div className="relative z-10 w-full flex flex-col items-center justify-center gap-0 text-center">
                   {getRapperPngImage(currentRapper.name) && (
                     <motion.div
-                      className="w-full flex justify-center items-center relative z-0"
+                      className="w-full flex justify-center items-center relative z-0 mt-[-2rem] md:mt-[-6rem] lg:mt-[-8rem]"
                       initial={{ scale: 0.8, opacity: 0, y: -50 }}
                       animate={{ scale: 1, opacity: 1, y: 0 }}
                       transition={{ delay: 0.15, duration: 0.6, type: 'spring', bounce: 0.5 }}
@@ -353,12 +353,12 @@ export default function StageDisplay({
                       <img 
                         src={getRapperPngImage(currentRapper.name)!}
                         alt={currentRapper.name}
-                        className="w-[400px] h-[400px] md:w-[700px] md:h-[700px] lg:w-[900px] lg:h-[900px] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-110 origin-bottom"
+                        className="w-[500px] h-[500px] md:w-[800px] md:h-[800px] lg:w-[1000px] lg:h-[1000px] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-125 origin-bottom"
                       />
                     </motion.div>
                   )}
 
-                  <div className="w-full flex flex-col justify-center text-center items-center relative z-10 mt-[-2rem] md:mt-[-6rem] lg:mt-[-10rem]">
+                  <div className="w-full flex flex-col justify-center text-center items-center relative z-10 mt-[-4rem] md:mt-[-10rem] lg:mt-[-14rem]">
                     <motion.p 
                       className="text-xs tracking-widest text-muted-foreground mb-4" 
                       style={{ fontSize: '0.65rem' }}
@@ -370,13 +370,13 @@ export default function StageDisplay({
                     </motion.p>
 
                     <motion.h2
-                      className={`${currentRapper.name.length > 10 ? 'text-6xl sm:text-7xl md:text-8xl lg:text-9xl' : 'text-7xl sm:text-8xl md:text-9xl lg:text-[10rem]'} mb-1 text-primary break-words uppercase font-bold`}
+                      className="mb-1 text-primary whitespace-nowrap uppercase font-bold px-2 w-full"
                       style={{ 
                         fontFamily: 'Anton, sans-serif', 
+                        fontSize: currentRapper.name.length > 10 ? 'clamp(2.5rem, 8vw, 8rem)' : 'clamp(3.5rem, 10vw, 10rem)',
                         textShadow: '0 0 20px rgba(146, 208, 32, 0.6), 0 0 40px rgba(146, 208, 32, 0.4)', 
                         lineHeight: '0.9', 
-                        letterSpacing: '0.02em', 
-                        wordBreak: 'keep-all' 
+                        letterSpacing: '0.02em'
                       }}
                       initial={{ y: 20, opacity: 0, filter: 'blur(8px)' }}
                       animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
@@ -396,7 +396,7 @@ export default function StageDisplay({
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      {currentRapperTeam?.name} TEAM
+                      {currentRapperTeam?.name}
                     </motion.p>
 
                     {broadcastState.showScore && (

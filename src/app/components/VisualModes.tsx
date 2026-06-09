@@ -379,7 +379,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                   {!isTBD && item.team && (
                     <p className="text-sm md:text-base text-white tracking-[0.1em] mt-1 italic opacity-90"
                        style={{ fontFamily: 'Rocketbrush, cursive' }}>
-                      {item.team.name} TEAM
+                      {item.team.name}
                     </p>
                   )}
                 </div>
