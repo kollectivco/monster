@@ -525,7 +525,16 @@ export default function StageDisplay({
 
       {['round-standings', 'final-scoring-grid'].includes(broadcastState.mode) && (
           <div className="absolute inset-0 flex flex-col items-center justify-center w-full h-screen max-h-screen overflow-hidden p-2 md:p-4 z-10 bg-background/50 backdrop-blur-sm">
-            <h1 className="text-3xl md:text-5xl text-primary mb-2 md:mb-4 shrink-0" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
+            <motion.img
+              src={logo}
+              alt="Beast Beats Logo"
+              className="h-12 md:h-16 lg:h-20 w-auto object-contain mb-1 md:mb-2 shrink-0"
+              style={{ mixBlendMode: 'lighten' }}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            />
+            <h1 className="text-2xl md:text-4xl text-primary mb-1 md:mb-2 shrink-0" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
               {broadcastState.mode === 'final-scoring-grid' ? 'FINAL SCORES' : 'ROUND STANDINGS'}
             </h1>
             <div className="grid gap-2 w-full max-w-5xl overflow-hidden">
