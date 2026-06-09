@@ -107,12 +107,17 @@ export default function JudgeProgress({
       <section>
         <h2 className="text-xl mb-5 text-primary">ROUND TOTALS</h2>
         <div className="grid gap-4">
-          {rappers.map(rapper => {
-            const team = teams.find(t => t.id === rapper.teamId);
-            const r1 = calculateRapperScore(rapper.id, 1);
-            const r2 = calculateRapperScore(rapper.id, 2);
-            const r3 = calculateRapperScore(rapper.id, 3);
-            const cumulative = r1 + r2 + r3;
+          {[...rappers]
+            .map(rapper => {
+              const team = teams.find(t => t.id === rapper.teamId);
+              const r1 = calculateRapperScore(rapper.id, 1);
+              const r2 = calculateRapperScore(rapper.id, 2);
+              const r3 = calculateRapperScore(rapper.id, 3);
+              const cumulative = r1 + r2 + r3;
+              return { rapper, team, r1, r2, r3, cumulative };
+            })
+            .sort((a, b) => b.cumulative - a.cumulative)
+            .map(({ rapper, team, r1, r2, r3, cumulative }) => {
             const isTopFour = topFour.some(t => t.id === rapper.id);
 
             const getJudgeScore = (judgeId: string, round: number): number => {

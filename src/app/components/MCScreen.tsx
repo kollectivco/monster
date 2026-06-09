@@ -189,10 +189,13 @@ export default function MCScreen({
                 <div className="text-right">
                   <div className="text-3xl md:text-4xl font-mono font-bold text-foreground">
                     {result.cumulative}
+                    <span className="text-xl text-muted-foreground">/{currentRound * 40}</span>
                   </div>
-                  <div className="text-xs md:text-sm font-mono text-muted-foreground mt-1">
-                    R{currentRound}: {result.currentRoundScore}/40
-                  </div>
+                  {currentRound > 1 && (
+                    <div className="text-xs md:text-sm font-mono text-muted-foreground mt-1">
+                      R{currentRound}: {result.currentRoundScore}/40
+                    </div>
+                  )}
                 </div>
               </div>
             );

@@ -315,12 +315,14 @@ export default function Results({
         <div className="grid gap-3">
           {[...results]
             .sort((a, b) => {
-              const aScore = selectedRound === 1 ? a.round1 : selectedRound === 2 ? a.round2 : a.round3;
-              const bScore = selectedRound === 1 ? b.round1 : selectedRound === 2 ? b.round2 : b.round3;
-              return bScore - aScore;
+              const aTotal = selectedRound === 1 ? a.round1 : selectedRound === 2 ? a.round1 + a.round2 : a.round1 + a.round2 + a.round3;
+              const bTotal = selectedRound === 1 ? b.round1 : selectedRound === 2 ? b.round1 + b.round2 : b.round1 + b.round2 + b.round3;
+              return bTotal - aTotal;
             })
             .map((result, index) => {
-              const score = selectedRound === 1 ? result.round1 : selectedRound === 2 ? result.round2 : result.round3;
+              const roundScore = selectedRound === 1 ? result.round1 : selectedRound === 2 ? result.round2 : result.round3;
+              const totalScore = selectedRound === 1 ? result.round1 : selectedRound === 2 ? result.round1 + result.round2 : result.round1 + result.round2 + result.round3;
+              const maxTotal = selectedRound * 40;
               const isTopFour = selectedRound === 3 && topFourAfterR2.some(t => t.rapper.id === result.rapper.id);
               const showInR3 = selectedRound !== 3 || isTopFour;
 
@@ -343,9 +345,16 @@ export default function Results({
                       </div>
                     </div>
                   </div>
-                  <div className="mono text-3xl font-bold text-foreground">
-                    {score}
-                    <span className="text-lg text-muted-foreground">/40</span>
+                  <div className="text-right">
+                    <div className="mono text-3xl font-bold text-foreground">
+                      {totalScore}
+                      <span className="text-lg text-muted-foreground">/{maxTotal}</span>
+                    </div>
+                    {selectedRound > 1 && (
+                      <div className="mono text-sm text-muted-foreground mt-1">
+                        R{selectedRound}: {roundScore}/40
+                      </div>
+                    )}
                   </div>
                 </div>
               );

@@ -465,12 +465,14 @@ export default function StageDisplay({
           <div className="grid gap-4 w-full p-6 md:p-8">
             {[...results]
               .sort((a, b) => {
-                const aScore = broadcastState.round === 1 ? a.round1 : broadcastState.round === 2 ? a.round2 : a.round3;
-                const bScore = broadcastState.round === 1 ? b.round1 : broadcastState.round === 2 ? b.round2 : b.round3;
-                return bScore - aScore;
+                const aTotal = broadcastState.round === 1 ? a.round1 : broadcastState.round === 2 ? a.round1 + a.round2 : a.round1 + a.round2 + a.round3;
+                const bTotal = broadcastState.round === 1 ? b.round1 : broadcastState.round === 2 ? b.round1 + b.round2 : b.round1 + b.round2 + b.round3;
+                return bTotal - aTotal;
               })
               .map((result, index) => {
-                const score = broadcastState.round === 1 ? result.round1 : broadcastState.round === 2 ? result.round2 : result.round3;
+                const roundScore = broadcastState.round === 1 ? result.round1 : broadcastState.round === 2 ? result.round2 : result.round3;
+                const totalScore = broadcastState.round === 1 ? result.round1 : broadcastState.round === 2 ? result.round1 + result.round2 : result.round1 + result.round2 + result.round3;
+                const maxTotal = broadcastState.round * 40;
                 const isTopFour = broadcastState.round === 3 && topFourAfterR2.some(t => t.rapper.id === result.rapper.id);
                 const showInR3 = broadcastState.round !== 3 || isTopFour;
 
@@ -522,8 +524,7 @@ export default function StageDisplay({
                       </div>
                     </div>
                     <motion.div
-                      className="mono font-bold text-foreground"
-                      style={{ fontSize: '3.5rem', lineHeight: '1' }}
+                      className="text-right"
                       initial={{ scale: 0 }}
                       animate={{
                         scale: [0, 1.3, 1],
@@ -535,8 +536,15 @@ export default function StageDisplay({
                         ease: [0.34, 1.56, 0.64, 1]
                       }}
                     >
-                      {score}
-                      <span className="text-2xl text-muted-foreground">/40</span>
+                      <div className="mono font-bold text-foreground" style={{ fontSize: '3.5rem', lineHeight: '1' }}>
+                        {totalScore}
+                        <span className="text-2xl text-muted-foreground">/{maxTotal}</span>
+                      </div>
+                      {broadcastState.round > 1 && (
+                        <div className="mono text-xl mt-1 tracking-widest text-primary" style={{ textShadow: 'var(--green-glow)' }}>
+                          R{broadcastState.round}: {roundScore}/40
+                        </div>
+                      )}
                     </motion.div>
                   </motion.div>
                 );
