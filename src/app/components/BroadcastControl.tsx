@@ -259,7 +259,8 @@ export default function BroadcastControl({
 
         {/* The Wild Card reveal control was removed; the permanent selection now drives it */}
 
-        <div className="mt-8 pt-8 border-t" style={{ borderColor: 'var(--border-muted)' }}>
+        {['wild-card', 'top-4-visual', 'final-scoring-grid', 'winner-graphic', 'podium'].includes(broadcastState.mode) && (
+          <div className="mt-8 pt-8 border-t" style={{ borderColor: 'var(--border-muted)' }}>
           <label className="text-xs text-muted-foreground mb-3 block tracking-widest" style={{ fontSize: '0.65rem' }}>SELECT WILD CARD (4th finalist → advances to R3)</label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             <button
@@ -289,8 +290,8 @@ export default function BroadcastControl({
             })}
           </div>
         </div>
+        )}
       </div>
-
       <div className="border p-6" style={{ borderRadius: 'var(--bento-radius)', borderColor: 'var(--border-muted)', backgroundColor: 'var(--card)', boxShadow: 'var(--bento-shadow)' }}>
         <h3 className="text-sm text-secondary mb-4 tracking-wider">ROUND {broadcastState.round} LINEUP</h3>
         <div className="space-y-2">
