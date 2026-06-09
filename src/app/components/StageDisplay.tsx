@@ -529,20 +529,15 @@ export default function StageDisplay({
               {broadcastState.mode === 'final-scoring-grid' ? 'FINAL SCORES' : 'ROUND STANDINGS'}
             </h1>
             <div className="grid gap-4 w-full max-w-5xl">
-              {[...results]
-                .sort((a, b) => {
-                const aTotal = broadcastState.round === 1 ? a.round1 : broadcastState.round === 2 ? a.round1 + a.round2 : a.round1 + a.round2 + a.round3;
-                const bTotal = broadcastState.round === 1 ? b.round1 : broadcastState.round === 2 ? b.round1 + b.round2 : b.round1 + b.round2 + b.round3;
+              {(broadcastState.round === 3 ? championResults : [...results].sort((a, b) => {
+                const aTotal = broadcastState.round === 1 ? a.round1 : a.round1 + a.round2;
+                const bTotal = broadcastState.round === 1 ? b.round1 : b.round1 + b.round2;
                 return bTotal - aTotal;
-              })
+              }))
               .map((result, index) => {
                 const roundScore = broadcastState.round === 1 ? result.round1 : broadcastState.round === 2 ? result.round2 : result.round3;
-                const totalScore = broadcastState.round === 1 ? result.round1 : broadcastState.round === 2 ? result.round1 + result.round2 : result.round1 + result.round2 + result.round3;
-                const maxTotal = broadcastState.round * 40;
-                const isTopFour = broadcastState.round === 3 && topFourAfterR2.some(t => t.rapper.id === result.rapper.id);
-                const showInR3 = broadcastState.round !== 3 || isTopFour;
-
-                if (!showInR3) return null;
+                const totalScore = broadcastState.round === 1 ? result.round1 : broadcastState.round === 2 ? result.round1 + result.round2 : result.round3;
+                const maxTotal = broadcastState.round === 3 ? 40 : broadcastState.round * 40;
 
                 return (
                   <motion.div
