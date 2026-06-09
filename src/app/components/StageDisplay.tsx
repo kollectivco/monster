@@ -232,7 +232,7 @@ export default function StageDisplay({
     'judge-zaza', 'judge-shahyn', 'judge-alyloka', 'judge-shehab'
   ].includes(broadcastState.mode);
 
-  if (['winner-graphic', 'podium'].includes(broadcastState.mode) && !r3Complete) {
+  if (['winner-graphic', 'podium', 'final-scoring-grid'].includes(broadcastState.mode) && !r3Complete) {
     return (
       <div className="bg-background text-foreground relative overflow-hidden mx-auto flex items-center justify-center" style={{ width: '768px', height: '1536px', fontFamily: 'Anton, sans-serif' }}>
         <StageBackground showEqualizer={false} />
@@ -500,10 +500,14 @@ export default function StageDisplay({
     )}
   </AnimatePresence>
 
-      {broadcastState.mode === 'round-standings' && (
-          <div className="grid gap-4 w-full p-6 md:p-8">
-            {[...results]
-              .sort((a, b) => {
+      {['round-standings', 'final-scoring-grid'].includes(broadcastState.mode) && (
+          <div className="flex flex-col items-center justify-center w-full h-full p-6 md:p-8">
+            <h1 className="text-4xl md:text-6xl text-primary mb-6" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
+              {broadcastState.mode === 'final-scoring-grid' ? 'FINAL SCORES' : 'ROUND STANDINGS'}
+            </h1>
+            <div className="grid gap-4 w-full max-w-5xl">
+              {[...results]
+                .sort((a, b) => {
                 const aTotal = broadcastState.round === 1 ? a.round1 : broadcastState.round === 2 ? a.round1 + a.round2 : a.round1 + a.round2 + a.round3;
                 const bTotal = broadcastState.round === 1 ? b.round1 : broadcastState.round === 2 ? b.round1 + b.round2 : b.round1 + b.round2 + b.round3;
                 return bTotal - aTotal;
@@ -588,6 +592,7 @@ export default function StageDisplay({
                   </motion.div>
                 );
               })}
+            </div>
           </div>
         )}
 
