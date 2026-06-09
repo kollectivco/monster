@@ -202,11 +202,16 @@ export function useRelationalSync() {
           .upsert(scoreData, { onConflict: 'id' });
 
         if (error) {
-          console.error('[WRITE] Failed to upsert score:', error);
+          console.error('[WRITE] Failed to upsert score:', {
+            message: error.message,
+            code: error.code,
+            details: error.details,
+            hint: error.hint
+          });
           setConnectionStatus('offline');
           setLastWriteTime(new Date());
           setLastWriteSuccess(false);
-          setLastWriteError(error.message);
+          setLastWriteError(error.message || JSON.stringify(error));
         } else {
           setConnectionStatus((isScoresRealtimeWorkingRef.current && isControlRealtimeWorkingRef.current) ? 'connected' : 'polling');
           setLastWriteTime(new Date());
@@ -284,14 +289,28 @@ export function useRelationalSync() {
         .eq('id', 'beastbeats');
 
       if (error) {
-        console.error('[WRITE] Failed to update event control:', error);
+        console.error('[WRITE] Failed to update event control:', {
+          message: error.message,
+          code: error.code,
+          details: error.details,
+          hint: error.hint
+        });
         setConnectionStatus('offline');
+        setLastWriteTime(new Date());
+        setLastWriteSuccess(false);
+        setLastWriteError(error.message || JSON.stringify(error));
       } else {
         setConnectionStatus((isScoresRealtimeWorkingRef.current && isControlRealtimeWorkingRef.current) ? 'connected' : 'polling');
+        setLastWriteTime(new Date());
+        setLastWriteSuccess(true);
+        setLastWriteError(null);
       }
     } catch (err) {
       console.error('[WRITE] Error updating event control:', err);
       setConnectionStatus('offline');
+      setLastWriteTime(new Date());
+      setLastWriteSuccess(false);
+      setLastWriteError(err instanceof Error ? err.message : String(err));
     }
   }, []);
 
