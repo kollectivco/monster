@@ -601,9 +601,21 @@ export default function StageDisplay({
                         {totalScore}
                         <span className="text-2xl text-muted-foreground">/{maxTotal}</span>
                       </div>
-                      {broadcastState.round > 1 && (
-                        <div className="mono text-xl mt-1 tracking-widest text-primary" style={{ textShadow: 'var(--green-glow)' }}>
-                          R{broadcastState.round}: {roundScore}/40
+                      {broadcastState.round === 2 && (
+                        <div className="flex flex-col items-end mt-1 gap-0.5">
+                          <div className="mono text-lg tracking-widest text-primary" style={{ textShadow: 'var(--green-glow)' }}>
+                            R1: {result.round1}/40
+                          </div>
+                          <div className="mono text-lg tracking-widest text-primary" style={{ textShadow: 'var(--green-glow)' }}>
+                            R2: {result.round2}/40
+                          </div>
+                        </div>
+                      )}
+                      {broadcastState.round === 3 && (
+                        <div className="flex flex-col items-end mt-1 gap-0.5">
+                          <div className="mono text-xl tracking-widest text-primary" style={{ textShadow: 'var(--green-glow)' }}>
+                            R3: {result.round3}/40
+                          </div>
                         </div>
                       )}
                     </motion.div>
