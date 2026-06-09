@@ -257,35 +257,7 @@ export default function BroadcastControl({
           </div>
         )}
 
-        {broadcastState.mode === 'wild-card' && (
-          <div className="grid gap-4 mt-6">
-            <div>
-              <label className="text-xs text-muted-foreground mb-3 block tracking-widest" style={{ fontSize: '0.65rem' }}>WILD CARD REVEAL (display only)</label>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                <button
-                  onClick={() => onUpdateBroadcast({ currentRapperId: null })}
-                  className={`py-2 px-2 rounded-xl border-2 text-xs flex flex-col items-center justify-center transition-all ${!broadcastState.currentRapperId ? 'border-primary bg-primary/10 text-primary' : 'border-transparent bg-muted text-muted-foreground hover:bg-muted/80'}`}
-                >
-                  — Reveal Ready —
-                </button>
-                {rappers.filter(r => !getTopFour().find(t => t.id === r.id) || r.id === broadcastState.wildcardRapperId).map(rapper => {
-                  const team = teams.find(t => t.id === rapper.teamId);
-                  const isActive = broadcastState.currentRapperId === rapper.id;
-                  return (
-                    <button
-                      key={rapper.id}
-                      onClick={() => onUpdateBroadcast({ currentRapperId: rapper.id })}
-                      className={`py-2 px-2 rounded-xl border-2 text-xs flex flex-col items-center justify-center text-center transition-all ${isActive ? 'border-primary bg-primary/10 text-primary shadow-[0_0_15px_rgba(146,208,32,0.3)]' : 'border-transparent bg-muted text-foreground hover:bg-muted/80'}`}
-                    >
-                      <span className="font-bold mb-0.5">{rapper.name}</span>
-                      <span className="text-[9px] opacity-70">{team?.name}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
+        {/* The Wild Card reveal control was removed; the permanent selection now drives it */}
 
         <div className="mt-8 pt-8 border-t" style={{ borderColor: 'var(--border-muted)' }}>
           <label className="text-xs text-muted-foreground mb-3 block tracking-widest" style={{ fontSize: '0.65rem' }}>SELECT WILD CARD (4th finalist → advances to R3)</label>

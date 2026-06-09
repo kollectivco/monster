@@ -267,7 +267,7 @@ export function RoundIntros({ state }: VisualProps) {
 
 export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: VisualProps) {
   if (state.mode === 'wild-card') {
-    const wildCardRapper = state.currentRapperId ? rappers.find(r => r.id === state.currentRapperId) : null;
+    const wildCardRapper = state.wildcardRapperId ? rappers.find(r => r.id === state.wildcardRapperId) : null;
     const team = wildCardRapper ? teams.find(t => t.id === wildCardRapper.teamId) : null;
 
     return (
@@ -308,8 +308,8 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                transition={{ delay: 0.3 }}
                className="text-center"
             >
-               <h2 className="text-5xl md:text-6xl text-primary font-bold mb-2" style={{ textShadow: 'var(--green-glow-strong)' }}>{wildCardRapper.name}</h2>
-               <p className="text-2xl text-secondary tracking-widest" style={{ fontFamily: 'Rocketbrush' }}>{team?.name}</p>
+               <h2 className="text-5xl md:text-7xl text-primary font-bold mb-1 uppercase" style={{ fontFamily: 'Anton, sans-serif', textShadow: '0 0 20px rgba(146, 208, 32, 0.6), 0 0 40px rgba(146, 208, 32, 0.4)', letterSpacing: '0.02em', lineHeight: '0.9' }}>{wildCardRapper.name}</h2>
+               <p className="text-2xl text-white tracking-[0.1em] italic opacity-90" style={{ fontFamily: 'Rocketbrush, cursive' }}>{team?.name} TEAM</p>
             </motion.div>
           </div>
         ) : (
@@ -367,14 +367,19 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                 {/* 3. NAME (+ team) BELOW */}
                 <div className="text-center w-full px-2">
                   <h3 
-                    className="text-2xl md:text-4xl text-primary break-words leading-none" 
-                    style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--bento-shadow)' }}
+                    className="text-3xl md:text-5xl text-primary break-words leading-none uppercase font-bold" 
+                    style={{ 
+                      fontFamily: 'Anton, sans-serif', 
+                      textShadow: '0 0 10px rgba(146, 208, 32, 0.6), 0 0 20px rgba(146, 208, 32, 0.4)',
+                      letterSpacing: '0.02em'
+                    }}
                   >
                     {!isTBD ? item.rapper.name : 'TBD'}
                   </h3>
                   {!isTBD && item.team && (
-                    <p className="text-[10px] md:text-sm text-secondary tracking-widest mt-1 uppercase font-bold">
-                      {item.team.name}
+                    <p className="text-sm md:text-base text-white tracking-[0.1em] mt-1 italic opacity-90"
+                       style={{ fontFamily: 'Rocketbrush, cursive' }}>
+                      {item.team.name} TEAM
                     </p>
                   )}
                 </div>
@@ -414,12 +419,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
         transition={{ type: 'spring', bounce: 0.5, duration: 2 }}
         className="flex flex-col items-center justify-center min-h-screen w-full text-center relative"
       >
-        <motion.div
-          animate={{ opacity: [0.3, 1, 0.3], scale: [0.98, 1.02, 0.98] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute w-[500px] h-[700px] md:w-[700px] md:h-[1000px] lg:w-[1000px] lg:h-[1400px] border-[8px] md:border-[16px] lg:border-[20px] border-primary/80 rounded-3xl pointer-events-none"
-          style={{ filter: 'drop-shadow(0 0 40px rgba(146, 208, 32, 0.6))' }}
-        />
+        {/* Removed the border rectangle from the background entirely per user request */}
         
         {winner ? (
           <>

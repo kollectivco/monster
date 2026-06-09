@@ -360,7 +360,7 @@ export default function StageDisplay({
 
                   <div className="w-full flex flex-col justify-center text-center items-center relative z-10 mt-[-2rem] md:mt-[-6rem] lg:mt-[-10rem]">
                     <motion.p 
-                      className="text-xs tracking-widest text-muted-foreground mb-6" 
+                      className="text-xs tracking-widest text-muted-foreground mb-4" 
                       style={{ fontSize: '0.65rem' }}
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -370,8 +370,14 @@ export default function StageDisplay({
                     </motion.p>
 
                     <motion.h2
-                      className={`${currentRapper.name.length > 10 ? 'text-4xl sm:text-5xl md:text-5xl lg:text-6xl' : 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl'} mb-4 text-primary break-words`}
-                      style={{ textShadow: 'var(--green-glow-strong)', lineHeight: '1', letterSpacing: '-0.02em', wordBreak: 'keep-all' }}
+                      className={`${currentRapper.name.length > 10 ? 'text-6xl sm:text-7xl md:text-8xl lg:text-9xl' : 'text-7xl sm:text-8xl md:text-9xl lg:text-[10rem]'} mb-1 text-primary break-words uppercase font-bold`}
+                      style={{ 
+                        fontFamily: 'Anton, sans-serif', 
+                        textShadow: '0 0 20px rgba(146, 208, 32, 0.6), 0 0 40px rgba(146, 208, 32, 0.4)', 
+                        lineHeight: '0.9', 
+                        letterSpacing: '0.02em', 
+                        wordBreak: 'keep-all' 
+                      }}
                       initial={{ y: 20, opacity: 0, filter: 'blur(8px)' }}
                       animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
                       transition={{
@@ -384,13 +390,13 @@ export default function StageDisplay({
                     </motion.h2>
 
                     <motion.p 
-                      className="text-3xl md:text-4xl lg:text-5xl text-secondary mb-8"
-                      style={{ fontFamily: 'Rocketbrush' }}
+                      className="text-3xl md:text-4xl lg:text-5xl text-white mb-8 tracking-[0.1em] italic opacity-90"
+                      style={{ fontFamily: 'Rocketbrush, cursive' }}
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      {currentRapperTeam?.name}
+                      {currentRapperTeam?.name} TEAM
                     </motion.p>
 
                     {broadcastState.showScore && (
