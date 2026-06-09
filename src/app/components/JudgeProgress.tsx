@@ -1,4 +1,4 @@
-import { Rapper, Team, Judge, Score } from '../types';
+import { Rapper, Team, Judge, Score, BroadcastState } from '../types';
 import { Check, X } from 'lucide-react';
 
 interface JudgeProgressProps {
@@ -6,6 +6,7 @@ interface JudgeProgressProps {
   teams: Team[];
   judges: Judge[];
   scores: Record<string, Score>;
+  broadcastState?: BroadcastState;
 }
 
 export default function JudgeProgress({
@@ -13,6 +14,7 @@ export default function JudgeProgress({
   teams,
   judges,
   scores,
+  broadcastState,
 }: JudgeProgressProps) {
   const calculateRapperScore = (rapperId: string, round: number): number => {
     let total = 0;
@@ -42,10 +44,17 @@ export default function JudgeProgress({
       const total = calculateRapperScore(rapper.id, 1) + calculateRapperScore(rapper.id, 2);
       return { rapper, total };
     });
-    return results
-      .sort((a, b) => b.total - a.total)
-      .slice(0, 4)
-      .map(x => x.rapper);
+    const sorted = results.sort((a, b) => b.total - a.total);
+    const topFour = sorted.slice(0, 3).map(x => x.rapper);
+
+    if (broadcastState?.wildcardRapperId) {
+      const wildcard = results.find(r => r.rapper.id === broadcastState.wildcardRapperId);
+      if (wildcard) {
+        topFour.push(wildcard.rapper);
+      }
+    }
+
+    return topFour;
   };
 
   const topFour = getTopFour();

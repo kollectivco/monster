@@ -1,5 +1,5 @@
 import { AlertTriangle, Lock } from 'lucide-react';
-import { Rapper, Team, Score, Judge } from '../types';
+import { Rapper, Team, Score, Judge, BroadcastState } from '../types';
 import ScoringCard from './ScoringCard';
 import * as Accordion from '@radix-ui/react-accordion';
 
@@ -18,6 +18,7 @@ interface RoundScoringProps {
     updates: Partial<Score>
   ) => void;
   topFourOnly?: boolean;
+  broadcastState?: BroadcastState;
 }
 
 export default function RoundScoring({
@@ -30,6 +31,7 @@ export default function RoundScoring({
   scores,
   onUpdateScore,
   topFourOnly = false,
+  broadcastState,
 }: RoundScoringProps) {
   const calculateRapperScore = (rapperId: string, targetRound: number): number => {
     let total = 0;
@@ -81,9 +83,16 @@ export default function RoundScoring({
     });
 
     const sorted = cumulativeScores.sort((a, b) => b.total - a.total);
-    const topFour = sorted.slice(0, 4);
+    const topFour = sorted.slice(0, 3);
+    
+    if (broadcastState?.wildcardRapperId) {
+      const wildcard = cumulativeScores.find(r => r.rapper.id === broadcastState.wildcardRapperId);
+      if (wildcard) {
+        topFour.push(wildcard);
+      }
+    }
 
-    const hasTie = sorted.length > 4 && sorted[3].total === sorted[4].total;
+    const hasTie = sorted.length > 3 && sorted[2].total === sorted[3].total;
 
     return { topFour, hasTie };
   };

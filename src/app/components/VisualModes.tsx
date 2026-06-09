@@ -29,9 +29,10 @@ interface VisualProps {
   rappers: Rapper[];
   teams: Team[];
   winner?: { rapper: Rapper; team?: Team; cumulative: number };
+  topFour?: { rapper: Rapper; team?: Team; cumulative: number; round1: number; round2: number; round3: number }[];
 }
 
-export function GeneralVisuals({ state }: VisualProps) {
+export function GeneralVisuals({ state, topFour }: VisualProps) {
   if (state.mode === 'intro-logos') {
     return (
       <motion.div 
@@ -262,7 +263,7 @@ export function RoundIntros({ state }: VisualProps) {
   return null;
 }
 
-export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps) {
+export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: VisualProps) {
   if (state.mode === 'wild-card') {
     const wildCardRapper = state.currentRapperId ? rappers.find(r => r.id === state.currentRapperId) : null;
     const team = wildCardRapper ? teams.find(t => t.id === wildCardRapper.teamId) : null;
@@ -319,6 +320,8 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
   }
 
   if (state.mode === 'top-4-visual') {
+    const finalists = topFour && topFour.length > 0 ? topFour : [1,2,3,4].map(i => ({ rapper: { id: `tbd-${i}`, name: 'TBD', teamId: '' } }));
+    
     return (
       <motion.div 
         initial={{ opacity: 0, y: 100 }}
@@ -327,12 +330,23 @@ export function FinalistsVisuals({ state, rappers, teams, winner }: VisualProps)
       >
         <h1 className="text-6xl md:text-8xl text-primary mb-16" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>TOP 4 FINALISTS</h1>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-7xl">
-          {[1,2,3,4].map((i) => (
-            <div key={i} className="aspect-square border border-primary/50 bg-card/50 rounded-2xl flex flex-col items-center justify-center">
-              <span className="text-8xl text-muted-foreground/20 font-bold absolute">0{i}</span>
-              <h3 className="text-4xl text-primary z-10" style={{ fontFamily: 'Rocketbrush' }}>TBD</h3>
-            </div>
-          ))}
+          {finalists.slice(0, 4).map((item, index) => {
+            const isTBD = !item.rapper || item.rapper.id.startsWith('tbd');
+            return (
+              <div key={item.rapper?.id || index} className="aspect-square border border-primary/50 bg-card/50 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden">
+                <span className="text-8xl text-muted-foreground/20 font-bold absolute z-0">0{index + 1}</span>
+                {!isTBD && getRapperPngImage(item.rapper.name) && (
+                  <img src={getRapperPngImage(item.rapper.name)!} alt={item.rapper.name} loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-screen z-0" />
+                )}
+                <h3 className={`text-4xl ${isTBD ? 'text-primary' : 'text-primary'} z-10`} style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--bento-shadow)' }}>
+                  {item.rapper?.name || 'TBD'}
+                </h3>
+                {index === 3 && isTBD && (
+                  <p className="text-xs tracking-widest text-muted-foreground absolute bottom-6 z-10 uppercase">Wild Card</p>
+                )}
+              </div>
+            );
+          })}
         </div>
       </motion.div>
     );

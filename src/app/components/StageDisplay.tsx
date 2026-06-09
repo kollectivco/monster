@@ -131,9 +131,25 @@ export default function StageDisplay({
 
   const sortedResults = [...results].sort((a, b) => b.cumulative - a.cumulative);
 
-  const topFourAfterR2 = [...results]
+  let topFourAfterR2 = [...results]
     .sort((a, b) => b.round1 + b.round2 - (a.round1 + a.round2))
-    .slice(0, 4);
+    .slice(0, 3);
+
+  if (broadcastState.wildcardRapperId) {
+    const wildcard = results.find(r => r.rapper.id === broadcastState.wildcardRapperId);
+    if (wildcard) {
+      topFourAfterR2.push(wildcard);
+    }
+  } else {
+    topFourAfterR2.push({
+      rapper: { id: 'tbd', name: 'TBD / Wild Card', teamId: '' },
+      team: undefined,
+      round1: 0,
+      round2: 0,
+      round3: 0,
+      cumulative: 0
+    });
+  }
 
   const currentRapper = broadcastState.currentRapperId
     ? rappers.find(r => r.id === broadcastState.currentRapperId)
@@ -252,7 +268,7 @@ export default function StageDisplay({
             <motion.div key={broadcastState.mode} className="w-full h-full flex flex-col items-center justify-center">
               <GeneralVisuals state={broadcastState} rappers={rappers} teams={teams} />
               <RoundIntros state={broadcastState} rappers={rappers} teams={teams} />
-              <FinalistsVisuals state={broadcastState} rappers={rappers} teams={teams} winner={sortedResults[0]} />
+              <FinalistsVisuals state={broadcastState} rappers={rappers} teams={teams} winner={sortedResults[0]} topFour={topFourAfterR2} />
             </motion.div>
           ) : (
             <motion.div key="standard-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full w-full px-2 md:px-6 lg:px-12 mx-auto">

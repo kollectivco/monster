@@ -58,4 +58,5 @@ export interface BroadcastState {
   timerSeconds?: number;
   customText1?: string;
   customText2?: string;
+  wildcardRapperId?: string | null;
 }

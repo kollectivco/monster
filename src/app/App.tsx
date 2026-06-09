@@ -206,6 +206,7 @@ export default function App() {
         data={data}
         onUpdateScore={updateScore}
         onSwitchScreen={handleSwitchScreen}
+        broadcastState={broadcastState}
       />
     );
   }

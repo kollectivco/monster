@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { ArrowLeft } from 'lucide-react';
 import RoundScoring from './RoundScoring';
-import { AppData, Judge } from '../types';
+import { AppData, Judge, BroadcastState } from '../types';
 import logo from '../../imports/logo.webp';
 
 interface JudgeScreenProps {
@@ -15,6 +15,7 @@ interface JudgeScreenProps {
     updates: any
   ) => void;
   onSwitchScreen: () => void;
+  broadcastState: BroadcastState;
 }
 
 export default function JudgeScreen({
@@ -22,6 +23,7 @@ export default function JudgeScreen({
   data,
   onUpdateScore,
   onSwitchScreen,
+  broadcastState,
 }: JudgeScreenProps) {
   const [currentTab, setCurrentTab] = useState<string>('round1');
 
@@ -93,6 +95,7 @@ export default function JudgeScreen({
               judgeId={judge.id}
               scores={data.scores}
               onUpdateScore={onUpdateScore}
+              broadcastState={broadcastState}
             />
           </TabsContent>
 
@@ -106,6 +109,7 @@ export default function JudgeScreen({
               judgeId={judge.id}
               scores={data.scores}
               onUpdateScore={onUpdateScore}
+              broadcastState={broadcastState}
             />
           </TabsContent>
 
@@ -119,6 +123,7 @@ export default function JudgeScreen({
               judgeId={judge.id}
               scores={data.scores}
               onUpdateScore={onUpdateScore}
+              broadcastState={broadcastState}
               topFourOnly
             />
           </TabsContent>

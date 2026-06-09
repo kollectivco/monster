@@ -251,6 +251,7 @@ export default function ControlScreen({
               teams={data.teams}
               judges={data.judges}
               scores={data.scores}
+              broadcastState={broadcastState}
             />
           </TabsContent>
 
@@ -260,6 +261,7 @@ export default function ControlScreen({
               teams={data.teams}
               judges={data.judges}
               scores={data.scores}
+              broadcastState={broadcastState}
             />
           </TabsContent>
 

@@ -43,10 +43,18 @@ export default function BroadcastControl({
       const r2 = calculateRapperScore(rapper.id, 2);
       return { rapper, total: r1 + r2 };
     });
-    return cumulativeScores
-      .sort((a, b) => b.total - a.total)
-      .slice(0, 4)
-      .map(x => x.rapper);
+    
+    const sorted = cumulativeScores.sort((a, b) => b.total - a.total);
+    const top3 = sorted.slice(0, 3).map(x => x.rapper);
+    
+    if (broadcastState.wildcardRapperId) {
+      const wildcard = rappers.find(r => r.id === broadcastState.wildcardRapperId);
+      if (wildcard) {
+        top3.push(wildcard);
+      }
+    }
+    
+    return top3;
   };
 
   const getRoundLineup = (round: number): Rapper[] => {
@@ -252,7 +260,7 @@ export default function BroadcastControl({
         {broadcastState.mode === 'wild-card' && (
           <div className="grid gap-4 mt-6">
             <div>
-              <label className="text-xs text-muted-foreground mb-3 block tracking-widest" style={{ fontSize: '0.65rem' }}>SELECT WILD CARD (NON-QUALIFIERS)</label>
+              <label className="text-xs text-muted-foreground mb-3 block tracking-widest" style={{ fontSize: '0.65rem' }}>SET STAGE DISPLAY FOR WILD CARD REVEAL</label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                 <button
                   onClick={() => onUpdateBroadcast({ currentRapperId: null })}
@@ -260,7 +268,7 @@ export default function BroadcastControl({
                 >
                   — Reveal Ready —
                 </button>
-                {rappers.filter(r => !getTopFour().find(t => t.id === r.id)).map(rapper => {
+                {rappers.filter(r => !getTopFour().find(t => t.id === r.id) || r.id === broadcastState.wildcardRapperId).map(rapper => {
                   const team = teams.find(t => t.id === rapper.teamId);
                   const isActive = broadcastState.currentRapperId === rapper.id;
                   return (
@@ -278,6 +286,37 @@ export default function BroadcastControl({
             </div>
           </div>
         )}
+
+        <div className="mt-8 pt-8 border-t" style={{ borderColor: 'var(--border-muted)' }}>
+          <label className="text-xs text-muted-foreground mb-3 block tracking-widest" style={{ fontSize: '0.65rem' }}>PERMANENT WILD CARD SELECTION (FILLS 4TH SPOT)</label>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <button
+              onClick={() => onUpdateBroadcast({ wildcardRapperId: null })}
+              className={`py-2 px-2 rounded-xl border-2 text-xs flex flex-col items-center justify-center transition-all ${!broadcastState.wildcardRapperId ? 'border-primary bg-primary/10 text-primary' : 'border-transparent bg-muted text-muted-foreground hover:bg-muted/80'}`}
+            >
+              — Unselected —
+            </button>
+            {rappers.filter(r => {
+              // Exclude the top 3 auto qualifiers
+              const cumulativeScores = rappers.map(rap => ({ rap, total: calculateRapperScore(rap.id, 1) + calculateRapperScore(rap.id, 2) }));
+              const top3Ids = cumulativeScores.sort((a, b) => b.total - a.total).slice(0, 3).map(x => x.rap.id);
+              return !top3Ids.includes(r.id);
+            }).map(rapper => {
+              const team = teams.find(t => t.id === rapper.teamId);
+              const isActive = broadcastState.wildcardRapperId === rapper.id;
+              return (
+                <button
+                  key={rapper.id}
+                  onClick={() => onUpdateBroadcast({ wildcardRapperId: rapper.id })}
+                  className={`py-2 px-2 rounded-xl border-2 text-xs flex flex-col items-center justify-center text-center transition-all ${isActive ? 'border-primary bg-primary/10 text-primary shadow-[0_0_15px_rgba(146,208,32,0.3)]' : 'border-transparent bg-muted text-foreground hover:bg-muted/80'}`}
+                >
+                  <span className="font-bold mb-0.5">{rapper.name}</span>
+                  <span className="text-[9px] opacity-70">{team?.name}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
       <div className="border p-6" style={{ borderRadius: 'var(--bento-radius)', borderColor: 'var(--border-muted)', backgroundColor: 'var(--card)', boxShadow: 'var(--bento-shadow)' }}>

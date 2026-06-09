@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Download, AlertTriangle, Trophy, Medal, Award } from 'lucide-react';
-import { Rapper, Team, Judge, Score } from '../types';
+import { Rapper, Team, Judge, Score, BroadcastState } from '../types';
 
 interface ResultsProps {
   rappers: Rapper[];
   teams: Team[];
   judges: Judge[];
   scores: Record<string, Score>;
+  broadcastState?: BroadcastState;
 }
 
 interface RapperResult {
@@ -23,6 +24,7 @@ export default function Results({
   teams,
   judges,
   scores,
+  broadcastState,
 }: ResultsProps) {
   const [selectedRound, setSelectedRound] = useState<'all' | 1 | 2 | 3>('all');
 
@@ -59,9 +61,16 @@ export default function Results({
 
   const sortedResults = [...results].sort((a, b) => b.cumulative - a.cumulative);
 
-  const topFourAfterR2 = [...results]
+  let topFourAfterR2 = [...results]
     .sort((a, b) => b.round1 + b.round2 - (a.round1 + a.round2))
-    .slice(0, 4);
+    .slice(0, 3);
+
+  if (broadcastState?.wildcardRapperId) {
+    const wildcard = results.find(r => r.rapper.id === broadcastState.wildcardRapperId);
+    if (wildcard) {
+      topFourAfterR2.push(wildcard);
+    }
+  }
 
   const checkTie = (results: RapperResult[], position: number): boolean => {
     if (position >= results.length) return false;
