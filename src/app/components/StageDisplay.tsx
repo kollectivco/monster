@@ -269,7 +269,7 @@ export default function StageDisplay({
   }
 
   return (
-    <div className="bg-background text-foreground relative overflow-hidden mx-auto" style={{ width: '768px', height: '1536px', fontFamily: 'Anton, sans-serif' }}>
+    <div className="bg-background text-foreground relative overflow-hidden w-full min-h-screen flex flex-col items-center justify-center" style={{ fontFamily: 'Anton, sans-serif' }}>
       {/* Animated background */}
       <StageBackground showEqualizer={!isGeneralVisual} />
 
