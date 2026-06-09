@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Trophy, Medal, Award, Activity } from 'lucide-react';
+import { ArrowLeft, Trophy, Medal, Award, Activity, Lock } from 'lucide-react';
 import { Rapper, Team, Judge, Score, BroadcastState } from '../types';
 import logo from '../../imports/logo.webp';
 import StageBackground from './StageBackground';
@@ -151,6 +151,26 @@ export default function StageDisplay({
     });
   }
 
+  const isRound3FullyScored = () => {
+    const top4 = topFourAfterR2.filter(t => t.rapper.id !== 'tbd');
+    if (top4.length !== 4 || judges.length === 0) return false;
+    
+    let expectedCount = 16;
+    let done = 0;
+    for (const item of top4) {
+      for (const judge of judges) {
+        const key = `${judge.id}-${item.rapper.id}-3`;
+        const score = scores[key];
+        if (score && score.criteria.some(c => c > 0)) {
+          done++;
+        }
+      }
+    }
+    return done === expectedCount;
+  };
+
+  const r3Complete = isRound3FullyScored();
+
   const currentRapper = broadcastState.currentRapperId
     ? rappers.find(r => r.id === broadcastState.currentRapperId)
     : null;
@@ -211,6 +231,19 @@ export default function StageDisplay({
     'intro-logos', 'countdown-timer', 'warning-screen', 'judges-cards',
     'judge-zaza', 'judge-shahyn', 'judge-alyloka', 'judge-shehab'
   ].includes(broadcastState.mode);
+
+  if (['winner-graphic', 'podium'].includes(broadcastState.mode) && !r3Complete) {
+    return (
+      <div className="bg-background text-foreground relative overflow-hidden mx-auto flex items-center justify-center" style={{ width: '768px', height: '1536px', fontFamily: 'Anton, sans-serif' }}>
+        <StageBackground showEqualizer={false} />
+        <div className="relative z-10 text-center">
+          <Lock className="w-24 h-24 text-primary mx-auto mb-8 opacity-50" />
+          <h1 className="text-6xl text-primary mb-4" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>RESULTS PENDING</h1>
+          <p className="text-3xl text-secondary tracking-widest uppercase" style={{ textShadow: '0 0 10px rgba(0,0,0,0.5)' }}>Round 3 Not Fully Scored</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-background text-foreground relative overflow-hidden mx-auto" style={{ width: '768px', height: '1536px', fontFamily: 'Anton, sans-serif' }}>
