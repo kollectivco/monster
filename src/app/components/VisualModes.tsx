@@ -10,7 +10,7 @@ import shahynPhoto from '../../styles/photos/shahyn.webp';
 import alyPhoto from '../../styles/photos/aly.webp';
 import shehabPhoto from '../../styles/photos/shehab.webp';
 
-const photos = import.meta.glob('../../styles/photos/*.webp', { query: '?url', import: 'default', eager: true }) as Record<string, string>;
+const photos = import.meta.glob('../../styles/photos/*.{webp,jpg,jpeg,png}', { query: '?url', import: 'default', eager: true }) as Record<string, string>;
 
 const getRapperPngImage = (name: string) => {
   const normalizedName = name.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -18,9 +18,11 @@ const getRapperPngImage = (name: string) => {
     'therealdopie': 'therealdopie',
     'dezelelgenral': 'dezel',
     'hazemhany': 'hazem',
+    'xykoking': 'xykoking',
+    'avage': 'avage'
   };
   const searchKey = customMap[normalizedName] || normalizedName;
-  const match = Object.keys(photos).find(path => path.toLowerCase().includes(searchKey) && path.toLowerCase().endsWith('.webp'));
+  const match = Object.keys(photos).find(path => path.toLowerCase().includes(searchKey));
   return match ? photos[match] : null;
 };
 
@@ -320,7 +322,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
   }
 
   if (state.mode === 'top-4-visual') {
-    const finalists = topFour && topFour.length > 0 ? topFour : [1,2,3,4].map(i => ({ rapper: { id: `tbd-${i}`, name: 'TBD', teamId: '' } }));
+    const finalists = topFour && topFour.length > 0 ? topFour : [1,2,3,4].map(i => ({ rapper: { id: `tbd-${i}`, name: 'TBD', teamId: '' }, team: undefined }));
     
     return (
       <motion.div 
@@ -329,7 +331,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
         className="flex flex-col items-center justify-center min-h-screen w-full px-8"
       >
         <h1 className="text-6xl md:text-8xl text-primary mb-16" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>TOP 4 FINALISTS</h1>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-7xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
           {finalists.slice(0, 4).map((item, index) => {
             const isTBD = !item.rapper || item.rapper.id.startsWith('tbd');
             return (
