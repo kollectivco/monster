@@ -209,19 +209,19 @@ export default function BroadcastControl({
                 <button onClick={() => onUpdateBroadcast({ mode: 'final-scoring-grid' })} className={`py-2.5 px-2 rounded-xl transition-all text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1 ${broadcastState.mode === 'final-scoring-grid' ? 'bg-primary text-primary-foreground' : 'text-foreground border-2'} border-muted`} style={{ backgroundColor: broadcastState.mode === 'final-scoring-grid' ? undefined : 'var(--card)' }}><span className="font-bold">Final Scores</span></button>
                 <button 
                   disabled={!r3IsFullyScored}
-                  onClick={() => onUpdateBroadcast({ mode: 'winner-graphic' })} 
-                  className={`py-2.5 px-2 rounded-xl transition-all text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1 ${broadcastState.mode === 'winner-graphic' ? 'bg-primary text-primary-foreground' : 'text-foreground border-2'} ${!r3IsFullyScored ? 'opacity-50 cursor-not-allowed border-dashed' : 'border-muted'}`} 
-                  style={{ backgroundColor: broadcastState.mode === 'winner-graphic' ? undefined : 'var(--card)' }}
-                >
-                  <span className="font-bold">Winner Crown</span>
-                </button>
-                <button 
-                  disabled={!r3IsFullyScored}
                   onClick={() => onUpdateBroadcast({ mode: 'podium' })} 
                   className={`py-2.5 px-2 rounded-xl transition-all text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1 ${broadcastState.mode === 'podium' ? 'bg-primary text-primary-foreground' : 'text-foreground border-2'} ${!r3IsFullyScored ? 'opacity-50 cursor-not-allowed border-dashed' : 'border-muted'}`} 
                   style={{ backgroundColor: broadcastState.mode === 'podium' ? undefined : 'var(--card)' }}
                 >
                   <span className="font-bold">Podium (Top 4)</span>
+                </button>
+                <button 
+                  disabled={!r3IsFullyScored}
+                  onClick={() => onUpdateBroadcast({ mode: 'winner-graphic' })} 
+                  className={`py-2.5 px-2 rounded-xl transition-all text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1 ${broadcastState.mode === 'winner-graphic' ? 'bg-primary text-primary-foreground' : 'text-foreground border-2'} ${!r3IsFullyScored ? 'opacity-50 cursor-not-allowed border-dashed' : 'border-muted'}`} 
+                  style={{ backgroundColor: broadcastState.mode === 'winner-graphic' ? undefined : 'var(--card)' }}
+                >
+                  <span className="font-bold">Winner Crown</span>
                 </button>
               </div>
               
