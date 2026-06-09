@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Trophy, Medal, Award, Activity } from 'lucide-react';
 import { Rapper, Team, Judge, Score, BroadcastState } from '../types';
-import logo from '../../imports/Monster_Beast_Beats_To_Ehab_Fahem-1_copy-1.png';
+import logo from '../../imports/logo.webp';
 import StageBackground from './StageBackground';
 import { motion, AnimatePresence } from 'motion/react';
 import type { ConnectionStatus, SyncDiagnostics } from '../hooks/useRelationalSync';
 import { GeneralVisuals, RoundIntros, FinalistsVisuals } from './VisualModes';
 
-const photos = import.meta.glob('../../styles/photos/*.{jpeg,JPEG,jpg,png}', { query: '?url', import: 'default', eager: true }) as Record<string, string>;
+const photos = import.meta.glob('../../styles/photos/*.webp', { query: '?url', import: 'default', eager: true }) as Record<string, string>;
 
 const getRapperImage = (name: string) => {
   const normalizedName = name.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -29,7 +29,7 @@ const getRapperPngImage = (name: string) => {
     'hazemhany': 'hazem',
   };
   const searchKey = customMap[normalizedName] || normalizedName;
-  const match = Object.keys(photos).find(path => path.toLowerCase().includes(searchKey) && path.toLowerCase().endsWith('.png'));
+  const match = Object.keys(photos).find(path => path.toLowerCase().includes(searchKey) && path.toLowerCase().endsWith('.webp'));
   return match ? photos[match] : null;
 };
 
@@ -159,6 +159,17 @@ export default function StageDisplay({
   const currentRapperScore = currentRapper
     ? calculateRapperScore(currentRapper.id, broadcastState.round)
     : 0;
+
+  // Preload next rapper's image for instant switching
+  useEffect(() => {
+    if (nextRapper) {
+      const imgPath = getRapperPngImage(nextRapper.name);
+      if (imgPath) {
+        const img = new Image();
+        img.src = imgPath;
+      }
+    }
+  }, [nextRapper]);
 
   const currentRapperCriteria = currentRapper
     ? calculateRapperCriteria(currentRapper.id, broadcastState.round)
@@ -583,7 +594,7 @@ export default function StageDisplay({
                   <div className="mono font-bold text-primary mb-3" style={{ textShadow: 'var(--green-glow)', fontSize: '5rem', lineHeight: '1' }}>1</div>
                   <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-5">
                     {getRapperPngImage(sortedResults[0].rapper.name) && (
-                      <img src={getRapperPngImage(sortedResults[0].rapper.name)!} alt={sortedResults[0].rapper.name} className="w-32 h-32 object-cover rounded-full border-4 border-primary bg-primary/10 shadow-[0_0_20px_rgba(146,208,32,0.3)]" style={{ objectPosition: 'top' }} />
+                      <img src={getRapperPngImage(sortedResults[0].rapper.name)!} alt={sortedResults[0].rapper.name} loading="lazy" className="w-32 h-32 object-cover rounded-full border-4 border-primary bg-primary/10 shadow-[0_0_20px_rgba(146,208,32,0.3)]" style={{ objectPosition: 'top' }} />
                     )}
                     <div className="flex flex-col md:text-left">
                       <div className="text-4xl font-bold mb-1">{sortedResults[0].rapper.name}</div>
@@ -622,7 +633,7 @@ export default function StageDisplay({
                     </div>
                     <div className="flex items-center gap-3 text-left">
                       {getRapperPngImage(sortedResults[1].rapper.name) && (
-                        <img src={getRapperPngImage(sortedResults[1].rapper.name)!} alt={sortedResults[1].rapper.name} className="w-16 h-16 object-cover rounded-full border-2 border-secondary bg-secondary/10" style={{ objectPosition: 'top' }} />
+                        <img src={getRapperPngImage(sortedResults[1].rapper.name)!} alt={sortedResults[1].rapper.name} loading="lazy" className="w-16 h-16 object-cover rounded-full border-2 border-secondary bg-secondary/10" style={{ objectPosition: 'top' }} />
                       )}
                       <div>
                         <div className="text-xl font-bold mb-1">{sortedResults[1].rapper.name}</div>
@@ -651,7 +662,7 @@ export default function StageDisplay({
                     </div>
                     <div className="flex items-center gap-3 text-left">
                       {getRapperPngImage(sortedResults[2].rapper.name) && (
-                        <img src={getRapperPngImage(sortedResults[2].rapper.name)!} alt={sortedResults[2].rapper.name} className="w-16 h-16 object-cover rounded-full border-2 border-[#5a7a2a] bg-card" style={{ objectPosition: 'top' }} />
+                        <img src={getRapperPngImage(sortedResults[2].rapper.name)!} alt={sortedResults[2].rapper.name} loading="lazy" className="w-16 h-16 object-cover rounded-full border-2 border-[#5a7a2a] bg-card" style={{ objectPosition: 'top' }} />
                       )}
                       <div>
                         <div className="text-xl font-bold mb-1">{sortedResults[2].rapper.name}</div>
@@ -682,7 +693,7 @@ export default function StageDisplay({
                   </div>
                   <div className="flex items-center gap-3 text-left">
                     {getRapperPngImage(sortedResults[3].rapper.name) && (
-                      <img src={getRapperPngImage(sortedResults[3].rapper.name)!} alt={sortedResults[3].rapper.name} className="w-12 h-12 object-cover rounded-full border border-[#3a5a1a] bg-card" style={{ objectPosition: 'top' }} />
+                      <img src={getRapperPngImage(sortedResults[3].rapper.name)!} alt={sortedResults[3].rapper.name} loading="lazy" className="w-12 h-12 object-cover rounded-full border border-[#3a5a1a] bg-card" style={{ objectPosition: 'top' }} />
                     )}
                     <div>
                       <div className="text-lg mb-1">{sortedResults[3].rapper.name}</div>

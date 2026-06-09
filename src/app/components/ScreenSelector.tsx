@@ -1,5 +1,5 @@
 import { User, Tv, Settings } from 'lucide-react';
-import logo from '../../imports/Monster_Beast_Beats_To_Ehab_Fahem-1_copy-1.png';
+import logo from '../../imports/logo.webp';
 import { nameToSlug } from '../hooks/useHashRouter';
 
 interface ScreenSelectorProps {

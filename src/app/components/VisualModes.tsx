@@ -2,15 +2,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Rapper, Team, BroadcastState } from '../types';
 import { Smile, Clock } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import logo from '../../imports/Monster_Beast_Beats_To_Ehab_Fahem-1_copy.png';
+import logo from '../../imports/logo.webp';
 
 // Import judge photos
-import ziadPhoto from '../../styles/photos/ziad.jpg';
-import shahynPhoto from '../../styles/photos/shahyn.jpg';
-import alyPhoto from '../../styles/photos/aly.jpg';
-import shehabPhoto from '../../styles/photos/shehab.jpg';
+import ziadPhoto from '../../styles/photos/ziad.webp';
+import shahynPhoto from '../../styles/photos/shahyn.webp';
+import alyPhoto from '../../styles/photos/aly.webp';
+import shehabPhoto from '../../styles/photos/shehab.webp';
 
-const photos = import.meta.glob('../../styles/photos/*.{jpeg,JPEG,jpg,png}', { query: '?url', import: 'default', eager: true }) as Record<string, string>;
+const photos = import.meta.glob('../../styles/photos/*.webp', { query: '?url', import: 'default', eager: true }) as Record<string, string>;
 
 const getRapperPngImage = (name: string) => {
   const normalizedName = name.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -20,7 +20,7 @@ const getRapperPngImage = (name: string) => {
     'hazemhany': 'hazem',
   };
   const searchKey = customMap[normalizedName] || normalizedName;
-  const match = Object.keys(photos).find(path => path.toLowerCase().includes(searchKey) && path.toLowerCase().endsWith('.png'));
+  const match = Object.keys(photos).find(path => path.toLowerCase().includes(searchKey) && path.toLowerCase().endsWith('.webp'));
   return match ? photos[match] : null;
 };
 
@@ -196,6 +196,7 @@ export function GeneralVisuals({ state }: VisualProps) {
                   <img 
                     src={judgePhotos[j]} 
                     alt={j} 
+                    loading="lazy"
                     className="w-full h-full object-cover object-bottom opacity-80 mix-blend-screen"
                     style={{ filter: 'contrast(1.2) grayscale(0.2)' }}
                   />

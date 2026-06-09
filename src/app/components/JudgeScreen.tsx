@@ -3,7 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { ArrowLeft } from 'lucide-react';
 import RoundScoring from './RoundScoring';
 import { AppData, Judge } from '../types';
-import logo from '../../imports/Monster_Beast_Beats_To_Ehab_Fahem-1_copy-1.png';
+import logo from '../../imports/logo.webp';
 
 interface JudgeScreenProps {
   judge: Judge;

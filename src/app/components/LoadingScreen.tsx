@@ -1,4 +1,4 @@
-import logo from '../../imports/Monster_Beast_Beats_To_Ehab_Fahem-1_copy-1.png';
+import logo from '../../imports/logo.webp';
 
 interface LoadingScreenProps {
   status?: string;
