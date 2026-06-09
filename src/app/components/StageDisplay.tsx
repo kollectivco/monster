@@ -86,12 +86,10 @@ export default function StageDisplay({
 
   const calculateRapperScore = (rapperId: string, round: number): number => {
     let total = 0;
-    let votes = 0;
     judges.forEach(judge => {
       const key = `${judge.id}-${rapperId}-${round}`;
       const score = scores[key];
       if (score) {
-        votes++;
         const raw = score.criteria.reduce((a, b) => a + (b ?? 0), 0);
         const deductions =
           (score.deductions.restart ? 1 : 0) +
@@ -100,25 +98,20 @@ export default function StageDisplay({
         total += Math.max(0, raw - deductions);
       }
     });
-    return votes > 0 ? Math.round((total / votes) * 10) / 10 : 0;
+    return total;
   };
 
   const calculateRapperCriteria = (rapperId: string, round: number) => {
     let criteriaSum = [0, 0, 0, 0, 0];
-    let votes = 0;
     judges.forEach(judge => {
       const key = `${judge.id}-${rapperId}-${round}`;
       const score = scores[key];
       if (score) {
-        votes++;
         score.criteria.forEach((val, i) => {
           criteriaSum[i] += (val ?? 0);
         });
       }
     });
-    if (votes > 0) {
-      return criteriaSum.map(sum => Math.round((sum / votes) * 10) / 10);
-    }
     return criteriaSum;
   };
 
@@ -413,11 +406,11 @@ export default function StageDisplay({
                     className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-3 mt-4 w-full relative z-10"
                   >
                     {[
-                      { name: 'Lyricism & Wordplay', score: currentRapperCriteria[0], max: 10 },
-                      { name: 'Flow & Delivery', score: currentRapperCriteria[1], max: 10 },
-                      { name: 'Stage Presence & Performance', score: currentRapperCriteria[2], max: 10 },
-                      { name: 'Originality & Style', score: currentRapperCriteria[3], max: 5 },
-                      { name: 'Content & Impact', score: currentRapperCriteria[4], max: 5 },
+                      { name: 'Lyricism & Wordplay', score: currentRapperCriteria[0], max: 8 },
+                      { name: 'Flow & Delivery', score: currentRapperCriteria[1], max: 8 },
+                      { name: 'Stage Presence & Performance', score: currentRapperCriteria[2], max: 8 },
+                      { name: 'Originality & Style', score: currentRapperCriteria[3], max: 8 },
+                      { name: 'Content & Impact', score: currentRapperCriteria[4], max: 8 },
                     ].map((crit, i) => (
                       <div key={i} className="border border-border p-2 text-center flex flex-col justify-center items-center" style={{ borderRadius: 'var(--radius)', backgroundColor: 'var(--card)', boxShadow: 'var(--bento-shadow)' }}>
                         <p className="text-[9px] text-muted-foreground tracking-widest mb-1 leading-tight uppercase">{crit.name}</p>
