@@ -444,7 +444,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
               transition={{ delay: 1, duration: 1 }}
               className="relative z-10 mb-[-6rem]"
             >
-              <h1 className="text-[5rem] md:text-[6rem] lg:text-[7rem] text-secondary tracking-widest" style={{ fontFamily: 'Rocketbrush' }}>
+              <h1 className="text-[3rem] md:text-[4rem] lg:text-[5rem] text-secondary tracking-widest" style={{ fontFamily: 'Rocketbrush' }}>
                 THE CHAMPION
               </h1>
             </motion.div>
@@ -478,7 +478,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
           </>
         ) : (
           <>
-            <h1 className="text-5xl md:text-6xl text-secondary mb-4 tracking-widest relative z-10" style={{ fontFamily: 'Rocketbrush' }}>
+            <h1 className="text-4xl md:text-5xl text-secondary mb-4 tracking-widest relative z-10" style={{ fontFamily: 'Rocketbrush' }}>
               THE CHAMPION
             </h1>
             <h2 className="text-[8rem] md:text-[10rem] text-primary relative z-10" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>
