@@ -438,7 +438,7 @@ export default function StageDisplay({
                       className="mb-0 text-primary whitespace-nowrap uppercase font-bold px-2 w-full"
                       style={{ 
                         fontFamily: 'Anton, sans-serif', 
-                        fontSize: currentRapper.name.length > 10 ? 'clamp(2rem, 6vw, 6rem)' : 'clamp(3rem, 8vw, 8rem)',
+                        fontSize: currentRapper.name.length > 10 ? 'clamp(1.5rem, 4vw, 4rem)' : 'clamp(2.5rem, 6vw, 6rem)',
                         textShadow: '0 0 20px rgba(146, 208, 32, 0.6), 0 0 40px rgba(146, 208, 32, 0.4)', 
                         lineHeight: '0.9', 
                         letterSpacing: '0.02em'
@@ -455,7 +455,7 @@ export default function StageDisplay({
                     </motion.h2>
 
                     <motion.p 
-                      className="text-3xl md:text-4xl lg:text-5xl text-white mb-8 tracking-[0.1em] italic opacity-90"
+                      className="text-2xl md:text-3xl lg:text-4xl text-white mb-2 md:mb-4 tracking-[0.1em] italic opacity-90"
                       style={{ fontFamily: 'Rocketbrush, cursive' }}
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
@@ -469,16 +469,16 @@ export default function StageDisplay({
                         initial={{ scale: 0.8, opacity: 0, y: 20 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-                        className="inline-block px-10 py-6 border border-primary relative z-10 mt-2"
+                        className="inline-block px-6 py-4 md:px-8 md:py-5 border border-primary relative z-10 mt-1 scale-90 md:scale-100"
                         style={{ borderRadius: 'var(--bento-radius)', backgroundColor: 'var(--muted)', boxShadow: 'var(--green-glow)' }}
                       >
-                        <p className="text-xs text-muted-foreground mb-2 tracking-widest uppercase">CURRENT SCORE</p>
+                        <p className="text-[10px] md:text-xs text-muted-foreground mb-1 tracking-widest uppercase">CURRENT SCORE</p>
                         <p
-                          className="mono font-bold text-primary leading-none text-6xl md:text-7xl"
+                          className="mono font-bold text-primary leading-none text-5xl md:text-6xl"
                           style={{ textShadow: 'var(--green-glow)' }}
                         >
                           {currentRapperScore}
-                          <span className="text-3xl text-muted-foreground">/40</span>
+                          <span className="text-2xl md:text-3xl text-muted-foreground">/40</span>
                         </p>
                       </motion.div>
                     )}
