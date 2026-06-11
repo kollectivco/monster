@@ -414,7 +414,7 @@ export default function StageDisplay({
                 <div className="relative z-10 w-full h-full flex flex-col items-center justify-center gap-0 text-center">
                   {getRapperPngImage(currentRapper.name) && (
                     <motion.div
-                      className="w-full flex-1 min-h-0 flex justify-center items-center relative z-0 my-2"
+                      className="w-full flex-1 min-h-0 relative z-0 my-2"
                       initial={{ scale: 0.8, opacity: 0, y: -50 }}
                       animate={{ scale: 1, opacity: 1, y: 0 }}
                       transition={{ delay: 0.15, duration: 0.6, type: 'spring', bounce: 0.5 }}
@@ -422,7 +422,7 @@ export default function StageDisplay({
                       <img 
                         src={getRapperPngImage(currentRapper.name)!}
                         alt={currentRapper.name}
-                        className="h-full w-auto max-w-full object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-[1.10] origin-bottom"
+                        className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-[1.10] origin-bottom"
                       />
                     </motion.div>
                   )}
