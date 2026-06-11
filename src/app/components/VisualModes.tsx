@@ -309,7 +309,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                className="text-center"
             >
                <h2 className="text-6xl text-primary font-bold mb-1 uppercase" style={{ fontFamily: 'Anton, sans-serif', textShadow: '0 0 20px rgba(146, 208, 32, 0.6), 0 0 40px rgba(146, 208, 32, 0.4)', letterSpacing: '0.02em', lineHeight: '0.9' }}>{wildCardRapper.name}</h2>
-               <p className="text-2xl text-white tracking-[0.1em] italic opacity-90" style={{ fontFamily: 'Rocketbrush, cursive' }}>{team?.name} TEAM</p>
+               <p className="text-2xl text-white tracking-[0.1em] italic opacity-90" style={{ fontFamily: 'Rocketbrush, cursive' }}>{team?.name}</p>
             </motion.div>
           </div>
         ) : (
