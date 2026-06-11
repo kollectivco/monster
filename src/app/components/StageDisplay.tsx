@@ -403,24 +403,15 @@ export default function StageDisplay({
                 duration: 0.5,
                 ease: [0.22, 1, 0.36, 1] // Cinematic ease out
               }}
-              className="h-full max-h-full flex flex-col items-center justify-center w-full max-w-6xl mx-auto p-4 md:p-8 overflow-hidden"
+              className="h-full max-h-full flex flex-col items-center justify-between w-full max-w-6xl mx-auto p-4 md:p-8 overflow-hidden"
             >
               <motion.div
-                className="text-center border p-4 md:p-8 relative overflow-hidden w-full h-full flex flex-col items-center justify-between"
-                style={{ borderRadius: 'var(--bento-radius)', borderColor: 'var(--primary)', backgroundColor: 'var(--card)' }}
-                animate={{
-                  boxShadow: [
-                    '0 0 30px rgba(146, 208, 32, 0.4), var(--bento-shadow)',
-                    '0 0 60px rgba(146, 208, 32, 0.8), var(--bento-shadow)',
-                    '0 0 30px rgba(146, 208, 32, 0.4), var(--bento-shadow)'
-                  ]
-                }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="text-center relative w-full flex-1 flex flex-col items-center justify-between min-h-0"
               >
                 {/* Glow behind text */}
                 <div className="absolute inset-0 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
                 
-                <div className="relative z-10 w-full flex flex-col items-center justify-center gap-0 text-center">
+                <div className="relative z-10 w-full h-full flex flex-col items-center justify-center gap-0 text-center">
                   {getRapperPngImage(currentRapper.name) && (
                     <motion.div
                       className="w-full flex-1 min-h-0 flex justify-center items-center relative z-0 my-2"
@@ -431,7 +422,7 @@ export default function StageDisplay({
                       <img 
                         src={getRapperPngImage(currentRapper.name)!}
                         alt={currentRapper.name}
-                        className="h-full w-auto max-w-full object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-[1.15] origin-bottom"
+                        className="h-full w-auto max-w-full object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-[1.10] origin-bottom"
                       />
                     </motion.div>
                   )}
@@ -481,16 +472,16 @@ export default function StageDisplay({
                         initial={{ scale: 0.8, opacity: 0, y: 20 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-                        className="inline-block px-6 py-3 md:px-10 md:py-6 border border-primary relative z-10 scale-90 md:scale-100"
+                        className="inline-block px-10 py-6 border border-primary relative z-10 mt-2"
                         style={{ borderRadius: 'var(--bento-radius)', backgroundColor: 'var(--muted)', boxShadow: 'var(--green-glow)' }}
                       >
-                        <p className="text-[10px] text-muted-foreground mb-1 md:mb-2 tracking-widest uppercase">CURRENT SCORE</p>
+                        <p className="text-xs text-muted-foreground mb-2 tracking-widest uppercase">CURRENT SCORE</p>
                         <p
-                          className="mono font-bold text-primary leading-none text-5xl md:text-6xl"
+                          className="mono font-bold text-primary leading-none text-6xl md:text-7xl"
                           style={{ textShadow: 'var(--green-glow)' }}
                         >
                           {currentRapperScore}
-                          <span className="text-2xl md:text-3xl text-muted-foreground">/40</span>
+                          <span className="text-3xl text-muted-foreground">/40</span>
                         </p>
                       </motion.div>
                     )}
