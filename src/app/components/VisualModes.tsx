@@ -460,12 +460,12 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                   initial={{ y: 50, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 1.8, duration: 0.8, type: 'spring' }}
-                  className="mb-[-8rem] relative z-0"
+                  className="mb-[-4vh] md:mb-[-10vh] lg:mb-[-15vh] relative z-0"
                 >
                   <img 
                     src={getRapperPngImage(winner.rapper.name)!}
                     alt={winner.rapper.name}
-                    className="w-[900px] h-[900px] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-110"
+                    className="w-[40vh] h-[40vh] md:w-[60vh] md:h-[60vh] lg:w-[70vh] lg:h-[70vh] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-110"
                   />
                 </motion.div>
               )}

@@ -423,7 +423,7 @@ export default function StageDisplay({
                 <div className="relative z-10 w-full flex flex-col items-center justify-center gap-0 text-center">
                   {getRapperPngImage(currentRapper.name) && (
                     <motion.div
-                      className="w-full flex justify-center items-center relative z-0 mt-[-2rem] md:mt-[-6rem] lg:mt-[-8rem]"
+                      className="w-full flex justify-center items-center relative z-0 mt-[-2vh] md:mt-[-6vh] lg:mt-[-8vh]"
                       initial={{ scale: 0.8, opacity: 0, y: -50 }}
                       animate={{ scale: 1, opacity: 1, y: 0 }}
                       transition={{ delay: 0.15, duration: 0.6, type: 'spring', bounce: 0.5 }}
@@ -431,12 +431,12 @@ export default function StageDisplay({
                       <img 
                         src={getRapperPngImage(currentRapper.name)!}
                         alt={currentRapper.name}
-                        className="w-[500px] h-[500px] md:w-[800px] md:h-[800px] lg:w-[1000px] lg:h-[1000px] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-125 origin-bottom"
+                        className="w-[40vh] h-[40vh] md:w-[50vh] md:h-[50vh] lg:w-[60vh] lg:h-[60vh] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-125 origin-bottom"
                       />
                     </motion.div>
                   )}
 
-                  <div className="w-full flex flex-col justify-center text-center items-center relative z-10 mt-[-4rem] md:mt-[-10rem] lg:mt-[-14rem]">
+                  <div className="w-full flex flex-col justify-center text-center items-center relative z-10 mt-[-5vh] md:mt-[-10vh] lg:mt-[-15vh]">
                     <motion.p 
                       className="text-xs tracking-widest text-muted-foreground mb-4" 
                       style={{ fontSize: '0.65rem' }}
@@ -546,20 +546,20 @@ export default function StageDisplay({
   </AnimatePresence>
 
       {['round-standings', 'final-scoring-grid'].includes(broadcastState.mode) && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center w-full h-full overflow-hidden p-2 md:p-4 z-10 bg-background/50 backdrop-blur-sm pb-[120px]">
+          <div className="absolute inset-0 flex flex-col items-center justify-center w-full h-full overflow-hidden p-2 md:p-4 z-10 bg-background/50 backdrop-blur-sm pb-4 md:pb-8 pt-2">
             <motion.img
               src={logo}
               alt="Beast Beats Logo"
-              className="h-12 md:h-16 lg:h-20 w-auto object-contain mb-1 md:mb-2 shrink-0"
+              className="h-10 md:h-14 lg:h-16 w-auto object-contain mb-1 shrink-0"
               style={{ mixBlendMode: 'lighten' }}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             />
-            <h1 className="text-2xl md:text-4xl text-primary mb-1 md:mb-2 shrink-0" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
+            <h1 className="text-xl md:text-3xl text-primary mb-1 shrink-0" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
               {broadcastState.mode === 'final-scoring-grid' ? 'FINAL SCORES' : 'ROUND STANDINGS'}
             </h1>
-            <div className="grid gap-2 w-full max-w-5xl overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-1.5 lg:gap-x-4 lg:gap-y-2 w-full max-w-[98%] 2xl:max-w-7xl overflow-hidden">
               {(broadcastState.round === 3 ? championResults : [...results].sort((a, b) => {
                 const aTotal = broadcastState.round === 1 ? a.round1 : a.round1 + a.round2;
                 const bTotal = broadcastState.round === 1 ? b.round1 : b.round1 + b.round2;
@@ -584,13 +584,13 @@ export default function StageDisplay({
                       duration: 0.5,
                       ease: [0.34, 1.56, 0.64, 1]
                     }}
-                    className="bg-card border py-2 px-4 flex items-center justify-between min-h-0"
+                    className="bg-card border py-1 px-2 md:py-1.5 md:px-3 flex items-center justify-between min-h-0"
                     style={{ borderColor: index === 0 ? 'var(--primary)' : 'var(--border-muted)', borderRadius: 'var(--bento-radius)', boxShadow: index === 0 ? 'var(--green-glow), var(--bento-shadow)' : 'var(--bento-shadow)' }}
                   >
                     <div className="flex items-center gap-4">
                       <motion.div
-                        className="mono font-bold text-muted-foreground shrink-0"
-                        style={{ fontSize: '2.5rem', lineHeight: '1', width: '3rem' }}
+                        className="mono font-bold text-muted-foreground shrink-0 text-2xl md:text-3xl w-6 md:w-10"
+                        style={{ lineHeight: '1' }}
                         initial={{ scale: 0 }}
                         animate={{ scale: [0, 1.2, 1] }}
                         transition={{ delay: index * 0.15 + 0.2, duration: 0.4 }}
@@ -601,7 +601,7 @@ export default function StageDisplay({
                         <motion.img 
                           src={getRapperImage(result.rapper.name)!} 
                           alt={result.rapper.name}
-                          className="w-14 h-14 md:w-16 md:h-16 object-cover rounded-full border-2 shrink-0"
+                          className="w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14 object-cover rounded-full border-2 shrink-0"
                           style={{ borderColor: index === 0 ? 'var(--primary)' : 'var(--border-muted)' }}
                           initial={{ scale: 0, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
@@ -610,13 +610,13 @@ export default function StageDisplay({
                       )}
                       <div className="flex flex-col justify-center">
                         <div 
-                          className="text-2xl md:text-3xl text-primary font-bold uppercase mb-0 leading-none" 
+                          className="text-lg md:text-xl lg:text-2xl text-primary font-bold uppercase mb-0 leading-none truncate max-w-[120px] sm:max-w-[180px]"
                           style={{ fontFamily: 'Anton, sans-serif', textShadow: '0 0 10px rgba(146, 208, 32, 0.6), 0 0 20px rgba(146, 208, 32, 0.4)', letterSpacing: '0.02em' }}
                         >
                           {result.rapper.name}
                         </div>
                         <div 
-                          className="text-sm md:text-base text-white tracking-[0.1em] italic opacity-90 mt-0.5" 
+                          className="text-xs md:text-sm text-white tracking-[0.1em] italic opacity-90 mt-0.5"
                           style={{ fontFamily: 'Rocketbrush, cursive' }}
                         >
                           {result.team?.name}
@@ -638,24 +638,24 @@ export default function StageDisplay({
                     >
                       {broadcastState.round === 2 && (
                         <div className="flex flex-col items-end gap-0">
-                          <div className="mono text-sm tracking-widest text-primary leading-none" style={{ textShadow: 'var(--green-glow)' }}>
+                          <div className="mono text-xs md:text-sm tracking-widest text-primary leading-none" style={{ textShadow: 'var(--green-glow)' }}>
                             R1: {result.round1}/40
                           </div>
-                          <div className="mono text-sm tracking-widest text-primary leading-none mt-1" style={{ textShadow: 'var(--green-glow)' }}>
+                          <div className="mono text-xs md:text-sm tracking-widest text-primary leading-none mt-0.5 md:mt-1" style={{ textShadow: 'var(--green-glow)' }}>
                             R2: {result.round2}/40
                           </div>
                         </div>
                       )}
                       {broadcastState.round === 3 && (
                         <div className="flex flex-col items-end gap-0">
-                          <div className="mono text-base tracking-widest text-primary leading-none" style={{ textShadow: 'var(--green-glow)' }}>
+                          <div className="mono text-sm md:text-base tracking-widest text-primary leading-none" style={{ textShadow: 'var(--green-glow)' }}>
                             R3: {result.round3}/40
                           </div>
                         </div>
                       )}
-                      <div className="mono font-bold text-foreground leading-none" style={{ fontSize: '2.5rem' }}>
+                      <div className="mono font-bold text-foreground leading-none text-2xl md:text-3xl">
                         {totalScore}
-                        <span className="text-xl text-muted-foreground ml-1">/{maxTotal}</span>
+                        <span className="text-lg md:text-xl text-muted-foreground ml-1">/{maxTotal}</span>
                       </div>
                     </motion.div>
                   </motion.div>
