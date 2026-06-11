@@ -240,19 +240,19 @@ export function RoundIntros({ state }: VisualProps) {
         style={{ willChange: 'transform, opacity' }}
         className="flex flex-col items-center justify-center h-full min-h-full text-center pb-[120px]"
       >
-        <div className="flex justify-center mb-6 md:mb-12">
+        <div className="flex justify-center mb-4 md:mb-8">
           <img
             src={logo}
             alt="Beast Beats Logo"
-            className="w-[200px] md:w-[250px] lg:w-[300px] object-contain"
+            className="w-[150px] md:w-[180px] lg:w-[220px] object-contain"
             style={{ mixBlendMode: 'lighten' }}
           />
         </div>
-        <h1 className="text-primary mb-4 md:mb-6 whitespace-nowrap w-full px-4 text-center overflow-visible" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)', fontSize: 'clamp(2.5rem, 8vw, 10rem)' }}>
+        <h1 className="text-primary mb-3 md:mb-5 whitespace-nowrap w-full px-4 text-center overflow-visible" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)', fontSize: 'clamp(2rem, 5vw, 6rem)' }}>
           {title}
         </h1>
         <motion.h2 
-          className="text-3xl md:text-5xl text-secondary tracking-widest"
+          className="text-xl md:text-3xl text-secondary tracking-widest"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
