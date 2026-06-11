@@ -337,7 +337,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
           style={{ filter: 'drop-shadow(0 0 20px rgba(146, 208, 32, 0.4))' }}
         />
         <h1 className="text-5xl text-primary mb-6" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>TOP 4 FINALISTS</h1>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-4 w-full max-w-5xl">
+        <div className="grid grid-cols-2 gap-x-12 md:gap-x-24 gap-y-4 md:gap-y-6 w-full max-w-4xl px-4 md:px-12">
           {finalists.slice(0, 4).map((item, index) => {
             const isTBD = !item.rapper || item.rapper.id.startsWith('tbd');
             return (
@@ -348,8 +348,8 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                 </div>
 
                 {/* 2. IMAGE INSIDE THE BOX */}
-                <div 
-                  className="w-full h-[26vh] border-4 border-primary bg-card/80 rounded-2xl flex flex-col items-center justify-center overflow-hidden mb-2" 
+                <div
+                  className="w-full h-[22vh] md:h-[24vh] border-4 border-primary bg-card/80 rounded-2xl flex flex-col items-center justify-center overflow-hidden mb-2" 
                   style={{ boxShadow: 'var(--green-glow-strong)' }}
                 >
                   {!isTBD && getRapperPngImage(item.rapper.name) ? (
