@@ -403,10 +403,10 @@ export default function StageDisplay({
                 duration: 0.5,
                 ease: [0.22, 1, 0.36, 1] // Cinematic ease out
               }}
-              className="min-h-[50vh] flex flex-col items-center justify-center gap-4 md:gap-6 w-full max-w-6xl mx-auto p-6 md:p-8"
+              className="h-full max-h-full flex flex-col items-center justify-center w-full max-w-6xl mx-auto p-4 md:p-8 overflow-hidden"
             >
               <motion.div
-                className="text-center border p-6 md:p-10 relative overflow-hidden w-full"
+                className="text-center border p-4 md:p-8 relative overflow-hidden w-full h-full flex flex-col items-center justify-between"
                 style={{ borderRadius: 'var(--bento-radius)', borderColor: 'var(--primary)', backgroundColor: 'var(--card)' }}
                 animate={{
                   boxShadow: [
@@ -423,7 +423,7 @@ export default function StageDisplay({
                 <div className="relative z-10 w-full flex flex-col items-center justify-center gap-0 text-center">
                   {getRapperPngImage(currentRapper.name) && (
                     <motion.div
-                      className="w-full flex justify-center items-center relative z-0 mt-[-2vh] md:mt-[-6vh] lg:mt-[-8vh]"
+                      className="w-full flex-1 min-h-0 flex justify-center items-center relative z-0 my-2"
                       initial={{ scale: 0.8, opacity: 0, y: -50 }}
                       animate={{ scale: 1, opacity: 1, y: 0 }}
                       transition={{ delay: 0.15, duration: 0.6, type: 'spring', bounce: 0.5 }}
@@ -431,15 +431,14 @@ export default function StageDisplay({
                       <img 
                         src={getRapperPngImage(currentRapper.name)!}
                         alt={currentRapper.name}
-                        className="w-[40vh] h-[40vh] md:w-[50vh] md:h-[50vh] lg:w-[60vh] lg:h-[60vh] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-125 origin-bottom"
+                        className="h-full w-auto max-w-full object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-[1.15] origin-bottom"
                       />
                     </motion.div>
                   )}
 
-                  <div className="w-full flex flex-col justify-center text-center items-center relative z-10 mt-[-5vh] md:mt-[-10vh] lg:mt-[-15vh]">
+                  <div className="w-full flex flex-col justify-center text-center items-center relative z-10 shrink-0">
                     <motion.p 
-                      className="text-xs tracking-widest text-muted-foreground mb-4" 
-                      style={{ fontSize: '0.65rem' }}
+                      className="text-[10px] md:text-xs tracking-widest text-muted-foreground mb-1 md:mb-2 uppercase" 
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2, duration: 0.4 }}
@@ -448,10 +447,10 @@ export default function StageDisplay({
                     </motion.p>
 
                     <motion.h2
-                      className="mb-1 text-primary whitespace-nowrap uppercase font-bold px-2 w-full"
+                      className="mb-0 text-primary whitespace-nowrap uppercase font-bold px-2 w-full"
                       style={{ 
                         fontFamily: 'Anton, sans-serif', 
-                        fontSize: currentRapper.name.length > 10 ? 'clamp(2.5rem, 8vw, 8rem)' : 'clamp(3.5rem, 10vw, 10rem)',
+                        fontSize: currentRapper.name.length > 10 ? 'clamp(2rem, 6vw, 6rem)' : 'clamp(3rem, 8vw, 8rem)',
                         textShadow: '0 0 20px rgba(146, 208, 32, 0.6), 0 0 40px rgba(146, 208, 32, 0.4)', 
                         lineHeight: '0.9', 
                         letterSpacing: '0.02em'
@@ -482,16 +481,16 @@ export default function StageDisplay({
                         initial={{ scale: 0.8, opacity: 0, y: 20 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-                        className="inline-block px-10 py-6 border border-primary relative z-10"
+                        className="inline-block px-6 py-3 md:px-10 md:py-6 border border-primary relative z-10 scale-90 md:scale-100"
                         style={{ borderRadius: 'var(--bento-radius)', backgroundColor: 'var(--muted)', boxShadow: 'var(--green-glow)' }}
                       >
-                        <p className="text-xs text-muted-foreground mb-2 tracking-widest" style={{ fontSize: '0.65rem' }}>CURRENT SCORE</p>
+                        <p className="text-[10px] text-muted-foreground mb-1 md:mb-2 tracking-widest uppercase">CURRENT SCORE</p>
                         <p
-                          className="mono font-bold text-primary"
-                          style={{ textShadow: 'var(--green-glow)', fontSize: '4rem', lineHeight: '1' }}
+                          className="mono font-bold text-primary leading-none text-5xl md:text-6xl"
+                          style={{ textShadow: 'var(--green-glow)' }}
                         >
                           {currentRapperScore}
-                          <span className="text-3xl text-muted-foreground">/40</span>
+                          <span className="text-2xl md:text-3xl text-muted-foreground">/40</span>
                         </p>
                       </motion.div>
                     )}
@@ -503,7 +502,7 @@ export default function StageDisplay({
                     initial={{ scale: 0.8, opacity: 0, y: 20 }}
                     animate={{ scale: 1, opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-                    className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-3 mt-4 w-full relative z-10"
+                    className="grid grid-cols-2 md:grid-cols-5 gap-1.5 md:gap-3 mt-2 md:mt-4 w-full relative z-10 shrink-0"
                   >
                     {[
                       { name: 'Lyricism & Wordplay', score: currentRapperCriteria[0], max: 8 },
@@ -559,7 +558,7 @@ export default function StageDisplay({
             <h1 className="text-xl md:text-3xl text-primary mb-1 shrink-0" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
               {broadcastState.mode === 'final-scoring-grid' ? 'FINAL SCORES' : 'ROUND STANDINGS'}
             </h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-1.5 lg:gap-x-4 lg:gap-y-2 w-full max-w-[98%] 2xl:max-w-7xl overflow-hidden">
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 md:gap-2 lg:gap-x-4 lg:gap-y-2 w-full max-w-[98%] 2xl:max-w-7xl overflow-hidden h-full max-h-full content-center">
               {(broadcastState.round === 3 ? championResults : [...results].sort((a, b) => {
                 const aTotal = broadcastState.round === 1 ? a.round1 : a.round1 + a.round2;
                 const bTotal = broadcastState.round === 1 ? b.round1 : b.round1 + b.round2;
@@ -584,12 +583,12 @@ export default function StageDisplay({
                       duration: 0.5,
                       ease: [0.34, 1.56, 0.64, 1]
                     }}
-                    className="bg-card border py-1 px-2 md:py-1.5 md:px-3 flex items-center justify-between min-h-0"
+                    className="bg-card border py-0.5 px-1 sm:py-1 sm:px-2 md:py-1.5 md:px-3 flex items-center justify-between min-h-0"
                     style={{ borderColor: index === 0 ? 'var(--primary)' : 'var(--border-muted)', borderRadius: 'var(--bento-radius)', boxShadow: index === 0 ? 'var(--green-glow), var(--bento-shadow)' : 'var(--bento-shadow)' }}
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1 sm:gap-3 md:gap-4 overflow-hidden">
                       <motion.div
-                        className="mono font-bold text-muted-foreground shrink-0 text-2xl md:text-3xl w-6 md:w-10"
+                        className="mono font-bold text-muted-foreground shrink-0 text-xl sm:text-2xl md:text-3xl w-5 sm:w-6 md:w-10"
                         style={{ lineHeight: '1' }}
                         initial={{ scale: 0 }}
                         animate={{ scale: [0, 1.2, 1] }}
@@ -610,13 +609,13 @@ export default function StageDisplay({
                       )}
                       <div className="flex flex-col justify-center">
                         <div 
-                          className="text-lg md:text-xl lg:text-2xl text-primary font-bold uppercase mb-0 leading-none truncate max-w-[120px] sm:max-w-[180px]"
+                          className="text-sm sm:text-base md:text-xl lg:text-2xl text-primary font-bold uppercase mb-0 leading-none truncate max-w-[90px] sm:max-w-[150px]"
                           style={{ fontFamily: 'Anton, sans-serif', textShadow: '0 0 10px rgba(146, 208, 32, 0.6), 0 0 20px rgba(146, 208, 32, 0.4)', letterSpacing: '0.02em' }}
                         >
                           {result.rapper.name}
                         </div>
                         <div 
-                          className="text-xs md:text-sm text-white tracking-[0.1em] italic opacity-90 mt-0.5"
+                          className="text-[10px] sm:text-xs md:text-sm text-white tracking-[0.1em] italic opacity-90 mt-0.5 truncate max-w-[90px] sm:max-w-[150px]"
                           style={{ fontFamily: 'Rocketbrush, cursive' }}
                         >
                           {result.team?.name}
@@ -638,24 +637,24 @@ export default function StageDisplay({
                     >
                       {broadcastState.round === 2 && (
                         <div className="flex flex-col items-end gap-0">
-                          <div className="mono text-xs md:text-sm tracking-widest text-primary leading-none" style={{ textShadow: 'var(--green-glow)' }}>
+                          <div className="mono text-[10px] sm:text-xs md:text-sm tracking-widest text-primary leading-none" style={{ textShadow: 'var(--green-glow)' }}>
                             R1: {result.round1}/40
                           </div>
-                          <div className="mono text-xs md:text-sm tracking-widest text-primary leading-none mt-0.5 md:mt-1" style={{ textShadow: 'var(--green-glow)' }}>
+                          <div className="mono text-[10px] sm:text-xs md:text-sm tracking-widest text-primary leading-none mt-0.5 md:mt-1" style={{ textShadow: 'var(--green-glow)' }}>
                             R2: {result.round2}/40
                           </div>
                         </div>
                       )}
                       {broadcastState.round === 3 && (
                         <div className="flex flex-col items-end gap-0">
-                          <div className="mono text-sm md:text-base tracking-widest text-primary leading-none" style={{ textShadow: 'var(--green-glow)' }}>
+                          <div className="mono text-[10px] sm:text-xs md:text-base tracking-widest text-primary leading-none" style={{ textShadow: 'var(--green-glow)' }}>
                             R3: {result.round3}/40
                           </div>
                         </div>
                       )}
-                      <div className="mono font-bold text-foreground leading-none text-2xl md:text-3xl">
+                      <div className="mono font-bold text-foreground leading-none text-lg sm:text-xl md:text-3xl shrink-0">
                         {totalScore}
-                        <span className="text-lg md:text-xl text-muted-foreground ml-1">/{maxTotal}</span>
+                        <span className="text-sm sm:text-base md:text-xl text-muted-foreground ml-0.5 md:ml-1">/{maxTotal}</span>
                       </div>
                     </motion.div>
                   </motion.div>
