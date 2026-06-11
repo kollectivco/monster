@@ -64,7 +64,7 @@ export function GeneralVisuals({ state, topFour }: VisualProps) {
         <motion.img
           src={logo}
           alt="Beast Beats"
-          className="w-[350px] md:w-[500px] lg:w-[650px] object-contain relative z-10 max-h-[80vh]"
+          className="w-[500px] object-contain relative z-10 max-h-[80vh]"
           style={{ filter: 'drop-shadow(0 0 30px rgba(146, 208, 32, 0.5))' }}
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -99,7 +99,7 @@ export function GeneralVisuals({ state, topFour }: VisualProps) {
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
         />
 
-        <div className="relative z-10 flex flex-col items-center justify-center max-w-3xl p-12 md:p-20">
+        <div className="relative z-10 flex flex-col items-center justify-center max-w-3xl p-20">
           <motion.div
             animate={{ 
               opacity: [0.7, 1, 0.7],
@@ -109,7 +109,7 @@ export function GeneralVisuals({ state, topFour }: VisualProps) {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="mb-8"
           >
-            <Smile className="w-32 h-32 md:w-48 md:h-48 text-primary" strokeWidth={1.5} />
+            <Smile className="w-40 h-40 text-primary" strokeWidth={1.5} />
           </motion.div>
 
           <motion.div 
@@ -123,7 +123,7 @@ export function GeneralVisuals({ state, topFour }: VisualProps) {
           </motion.div>
 
           <motion.h1 
-            className="text-7xl md:text-9xl text-primary leading-none mb-4 tracking-widest" 
+            className="text-8xl text-primary leading-none mb-4 tracking-widest" 
             style={{ fontFamily: 'Rocketbrush', textShadow: '0 0 30px rgba(146, 208, 32, 0.6)' }}
             animate={{ scale: [1, 1.02, 1], textShadow: ['0 0 20px rgba(146,208,32,0.4)', '0 0 40px rgba(146,208,32,0.8)', '0 0 20px rgba(146,208,32,0.4)'] }}
             transition={{ duration: 1.5, repeat: Infinity }}
@@ -131,7 +131,7 @@ export function GeneralVisuals({ state, topFour }: VisualProps) {
             SMILE
           </motion.h1>
           
-          <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-[0.4em] uppercase mt-2 text-center">
+          <h2 className="text-3xl font-bold text-foreground tracking-[0.4em] uppercase mt-2 text-center">
             YOU ARE ON SPOT
           </h2>
           
@@ -179,7 +179,7 @@ export function GeneralVisuals({ state, topFour }: VisualProps) {
     return (
       <div className="flex flex-col items-center justify-center h-full min-h-full gap-12 w-full px-12">
         {state.mode === 'judges-cards' && <h2 className="text-4xl text-primary tracking-widest mb-8" style={{ fontFamily: 'Rocketbrush' }}>THE JUDGES</h2>}
-        <div className={`grid gap-8 w-full ${judgesToShow.length === 1 ? 'max-w-md' : 'grid-cols-2 md:grid-cols-4 max-w-7xl'}`}>
+        <div className={`grid gap-8 w-full ${judgesToShow.length === 1 ? 'max-w-md' : 'grid-cols-4 max-w-7xl'}`}>
           {judgesToShow.map((j, i) => (
             <motion.div
               key={j}
@@ -210,7 +210,7 @@ export function GeneralVisuals({ state, topFour }: VisualProps) {
               )}
 
               {/* Text Layer */}
-              <h3 className={`${judgesToShow.length === 1 ? 'text-5xl md:text-7xl mb-2' : 'text-3xl md:text-5xl'} text-primary relative z-10 w-full`} style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>{j}</h3>
+              <h3 className={`${judgesToShow.length === 1 ? 'text-6xl mb-2' : 'text-4xl'} text-primary relative z-10 w-full`} style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>{j}</h3>
 
             </motion.div>
           ))}
@@ -240,11 +240,11 @@ export function RoundIntros({ state }: VisualProps) {
         style={{ willChange: 'transform, opacity' }}
         className="flex flex-col items-center justify-center h-full min-h-full text-center pb-[120px]"
       >
-        <div className="flex justify-center mb-8 md:mb-12">
+        <div className="flex justify-center mb-12">
           <img
             src={logo}
             alt="Beast Beats Logo"
-            className="w-[250px] md:w-[350px] lg:w-[450px] object-contain"
+            className="w-[350px] object-contain"
             style={{ mixBlendMode: 'lighten' }}
           />
         </div>
@@ -252,7 +252,7 @@ export function RoundIntros({ state }: VisualProps) {
           {title}
         </h1>
         <motion.h2 
-          className="text-3xl md:text-6xl text-secondary tracking-widest"
+          className="text-6xl text-secondary tracking-widest"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
@@ -278,7 +278,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
         transition={{ type: 'spring', damping: 15, stiffness: 100 }}
         className="flex flex-col items-center justify-center h-full min-h-full w-full pb-[120px]"
       >
-        <h1 className="text-7xl md:text-[8rem] text-secondary mb-12" style={{ fontFamily: 'Rocketbrush' }}>
+        <h1 className="text-[8rem] text-secondary mb-12" style={{ fontFamily: 'Rocketbrush' }}>
           WILD CARD
         </h1>
         {wildCardRapper ? (
@@ -287,7 +287,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", bounce: 0.5 }}
-              className="w-80 h-80 md:w-96 md:h-96 border-4 border-primary bg-primary/10 rounded-full flex flex-col items-center justify-center text-center overflow-hidden mb-8 relative" 
+              className="w-96 h-96 border-4 border-primary bg-primary/10 rounded-full flex flex-col items-center justify-center text-center overflow-hidden mb-8 relative" 
               style={{ boxShadow: '0 0 80px rgba(146, 208, 32, 0.4)' }}
             >
               {getRapperPngImage(wildCardRapper.name) ? (
@@ -308,7 +308,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                transition={{ delay: 0.3 }}
                className="text-center"
             >
-               <h2 className="text-5xl md:text-7xl text-primary font-bold mb-1 uppercase" style={{ fontFamily: 'Anton, sans-serif', textShadow: '0 0 20px rgba(146, 208, 32, 0.6), 0 0 40px rgba(146, 208, 32, 0.4)', letterSpacing: '0.02em', lineHeight: '0.9' }}>{wildCardRapper.name}</h2>
+               <h2 className="text-6xl text-primary font-bold mb-1 uppercase" style={{ fontFamily: 'Anton, sans-serif', textShadow: '0 0 20px rgba(146, 208, 32, 0.6), 0 0 40px rgba(146, 208, 32, 0.4)', letterSpacing: '0.02em', lineHeight: '0.9' }}>{wildCardRapper.name}</h2>
                <p className="text-2xl text-white tracking-[0.1em] italic opacity-90" style={{ fontFamily: 'Rocketbrush, cursive' }}>{team?.name} TEAM</p>
             </motion.div>
           </div>
@@ -328,28 +328,28 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
       <motion.div 
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col items-center justify-center h-full max-h-full overflow-hidden w-full px-4 md:px-8 py-2 pb-[120px]"
+        className="flex flex-col items-center justify-center h-full max-h-full overflow-hidden w-full px-8 py-2 pb-[120px]"
       >
         <img
           src={logo}
           alt="Beast Beats"
-          className="h-12 sm:h-16 md:h-20 lg:h-24 mb-2 md:mb-4 object-contain"
+          className="h-20 mb-4 object-contain"
           style={{ filter: 'drop-shadow(0 0 20px rgba(146, 208, 32, 0.4))' }}
         />
-        <h1 className="text-4xl md:text-6xl text-primary mb-4 md:mb-6" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>TOP 4 FINALISTS</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 md:gap-x-8 md:gap-y-4 w-full max-w-5xl">
+        <h1 className="text-5xl text-primary mb-6" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>TOP 4 FINALISTS</h1>
+        <div className="grid grid-cols-2 gap-x-8 gap-y-4 w-full max-w-5xl">
           {finalists.slice(0, 4).map((item, index) => {
             const isTBD = !item.rapper || item.rapper.id.startsWith('tbd');
             return (
               <div key={item.rapper?.id || index} className="flex flex-col items-center w-full">
                 {/* 1. RANK NUMBER ABOVE */}
-                <div className="text-3xl md:text-4xl text-muted-foreground/50 font-bold mb-1">
+                <div className="text-4xl text-muted-foreground/50 font-bold mb-1">
                   0{index + 1}
                 </div>
 
                 {/* 2. IMAGE INSIDE THE BOX */}
                 <div 
-                  className="w-full h-[22vh] md:h-[26vh] border-4 border-primary bg-card/80 rounded-2xl flex flex-col items-center justify-center overflow-hidden mb-2" 
+                  className="w-full h-[26vh] border-4 border-primary bg-card/80 rounded-2xl flex flex-col items-center justify-center overflow-hidden mb-2" 
                   style={{ boxShadow: 'var(--green-glow-strong)' }}
                 >
                   {!isTBD && getRapperPngImage(item.rapper.name) ? (
@@ -362,9 +362,9 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                     />
                   ) : (
                     <div className="text-center p-2">
-                      <h3 className="text-2xl md:text-4xl text-primary mb-1" style={{ fontFamily: 'Rocketbrush' }}>TBD</h3>
+                      <h3 className="text-3xl text-primary mb-1" style={{ fontFamily: 'Rocketbrush' }}>TBD</h3>
                       {index === 3 && (
-                        <p className="text-xs md:text-sm tracking-widest text-muted-foreground uppercase font-bold">Wild Card</p>
+                        <p className="text-sm tracking-widest text-muted-foreground uppercase font-bold">Wild Card</p>
                       )}
                     </div>
                   )}
@@ -373,7 +373,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                 {/* 3. NAME (+ team) BELOW */}
                 <div className="text-center w-full px-2">
                   <h3 
-                    className="text-3xl md:text-5xl text-primary break-words leading-none uppercase font-bold" 
+                    className="text-4xl text-primary break-words leading-none uppercase font-bold" 
                     style={{ 
                       fontFamily: 'Anton, sans-serif', 
                       textShadow: '0 0 10px rgba(146, 208, 32, 0.6), 0 0 20px rgba(146, 208, 32, 0.4)',
@@ -383,7 +383,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                     {!isTBD ? item.rapper.name : 'TBD'}
                   </h3>
                   {!isTBD && item.team && (
-                    <p className="text-sm md:text-base text-white tracking-[0.1em] mt-1 italic opacity-90"
+                    <p className="text-base text-white tracking-[0.1em] mt-1 italic opacity-90"
                        style={{ fontFamily: 'Rocketbrush, cursive' }}>
                       {item.team.name}
                     </p>
@@ -405,13 +405,13 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
         className="flex flex-row items-center justify-center h-full min-h-full w-full relative overflow-hidden"
       >
         <div className="flex-1 h-full bg-primary/10 border-r-4 border-primary flex items-center justify-center pb-[120px]">
-          <h2 className="text-6xl md:text-9xl text-primary" style={{ fontFamily: 'Rocketbrush' }}>FINALIST A</h2>
+          <h2 className="text-8xl text-primary" style={{ fontFamily: 'Rocketbrush' }}>FINALIST A</h2>
         </div>
         <div className="absolute z-10 w-48 h-48 bg-background border-4 border-primary rounded-full flex items-center justify-center" style={{ boxShadow: 'var(--green-glow-strong)' }}>
           <span className="text-6xl text-primary font-bold italic">VS</span>
         </div>
         <div className="flex-1 h-full bg-secondary/10 border-l-4 border-secondary flex items-center justify-center pb-[120px]">
-          <h2 className="text-6xl md:text-9xl text-secondary" style={{ fontFamily: 'Rocketbrush' }}>FINALIST B</h2>
+          <h2 className="text-8xl text-secondary" style={{ fontFamily: 'Rocketbrush' }}>FINALIST B</h2>
         </div>
       </motion.div>
     );
@@ -432,7 +432,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
             <motion.img
               src={logo}
               alt="Beast Beats Logo"
-              className="h-20 md:h-28 lg:h-32 w-auto object-contain mb-4 md:mb-6 relative z-10"
+              className="h-28 w-auto object-contain mb-6 relative z-10"
               style={{ mixBlendMode: 'lighten' }}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -442,9 +442,9 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1, duration: 1 }}
-              className="relative z-10 mb-[-2rem] md:mb-[-4rem] lg:mb-[-6rem]"
+              className="relative z-10 mb-[-6rem]"
             >
-              <h1 className="text-6xl md:text-8xl lg:text-[8rem] text-secondary tracking-widest" style={{ fontFamily: 'Rocketbrush' }}>
+              <h1 className="text-[8rem] text-secondary tracking-widest" style={{ fontFamily: 'Rocketbrush' }}>
                 THE CHAMPION
               </h1>
             </motion.div>
@@ -460,28 +460,28 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                   initial={{ y: 50, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 1.8, duration: 0.8, type: 'spring' }}
-                  className="mb-[-4rem] md:mb-[-8rem] lg:mb-[-16rem] relative z-0"
+                  className="mb-[-8rem] relative z-0"
                 >
                   <img 
                     src={getRapperPngImage(winner.rapper.name)!}
                     alt={winner.rapper.name}
-                    className="w-[500px] h-[500px] md:w-[800px] md:h-[800px] lg:w-[1200px] lg:h-[1200px] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-110"
+                    className="w-[900px] h-[900px] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-110"
                   />
                 </motion.div>
               )}
 
-              <h2 className={`${winner.rapper.name.length > 10 ? 'text-4xl sm:text-5xl md:text-6xl lg:text-7xl' : 'text-5xl sm:text-7xl md:text-8xl lg:text-9xl'} text-primary font-bold mb-2 relative z-10 break-words`} style={{ textShadow: 'var(--green-glow-strong)', wordBreak: 'keep-all' }}>
+              <h2 className={`${winner.rapper.name.length > 10 ? 'text-6xl' : 'text-8xl'} text-primary font-bold mb-2 relative z-10 break-words`} style={{ textShadow: 'var(--green-glow-strong)', wordBreak: 'keep-all' }}>
                 {winner.rapper.name}
               </h2>
-              <p className="text-2xl md:text-3xl text-secondary tracking-[0.2em] uppercase mb-0 relative z-10" style={{ fontFamily: 'Rocketbrush' }}>{winner.team?.name}</p>
+              <p className="text-3xl text-secondary tracking-[0.2em] uppercase mb-0 relative z-10" style={{ fontFamily: 'Rocketbrush' }}>{winner.team?.name}</p>
             </motion.div>
           </>
         ) : (
           <>
-            <h1 className="text-6xl md:text-8xl text-secondary mb-4 tracking-widest relative z-10" style={{ fontFamily: 'Rocketbrush' }}>
+            <h1 className="text-7xl text-secondary mb-4 tracking-widest relative z-10" style={{ fontFamily: 'Rocketbrush' }}>
               THE CHAMPION
             </h1>
-            <h2 className="text-8xl md:text-[12rem] text-primary relative z-10" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>
+            <h2 className="text-[12rem] text-primary relative z-10" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>
               WINNER
             </h2>
           </>
@@ -522,7 +522,7 @@ function TimerVisual({ seconds: initialSeconds, label, alertAt = 10, isCountdown
         <img
           src={logo}
           alt="Beast Beats Logo"
-          className="h-32 md:h-48 lg:h-56 w-auto object-contain"
+          className="h-56 w-auto object-contain"
           style={{ mixBlendMode: 'lighten' }}
         />
       </div>
@@ -530,7 +530,7 @@ function TimerVisual({ seconds: initialSeconds, label, alertAt = 10, isCountdown
       <motion.div
         animate={isAlert ? { scale: [1, 1.05, 1], color: ['#ef4444', '#ffffff', '#ef4444'] } : {}}
         transition={isAlert ? { duration: 0.5, repeat: Infinity } : {}}
-        className="text-[10rem] md:text-[15rem] font-bold font-mono leading-none"
+        className="text-[15rem] font-bold font-mono leading-none"
         style={{ color: isAlert ? '#ef4444' : 'var(--primary)', textShadow: isAlert ? '0 0 50px #ef4444' : 'var(--green-glow)' }}
       >
         {mins.toString().padStart(2, '0')}:{secs.toString().padStart(2, '0')}
