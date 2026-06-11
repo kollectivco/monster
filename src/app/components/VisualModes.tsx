@@ -373,7 +373,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                 {/* 3. NAME (+ team) BELOW */}
                 <div className="text-center w-full px-2">
                   <h3 
-                    className="text-4xl text-primary break-words leading-none uppercase font-bold" 
+                    className="text-2xl md:text-3xl text-primary truncate leading-none uppercase font-bold" 
                     style={{ 
                       fontFamily: 'Anton, sans-serif', 
                       textShadow: '0 0 10px rgba(146, 208, 32, 0.6), 0 0 20px rgba(146, 208, 32, 0.4)',
