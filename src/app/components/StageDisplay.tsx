@@ -350,7 +350,7 @@ export default function StageDisplay({
             </motion.div>
           ) : (
             <motion.div key="standard-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full max-h-full flex flex-col px-6 md:px-16 lg:px-32 py-2 md:py-6 mx-auto min-h-0">
-              {!(broadcastState.mode === 'now-performing' && !currentRapper) && (
+              {!(broadcastState.mode === 'now-performing' && !currentRapper) && !['round-standings', 'final-scoring-grid'].includes(broadcastState.mode) && (
                 <header className="mb-2 md:mb-4 text-center shrink-0">
                   <div className="flex justify-center mb-1 md:mb-2">
                     <img
@@ -515,14 +515,14 @@ export default function StageDisplay({
             <motion.img
               src={logo}
               alt="Beast Beats Logo"
-              className="h-10 md:h-14 lg:h-16 w-auto object-contain mb-1 shrink-0"
+              className="h-20 md:h-28 lg:h-36 w-auto object-contain mb-2 md:mb-4 shrink-0"
               style={{ mixBlendMode: 'lighten' }}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             />
-            <h1 className="text-xl md:text-3xl text-primary mb-1 shrink-0" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
-              {broadcastState.mode === 'final-scoring-grid' ? 'FINAL SCORES' : 'ROUND STANDINGS'}
+            <h1 className="text-2xl md:text-5xl text-primary mb-6 md:mb-10 shrink-0" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
+              {broadcastState.mode === 'final-scoring-grid' ? 'FINAL SCORES' : `ROUND ${broadcastState.round} STANDINGS`}
             </h1>
             <div className="flex flex-col items-center gap-1.5 md:gap-2 w-full mx-auto z-10 relative">
               {(broadcastState.round === 3 ? championResults : [...results].sort((a, b) => {
