@@ -67,20 +67,7 @@ export default function StageDisplay({
   const [revealedPositions, setRevealedPositions] = useState<number[]>([]);
   const [showDebug, setShowDebug] = useState(false);
 
-  const [scale, setScale] = useState(1);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const scaleX = window.innerWidth / 768;
-      const scaleY = window.innerHeight / 1536;
-      setScale(Math.min(scaleX, scaleY));
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Initial calculation
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     if (broadcastState.mode === 'podium') {
@@ -257,13 +244,9 @@ export default function StageDisplay({
     return (
       <div className="w-screen h-screen bg-black overflow-hidden flex items-center justify-center">
         <div 
-          className="bg-background text-foreground relative overflow-hidden flex items-center justify-center" 
+          className="bg-background text-foreground relative overflow-hidden flex items-center justify-center w-full h-full" 
           style={{ 
-            width: '768px', 
-            height: '1536px', 
-            fontFamily: 'Anton, sans-serif',
-            transform: `scale(${scale})`,
-            transformOrigin: 'center center'
+            fontFamily: 'Anton, sans-serif'
           }}
         >
           <StageBackground showEqualizer={false} />
@@ -281,13 +264,9 @@ export default function StageDisplay({
     return (
       <div className="w-screen h-screen bg-black overflow-hidden flex items-center justify-center">
         <div 
-          className="bg-background text-foreground relative overflow-hidden flex items-center justify-center" 
+          className="bg-background text-foreground relative overflow-hidden flex items-center justify-center w-full h-full" 
           style={{ 
-            width: '768px', 
-            height: '1536px', 
-            fontFamily: 'Anton, sans-serif',
-            transform: `scale(${scale})`,
-            transformOrigin: 'center center'
+            fontFamily: 'Anton, sans-serif'
           }}
         >
           <StageBackground showEqualizer={false} />
@@ -308,13 +287,9 @@ export default function StageDisplay({
   return (
     <div className="w-screen h-screen bg-black overflow-hidden flex items-center justify-center">
       <div 
-        className="bg-background text-foreground relative overflow-hidden" 
+        className="bg-background text-foreground relative overflow-hidden w-full h-full" 
         style={{ 
-          width: '768px', 
-          height: '1536px', 
-          fontFamily: 'Anton, sans-serif',
-          transform: `scale(${scale})`,
-          transformOrigin: 'center center'
+          fontFamily: 'Anton, sans-serif'
         }}
       >
       {/* Animated background */}
