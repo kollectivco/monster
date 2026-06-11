@@ -349,18 +349,18 @@ export default function StageDisplay({
               <FinalistsVisuals state={broadcastState} rappers={rappers} teams={teams} winner={championResults[0]} topFour={topFourAfterR2} />
             </motion.div>
           ) : (
-            <motion.div key="standard-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full max-h-full flex flex-col px-6 md:px-16 lg:px-32 mx-auto min-h-0">
+            <motion.div key="standard-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full max-h-full flex flex-col px-6 md:px-16 lg:px-32 py-2 md:py-6 mx-auto min-h-0">
               {!(broadcastState.mode === 'now-performing' && !currentRapper) && (
                 <header className="mb-2 md:mb-4 text-center shrink-0">
                   <div className="flex justify-center mb-1 md:mb-2">
                     <img
                       src={logo}
                       alt="Beast Beats Logo"
-                      className="h-20 md:h-28 lg:h-32 w-auto object-contain"
+                      className="h-16 md:h-20 lg:h-24 w-auto object-contain"
                       style={{ mixBlendMode: 'lighten' }}
                     />
                   </div>
-                  <p className="text-xl md:text-2xl tracking-widest text-muted-foreground" style={{ fontFamily: 'Rocketbrush' }}>
+                  <p className="text-lg md:text-xl tracking-widest text-muted-foreground" style={{ fontFamily: 'Rocketbrush' }}>
                     ROUND {broadcastState.round}
                   </p>
                 </header>
@@ -524,7 +524,7 @@ export default function StageDisplay({
             <h1 className="text-xl md:text-3xl text-primary mb-1 shrink-0" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
               {broadcastState.mode === 'final-scoring-grid' ? 'FINAL SCORES' : 'ROUND STANDINGS'}
             </h1>
-            <div className="flex flex-col gap-1 w-full max-w-4xl mx-auto z-10 relative">
+            <div className="flex flex-col gap-1.5 md:gap-2 w-full max-w-3xl mx-auto z-10 relative">
               {(broadcastState.round === 3 ? championResults : [...results].sort((a, b) => {
                 const aTotal = broadcastState.round === 1 ? a.round1 : a.round1 + a.round2;
                 const bTotal = broadcastState.round === 1 ? b.round1 : b.round1 + b.round2;
@@ -549,12 +549,11 @@ export default function StageDisplay({
                       duration: 0.5,
                       ease: [0.34, 1.56, 0.64, 1]
                     }}
-                    className="bg-card border py-1 px-4 flex items-center justify-between min-h-0 shrink-0"
+                    className="bg-card border py-1.5 md:py-2 px-4 md:px-6 flex items-center justify-center gap-3 md:gap-4 min-h-0 shrink-0 scale-95 md:scale-100 relative"
                     style={{ borderColor: index === 0 ? 'var(--primary)' : 'var(--border-muted)', borderRadius: 'var(--bento-radius)', boxShadow: index === 0 ? 'var(--green-glow), var(--bento-shadow)' : 'var(--bento-shadow)' }}
                   >
-                    <div className="flex items-center gap-4 overflow-hidden">
                       <motion.div
-                        className="mono font-bold text-muted-foreground shrink-0 text-3xl w-8 text-center"
+                        className="mono font-bold text-muted-foreground shrink-0 text-3xl w-8 text-center absolute left-4 md:left-6"
                         style={{ lineHeight: '1' }}
                         initial={{ scale: 0 }}
                         animate={{ scale: [0, 1.2, 1] }}
@@ -573,21 +572,20 @@ export default function StageDisplay({
                           transition={{ delay: index * 0.15 + 0.3, duration: 0.4 }}
                         />
                       )}
-                      <div className="flex flex-col justify-center">
+                      <div className="flex flex-col justify-center text-left w-36 md:w-48 shrink-0">
                         <div 
-                          className="text-2xl text-primary font-bold uppercase mb-0 leading-none truncate max-w-[200px]"
+                          className="text-2xl text-primary font-bold uppercase mb-0 leading-none truncate w-full"
                           style={{ fontFamily: 'Anton, sans-serif', textShadow: '0 0 10px rgba(146, 208, 32, 0.6), 0 0 20px rgba(146, 208, 32, 0.4)', letterSpacing: '0.02em' }}
                         >
                           {result.rapper.name}
                         </div>
                         <div 
-                          className="text-sm text-white tracking-[0.1em] italic opacity-90 mt-0.5 truncate max-w-[200px]"
+                          className="text-sm text-white tracking-[0.1em] italic opacity-90 mt-0.5 truncate w-full"
                           style={{ fontFamily: 'Rocketbrush, cursive' }}
                         >
                           {result.team?.name}
                         </div>
                       </div>
-                    </div>
                     <motion.div
                       className="text-right flex items-center gap-4 shrink-0"
                       initial={{ scale: 0 }}
