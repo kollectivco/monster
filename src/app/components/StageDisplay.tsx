@@ -349,18 +349,18 @@ export default function StageDisplay({
               <FinalistsVisuals state={broadcastState} rappers={rappers} teams={teams} winner={championResults[0]} topFour={topFourAfterR2} />
             </motion.div>
           ) : (
-            <motion.div key="standard-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full w-full px-2 md:px-6 lg:px-12 mx-auto">
+            <motion.div key="standard-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full max-h-full flex flex-col px-2 md:px-6 lg:px-12 mx-auto min-h-0">
               {!(broadcastState.mode === 'now-performing' && !currentRapper) && (
-                <header className="mb-12 text-center">
-                  <div className="flex justify-center mb-4">
+                <header className="mb-2 md:mb-4 text-center shrink-0">
+                  <div className="flex justify-center mb-1 md:mb-2">
                     <img
                       src={logo}
                       alt="Beast Beats Logo"
-                      className="h-32 md:h-48 lg:h-56 w-auto object-contain"
+                      className="h-16 md:h-20 lg:h-24 w-auto object-contain"
                       style={{ mixBlendMode: 'lighten' }}
                     />
                   </div>
-                  <p className="text-xl md:text-2xl tracking-widest text-muted-foreground" style={{ fontFamily: 'Rocketbrush' }}>
+                  <p className="text-lg md:text-xl tracking-widest text-muted-foreground" style={{ fontFamily: 'Rocketbrush' }}>
                     ROUND {broadcastState.round}
                   </p>
                 </header>
@@ -403,18 +403,15 @@ export default function StageDisplay({
                 duration: 0.5,
                 ease: [0.22, 1, 0.36, 1] // Cinematic ease out
               }}
-              className="h-full max-h-full flex flex-col items-center justify-between w-full max-w-6xl mx-auto p-4 md:p-8 overflow-hidden"
+              className="flex-1 min-h-0 flex flex-col items-center justify-between w-full max-w-6xl mx-auto p-2 md:p-4 overflow-hidden"
             >
               <motion.div
-                className="text-center relative w-full flex-1 flex flex-col items-center justify-between min-h-0"
+                className="text-center relative w-full flex-1 flex flex-col items-center justify-center min-h-0"
               >
-                {/* Glow behind text */}
-                <div className="absolute inset-0 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
-                
                 <div className="relative z-10 w-full h-full flex flex-col items-center justify-center gap-0 text-center">
                   {getRapperPngImage(currentRapper.name) && (
                     <motion.div
-                      className="w-full flex-1 min-h-0 relative z-0 my-2"
+                      className="w-full flex-1 min-h-0 relative z-0"
                       initial={{ scale: 0.8, opacity: 0, y: -50 }}
                       animate={{ scale: 1, opacity: 1, y: 0 }}
                       transition={{ delay: 0.15, duration: 0.6, type: 'spring', bounce: 0.5 }}
@@ -422,12 +419,12 @@ export default function StageDisplay({
                       <img 
                         src={getRapperPngImage(currentRapper.name)!}
                         alt={currentRapper.name}
-                        className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-[1.10] origin-bottom"
+                        className="absolute inset-0 w-full h-full object-contain object-bottom drop-shadow-[0_0_80px_rgba(146,208,32,0.8)]"
                       />
                     </motion.div>
                   )}
 
-                  <div className="w-full flex flex-col justify-center text-center items-center relative z-10 shrink-0">
+                  <div className="w-full flex flex-col justify-center text-center items-center relative z-10 shrink-0 mt-[-2vh] md:mt-[-4vh]">
                     <motion.p 
                       className="text-[10px] md:text-xs tracking-widest text-muted-foreground mb-1 md:mb-2 uppercase" 
                       initial={{ opacity: 0, y: -10 }}
