@@ -635,7 +635,7 @@ export default function StageDisplay({
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="flex flex-col items-center gap-3 md:gap-4 w-full max-w-5xl mx-auto mb-4">
+            <div className="flex flex-col items-center gap-3 md:gap-4 w-full max-w-3xl px-8 md:px-16 mx-auto mb-4">
               {/* Logo */}
               <motion.img
                 src={logo}

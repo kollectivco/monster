@@ -337,7 +337,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
           style={{ filter: 'drop-shadow(0 0 20px rgba(146, 208, 32, 0.4))' }}
         />
         <h1 className="text-5xl text-primary mb-6" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>TOP 4 FINALISTS</h1>
-        <div className="grid grid-cols-2 gap-x-12 md:gap-x-24 gap-y-4 w-full max-w-xl px-16 md:px-32">
+        <div className="grid grid-cols-2 gap-x-12 md:gap-x-24 gap-y-4 md:gap-y-6 w-full max-w-2xl px-12 md:px-24">
           {finalists.slice(0, 4).map((item, index) => {
             const isTBD = !item.rapper || item.rapper.id.startsWith('tbd');
             return (
@@ -349,7 +349,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
 
                 {/* 2. IMAGE INSIDE THE BOX */}
                 <div
-                  className="w-full h-[16vh] md:h-[18vh] border-4 border-primary bg-card/80 rounded-2xl flex flex-col items-center justify-center overflow-hidden mb-2" 
+                  className="w-full h-[18vh] md:h-[20vh] border-4 border-primary bg-card/80 rounded-2xl flex flex-col items-center justify-center overflow-hidden mb-2" 
                   style={{ boxShadow: 'var(--green-glow-strong)' }}
                 >
                   {!isTBD && getRapperPngImage(item.rapper.name) ? (
@@ -373,7 +373,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                 {/* 3. NAME (+ team) BELOW */}
                 <div className="text-center w-full px-2">
                   <h3 
-                    className="text-2xl md:text-3xl text-primary truncate leading-none uppercase font-bold" 
+                    className="text-4xl text-primary break-words leading-none uppercase font-bold" 
                     style={{ 
                       fontFamily: 'Anton, sans-serif', 
                       textShadow: '0 0 10px rgba(146, 208, 32, 0.6), 0 0 20px rgba(146, 208, 32, 0.4)',
@@ -444,7 +444,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
               transition={{ delay: 1, duration: 1 }}
               className="relative z-10 mb-[-6rem]"
             >
-              <h1 className="text-[8rem] text-secondary tracking-widest" style={{ fontFamily: 'Rocketbrush' }}>
+              <h1 className="text-[5rem] md:text-[6rem] lg:text-[7rem] text-secondary tracking-widest" style={{ fontFamily: 'Rocketbrush' }}>
                 THE CHAMPION
               </h1>
             </motion.div>
@@ -465,7 +465,7 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
                   <img 
                     src={getRapperPngImage(winner.rapper.name)!}
                     alt={winner.rapper.name}
-                    className="w-[40vh] h-[40vh] md:w-[60vh] md:h-[60vh] lg:w-[70vh] lg:h-[70vh] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-110"
+                    className="w-[30vh] h-[30vh] md:w-[45vh] md:h-[45vh] lg:w-[50vh] lg:h-[50vh] object-contain drop-shadow-[0_0_80px_rgba(146,208,32,0.8)] scale-110"
                   />
                 </motion.div>
               )}
@@ -478,10 +478,10 @@ export function FinalistsVisuals({ state, rappers, teams, winner, topFour }: Vis
           </>
         ) : (
           <>
-            <h1 className="text-7xl text-secondary mb-4 tracking-widest relative z-10" style={{ fontFamily: 'Rocketbrush' }}>
+            <h1 className="text-5xl md:text-6xl text-secondary mb-4 tracking-widest relative z-10" style={{ fontFamily: 'Rocketbrush' }}>
               THE CHAMPION
             </h1>
-            <h2 className="text-[12rem] text-primary relative z-10" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>
+            <h2 className="text-[8rem] md:text-[10rem] text-primary relative z-10" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>
               WINNER
             </h2>
           </>
