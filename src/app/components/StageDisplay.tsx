@@ -485,29 +485,7 @@ export default function StageDisplay({
                   </div>
                 </div>
 
-                {broadcastState.showScore && (
-                  <motion.div
-                    initial={{ scale: 0.8, opacity: 0, y: 20 }}
-                    animate={{ scale: 1, opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-                    className="grid grid-cols-2 md:grid-cols-5 gap-1.5 md:gap-3 mt-2 md:mt-4 w-full relative z-10 shrink-0"
-                  >
-                    {[
-                      { name: 'Lyricism & Wordplay', score: currentRapperCriteria[0], max: 8 },
-                      { name: 'Flow & Delivery', score: currentRapperCriteria[1], max: 8 },
-                      { name: 'Stage Presence & Performance', score: currentRapperCriteria[2], max: 8 },
-                      { name: 'Originality & Style', score: currentRapperCriteria[3], max: 8 },
-                      { name: 'Content & Impact', score: currentRapperCriteria[4], max: 8 },
-                    ].map((crit, i) => (
-                      <div key={i} className="border border-border p-2 md:p-3 text-center flex flex-col justify-center items-center" style={{ borderRadius: 'var(--radius)', backgroundColor: 'var(--card)', boxShadow: 'var(--bento-shadow)' }}>
-                        <p className="text-xs md:text-sm text-muted-foreground tracking-widest mb-1 leading-tight uppercase font-medium">{crit.name}</p>
-                        <p className="mono font-bold text-primary text-2xl md:text-3xl mt-1">
-                          {crit.score} <span className="text-sm md:text-base text-muted-foreground">/ {crit.max}</span>
-                        </p>
-                      </div>
-                    ))}
-                  </motion.div>
-                )}
+
               </motion.div>
 
               {nextRapper && (
