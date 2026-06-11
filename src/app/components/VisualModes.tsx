@@ -522,15 +522,15 @@ function TimerVisual({ seconds: initialSeconds, label, alertAt = 10, isCountdown
         <img
           src={logo}
           alt="Beast Beats Logo"
-          className="h-56 w-auto object-contain"
+          className="h-24 md:h-32 lg:h-40 w-auto object-contain"
           style={{ mixBlendMode: 'lighten' }}
         />
       </div>
-      <h2 className="text-4xl text-muted-foreground tracking-widest mb-12" style={{ fontFamily: 'Rocketbrush' }}>{label}</h2>
+      <h2 className="text-2xl md:text-3xl text-muted-foreground tracking-widest mb-6 md:mb-8" style={{ fontFamily: 'Rocketbrush' }}>{label}</h2>
       <motion.div
         animate={isAlert ? { scale: [1, 1.05, 1], color: ['#ef4444', '#ffffff', '#ef4444'] } : {}}
         transition={isAlert ? { duration: 0.5, repeat: Infinity } : {}}
-        className="text-[15rem] font-bold font-mono leading-none"
+        className="text-[8rem] md:text-[10rem] lg:text-[12rem] font-bold font-mono leading-none"
         style={{ color: isAlert ? '#ef4444' : 'var(--primary)', textShadow: isAlert ? '0 0 50px #ef4444' : 'var(--green-glow)' }}
       >
         {mins.toString().padStart(2, '0')}:{secs.toString().padStart(2, '0')}

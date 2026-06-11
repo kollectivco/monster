@@ -349,7 +349,7 @@ export default function StageDisplay({
               <FinalistsVisuals state={broadcastState} rappers={rappers} teams={teams} winner={championResults[0]} topFour={topFourAfterR2} />
             </motion.div>
           ) : (
-            <motion.div key="standard-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full max-h-full flex flex-col px-2 md:px-6 lg:px-12 mx-auto min-h-0">
+            <motion.div key="standard-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full max-h-full flex flex-col px-6 md:px-16 lg:px-32 mx-auto min-h-0">
               {!(broadcastState.mode === 'now-performing' && !currentRapper) && (
                 <header className="mb-2 md:mb-4 text-center shrink-0">
                   <div className="flex justify-center mb-1 md:mb-2">
