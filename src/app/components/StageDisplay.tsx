@@ -356,11 +356,11 @@ export default function StageDisplay({
                     <img
                       src={logo}
                       alt="Beast Beats Logo"
-                      className="h-16 md:h-20 lg:h-24 w-auto object-contain"
+                      className="h-20 md:h-28 lg:h-32 w-auto object-contain"
                       style={{ mixBlendMode: 'lighten' }}
                     />
                   </div>
-                  <p className="text-lg md:text-xl tracking-widest text-muted-foreground" style={{ fontFamily: 'Rocketbrush' }}>
+                  <p className="text-xl md:text-2xl tracking-widest text-muted-foreground" style={{ fontFamily: 'Rocketbrush' }}>
                     ROUND {broadcastState.round}
                   </p>
                 </header>
@@ -426,7 +426,7 @@ export default function StageDisplay({
 
                   <div className="w-full flex flex-col justify-center text-center items-center relative z-10 shrink-0 mt-[-2vh] md:mt-[-4vh]">
                     <motion.p 
-                      className="text-[10px] md:text-xs tracking-widest text-muted-foreground mb-1 md:mb-2 uppercase" 
+                      className="text-xs md:text-sm tracking-widest text-muted-foreground mb-1 md:mb-2 uppercase" 
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2, duration: 0.4 }}
@@ -438,7 +438,7 @@ export default function StageDisplay({
                       className="mb-0 text-primary whitespace-nowrap uppercase font-bold px-2 w-full"
                       style={{ 
                         fontFamily: 'Anton, sans-serif', 
-                        fontSize: currentRapper.name.length > 10 ? 'clamp(1.5rem, 4vw, 4rem)' : 'clamp(2.5rem, 6vw, 6rem)',
+                        fontSize: currentRapper.name.length > 10 ? 'clamp(2rem, 5vw, 4rem)' : 'clamp(3rem, 7vw, 6rem)',
                         textShadow: '0 0 20px rgba(146, 208, 32, 0.6), 0 0 40px rgba(146, 208, 32, 0.4)', 
                         lineHeight: '0.9', 
                         letterSpacing: '0.02em'
@@ -455,7 +455,7 @@ export default function StageDisplay({
                     </motion.h2>
 
                     <motion.p 
-                      className="text-2xl md:text-3xl lg:text-4xl text-white mb-2 md:mb-4 tracking-[0.1em] italic opacity-90"
+                      className="text-3xl md:text-4xl lg:text-5xl text-white mb-2 md:mb-4 tracking-[0.1em] italic opacity-90"
                       style={{ fontFamily: 'Rocketbrush, cursive' }}
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
@@ -469,16 +469,16 @@ export default function StageDisplay({
                         initial={{ scale: 0.8, opacity: 0, y: 20 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-                        className="inline-block px-6 py-4 md:px-8 md:py-5 border border-primary relative z-10 mt-1 scale-90 md:scale-100"
+                        className="inline-block px-8 py-5 md:px-10 md:py-6 border border-primary relative z-10 mt-1 scale-90 md:scale-100"
                         style={{ borderRadius: 'var(--bento-radius)', backgroundColor: 'var(--muted)', boxShadow: 'var(--green-glow)' }}
                       >
-                        <p className="text-[10px] md:text-xs text-muted-foreground mb-1 tracking-widest uppercase">CURRENT SCORE</p>
+                        <p className="text-xs md:text-sm text-muted-foreground mb-1 md:mb-2 tracking-widest uppercase">CURRENT SCORE</p>
                         <p
-                          className="mono font-bold text-primary leading-none text-5xl md:text-6xl"
+                          className="mono font-bold text-primary leading-none text-6xl md:text-7xl"
                           style={{ textShadow: 'var(--green-glow)' }}
                         >
                           {currentRapperScore}
-                          <span className="text-2xl md:text-3xl text-muted-foreground">/40</span>
+                          <span className="text-3xl md:text-4xl text-muted-foreground">/40</span>
                         </p>
                       </motion.div>
                     )}
@@ -499,10 +499,10 @@ export default function StageDisplay({
                       { name: 'Originality & Style', score: currentRapperCriteria[3], max: 8 },
                       { name: 'Content & Impact', score: currentRapperCriteria[4], max: 8 },
                     ].map((crit, i) => (
-                      <div key={i} className="border border-border p-2 text-center flex flex-col justify-center items-center" style={{ borderRadius: 'var(--radius)', backgroundColor: 'var(--card)', boxShadow: 'var(--bento-shadow)' }}>
-                        <p className="text-[9px] text-muted-foreground tracking-widest mb-1 leading-tight uppercase">{crit.name}</p>
-                        <p className="mono font-bold text-primary text-lg">
-                          {crit.score} <span className="text-[10px] text-muted-foreground">/ {crit.max}</span>
+                      <div key={i} className="border border-border p-2 md:p-3 text-center flex flex-col justify-center items-center" style={{ borderRadius: 'var(--radius)', backgroundColor: 'var(--card)', boxShadow: 'var(--bento-shadow)' }}>
+                        <p className="text-xs md:text-sm text-muted-foreground tracking-widest mb-1 leading-tight uppercase font-medium">{crit.name}</p>
+                        <p className="mono font-bold text-primary text-2xl md:text-3xl mt-1">
+                          {crit.score} <span className="text-sm md:text-base text-muted-foreground">/ {crit.max}</span>
                         </p>
                       </div>
                     ))}
