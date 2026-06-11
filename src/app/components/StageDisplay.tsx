@@ -524,7 +524,7 @@ export default function StageDisplay({
             <h1 className="text-xl md:text-3xl text-primary mb-1 shrink-0" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>
               {broadcastState.mode === 'final-scoring-grid' ? 'FINAL SCORES' : 'ROUND STANDINGS'}
             </h1>
-            <div className="flex flex-col gap-1.5 md:gap-2 w-full max-w-3xl mx-auto z-10 relative">
+            <div className="flex flex-col items-center gap-1.5 md:gap-2 w-full mx-auto z-10 relative">
               {(broadcastState.round === 3 ? championResults : [...results].sort((a, b) => {
                 const aTotal = broadcastState.round === 1 ? a.round1 : a.round1 + a.round2;
                 const bTotal = broadcastState.round === 1 ? b.round1 : b.round1 + b.round2;
@@ -549,11 +549,11 @@ export default function StageDisplay({
                       duration: 0.5,
                       ease: [0.34, 1.56, 0.64, 1]
                     }}
-                    className="bg-card border py-1.5 md:py-2 px-4 md:px-6 flex items-center justify-center gap-3 md:gap-4 min-h-0 shrink-0 scale-95 md:scale-100 relative"
+                    className="bg-card border py-1.5 md:py-2 px-6 md:px-8 flex items-center gap-4 md:gap-6 min-h-0 shrink-0 scale-95 md:scale-100"
                     style={{ borderColor: index === 0 ? 'var(--primary)' : 'var(--border-muted)', borderRadius: 'var(--bento-radius)', boxShadow: index === 0 ? 'var(--green-glow), var(--bento-shadow)' : 'var(--bento-shadow)' }}
                   >
                       <motion.div
-                        className="mono font-bold text-muted-foreground shrink-0 text-3xl w-8 text-center absolute left-4 md:left-6"
+                        className="mono font-bold text-muted-foreground shrink-0 text-3xl w-8 text-center"
                         style={{ lineHeight: '1' }}
                         initial={{ scale: 0 }}
                         animate={{ scale: [0, 1.2, 1] }}
