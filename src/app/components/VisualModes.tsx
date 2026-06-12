@@ -580,13 +580,24 @@ export function BeastBarVisual() {
     let permissionStatus: PermissionStatus | null = null;
 
     const checkPermission = async () => {
+      console.log('[BEAST BAR] Checking mic permission...');
+      
+      if (!navigator.permissions || !navigator.permissions.query) {
+        console.warn('[BEAST BAR] navigator.permissions API not supported by this browser (likely Safari). Defaulting to prompt.');
+        if (isSubscribed) setMicState('prompt');
+        return;
+      }
+
       try {
         permissionStatus = await navigator.permissions.query({ name: 'microphone' as PermissionName });
+        console.log('[BEAST BAR] navigator.permissions.query result:', permissionStatus.state);
+        
         if (!isSubscribed) return;
 
         const updateState = () => {
           if (!isSubscribed) return;
           if (permissionStatus) {
+            console.log('[BEAST BAR] Permission status is:', permissionStatus.state);
             if (permissionStatus.state === 'granted') {
               setMicState('granted');
               startMic();
@@ -601,7 +612,7 @@ export function BeastBarVisual() {
         updateState();
         permissionStatus.onchange = updateState;
       } catch (err) {
-        console.warn('navigator.permissions.query failed:', err);
+        console.error('[BEAST BAR] navigator.permissions.query threw an error (common in Safari for microphone):', err);
         if (isSubscribed) setMicState('prompt');
       }
     };
