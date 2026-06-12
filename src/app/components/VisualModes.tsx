@@ -540,8 +540,7 @@ function TimerVisual({ seconds: initialSeconds, label, alertAt = 10, isCountdown
 }
 
 export function BeastBarVisual() {
-  const [hasPermission, setHasPermission] = useState<boolean>(false);
-  const [denied, setDenied] = useState<boolean>(false);
+  const [micState, setMicState] = useState<'checking' | 'prompt' | 'granted' | 'denied'>('checking');
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
@@ -549,7 +548,8 @@ export function BeastBarVisual() {
   const animationRef = useRef<number>(0);
   const peakLevelRef = useRef<number>(0);
 
-  const requestMic = async () => {
+  const startMic = async () => {
+    if (streamRef.current) return; // Already started
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       streamRef.current = stream;
@@ -566,18 +566,58 @@ export function BeastBarVisual() {
       const source = audioCtx.createMediaStreamSource(stream);
       source.connect(analyser);
       
-      setHasPermission(true);
+      setMicState('granted');
       console.log('Beast Bar: Live mic mode activated');
     } catch (err) {
       console.error('Mic access denied or failed:', err);
-      setDenied(true);
-      setHasPermission(true); // Proceed to fallback
+      setMicState('denied');
       console.log('Beast Bar: Fallback visualizer mode activated');
     }
   };
 
   useEffect(() => {
-    if (!hasPermission || !canvasRef.current) return;
+    let isSubscribed = true;
+    let permissionStatus: PermissionStatus | null = null;
+
+    const checkPermission = async () => {
+      try {
+        permissionStatus = await navigator.permissions.query({ name: 'microphone' as PermissionName });
+        if (!isSubscribed) return;
+
+        const updateState = () => {
+          if (!isSubscribed) return;
+          if (permissionStatus) {
+            if (permissionStatus.state === 'granted') {
+              setMicState('granted');
+              startMic();
+            } else if (permissionStatus.state === 'denied') {
+              setMicState('denied');
+            } else {
+              setMicState('prompt');
+            }
+          }
+        };
+
+        updateState();
+        permissionStatus.onchange = updateState;
+      } catch (err) {
+        console.warn('navigator.permissions.query failed:', err);
+        if (isSubscribed) setMicState('prompt');
+      }
+    };
+
+    checkPermission();
+
+    return () => {
+      isSubscribed = false;
+      if (permissionStatus) {
+        permissionStatus.onchange = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (micState === 'checking' || micState === 'prompt' || !canvasRef.current) return;
     
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -600,7 +640,7 @@ export function BeastBarVisual() {
       
       let level = 0;
       
-      if (!denied && analyserRef.current) {
+      if (micState === 'granted' && analyserRef.current) {
         const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount);
         analyserRef.current.getByteFrequencyData(dataArray);
         
@@ -671,11 +711,11 @@ export function BeastBarVisual() {
     return () => {
       cancelAnimationFrame(animationRef.current);
     };
-  }, [hasPermission, denied]);
+  }, [micState]);
 
   useEffect(() => {
     return () => {
-      // Cleanup on unmount
+      // Cleanup on unmount ONLY, not on every render
       if (streamRef.current) {
         streamRef.current.getTracks().forEach(track => track.stop());
       }
@@ -686,7 +726,11 @@ export function BeastBarVisual() {
     };
   }, []);
 
-  if (!hasPermission) {
+  if (micState === 'checking') {
+    return <div className="h-full w-full bg-black" />; // Avoid flash before permission resolves
+  }
+
+  if (micState === 'prompt') {
     return (
       <motion.div 
         initial={{ opacity: 0 }}
@@ -702,7 +746,7 @@ export function BeastBarVisual() {
         />
         <h1 className="text-6xl text-primary mb-12" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>BEAST BAR</h1>
         <button
-          onClick={requestMic}
+          onClick={startMic}
           className="flex items-center gap-3 bg-primary/20 border-2 border-primary text-primary px-8 py-4 rounded-full text-xl hover:bg-primary/30 transition-all shadow-[0_0_20px_rgba(146,208,32,0.4)]"
         >
           <Mic className="w-6 h-6" />
@@ -729,7 +773,7 @@ export function BeastBarVisual() {
         <h1 className="text-6xl md:text-8xl text-primary" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>
           BEAST BAR
         </h1>
-        {denied && (
+        {micState === 'denied' && (
           <div className="flex items-center gap-2 mt-4 px-4 py-1.5 rounded-full bg-red-500/20 border border-red-500/50 text-red-500 text-xs">
             <MicOff className="w-3 h-3" />
             <span className="tracking-widest uppercase">Mic Unavailable - Simulated Mode</span>
