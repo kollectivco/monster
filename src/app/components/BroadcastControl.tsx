@@ -121,6 +121,11 @@ export default function BroadcastControl({
               style={{ borderColor: broadcastState.mode === 'warning-screen' ? 'transparent' : 'var(--border-muted)', boxShadow: broadcastState.mode === 'warning-screen' ? 'var(--green-glow)' : 'none', backgroundColor: broadcastState.mode === 'warning-screen' ? undefined : 'var(--card)' }}
             ><span className="text-center leading-tight font-bold">Warning Screen</span></button>
             <button
+              onClick={() => onUpdateBroadcast({ mode: 'beast-bar' })}
+              className={`py-3 px-3 rounded-xl transition-all text-xs sm:text-sm flex flex-col items-center justify-center gap-1 ${broadcastState.mode === 'beast-bar' ? 'bg-primary text-primary-foreground' : 'text-foreground border-2 hover:border-primary/50'}`}
+              style={{ borderColor: broadcastState.mode === 'beast-bar' ? 'transparent' : 'var(--border-muted)', boxShadow: broadcastState.mode === 'beast-bar' ? 'var(--green-glow)' : 'none', backgroundColor: broadcastState.mode === 'beast-bar' ? undefined : 'var(--card)' }}
+            ><span className="text-center leading-tight font-bold text-primary" style={{ textShadow: broadcastState.mode === 'beast-bar' ? 'none' : '0 0 5px rgba(146,208,32,0.5)' }}>BEAST BAR</span></button>
+            <button
               onClick={() => onUpdateBroadcast({ mode: 'judge-zaza' })}
               className={`py-3 px-3 rounded-xl transition-all text-xs sm:text-sm flex flex-col items-center justify-center gap-1 ${broadcastState.mode === 'judge-zaza' ? 'bg-primary text-primary-foreground' : 'text-foreground border-2 hover:border-primary/50'}`}
               style={{ borderColor: broadcastState.mode === 'judge-zaza' ? 'transparent' : 'var(--border-muted)', boxShadow: broadcastState.mode === 'judge-zaza' ? 'var(--green-glow)' : 'none', backgroundColor: broadcastState.mode === 'judge-zaza' ? undefined : 'var(--card)' }}

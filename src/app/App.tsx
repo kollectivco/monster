@@ -16,6 +16,7 @@ import {
   convertBroadcastUpdate,
 } from './lib/dataAdapter';
 import { X } from 'lucide-react';
+import AuthGate from './components/AuthGate';
 
 const CURRENT_VERSION = '3.0'; // Relational database version
 
@@ -105,7 +106,7 @@ export default function App() {
       const slug = judgeMatch[1];
       const judge = judgesBySlug.get(slug);
       if (judge) {
-        return { type: 'judge' as const, judge };
+        return { type: 'judge' as const, judge, slug: nameToSlug(judge.name) };
       }
     }
 
@@ -201,13 +202,15 @@ export default function App() {
 
   if (currentRoute.type === 'judge') {
     return (
-      <JudgeScreen
-        judge={currentRoute.judge}
-        data={data}
-        onUpdateScore={updateScore}
-        onSwitchScreen={handleSwitchScreen}
-        broadcastState={broadcastState}
-      />
+      <AuthGate screenId={`judge_${currentRoute.slug}`}>
+        <JudgeScreen
+          judge={currentRoute.judge}
+          data={data}
+          onUpdateScore={updateScore}
+          onSwitchScreen={handleSwitchScreen}
+          broadcastState={broadcastState}
+        />
+      </AuthGate>
     );
   }
 
@@ -228,31 +231,35 @@ export default function App() {
 
   if (currentRoute.type === 'control') {
     return (
-      <ControlScreen
-        data={data}
-        broadcastState={broadcastState}
-        onUpdateTeam={updateTeamName}
-        onUpdateRapper={updateRapperName}
-        onUpdateJudge={updateJudgeName}
-        onUpdateBroadcast={handleUpdateBroadcast}
-        onUpdateScore={updateScore}
-        onReset={resetAll}
-        onSwitchScreen={handleSwitchScreen}
-        connectionStatus={connectionStatus}
-        diagnostics={diagnostics}
-      />
+      <AuthGate screenId="control">
+        <ControlScreen
+          data={data}
+          broadcastState={broadcastState}
+          onUpdateTeam={updateTeamName}
+          onUpdateRapper={updateRapperName}
+          onUpdateJudge={updateJudgeName}
+          onUpdateBroadcast={handleUpdateBroadcast}
+          onUpdateScore={updateScore}
+          onReset={resetAll}
+          onSwitchScreen={handleSwitchScreen}
+          connectionStatus={connectionStatus}
+          diagnostics={diagnostics}
+        />
+      </AuthGate>
     );
   }
 
   if (currentRoute.type === 'mc') {
     return (
-      <MCScreen
-        rappers={data.rappers}
-        teams={data.teams}
-        judges={data.judges}
-        scores={data.scores}
-        broadcastState={broadcastState}
-      />
+      <AuthGate screenId="mc">
+        <MCScreen
+          rappers={data.rappers}
+          teams={data.teams}
+          judges={data.judges}
+          scores={data.scores}
+          broadcastState={broadcastState}
+        />
+      </AuthGate>
     );
   }
 

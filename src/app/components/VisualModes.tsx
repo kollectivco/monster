@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Rapper, Team, BroadcastState } from '../types';
-import { Smile, Clock } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Smile, Clock, Mic, MicOff } from 'lucide-react';
+import { useEffect, useState, useRef } from 'react';
 import logo from '../../imports/logo.webp';
 
 // Import judge photos
@@ -535,6 +535,216 @@ function TimerVisual({ seconds: initialSeconds, label, alertAt = 10, isCountdown
       >
         {mins.toString().padStart(2, '0')}:{secs.toString().padStart(2, '0')}
       </motion.div>
+    </motion.div>
+  );
+}
+
+export function BeastBarVisual() {
+  const [hasPermission, setHasPermission] = useState<boolean>(false);
+  const [denied, setDenied] = useState<boolean>(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const animationRef = useRef<number>(0);
+  const peakLevelRef = useRef<number>(0);
+
+  const requestMic = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
+      
+      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+      const audioCtx = new AudioContextClass();
+      audioContextRef.current = audioCtx;
+      
+      const analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 64; // Small fftSize for thick bars
+      analyser.smoothingTimeConstant = 0.8;
+      analyserRef.current = analyser;
+      
+      const source = audioCtx.createMediaStreamSource(stream);
+      source.connect(analyser);
+      
+      setHasPermission(true);
+      console.log('Beast Bar: Live mic mode activated');
+    } catch (err) {
+      console.error('Mic access denied or failed:', err);
+      setDenied(true);
+      setHasPermission(true); // Proceed to fallback
+      console.log('Beast Bar: Fallback visualizer mode activated');
+    }
+  };
+
+  useEffect(() => {
+    if (!hasPermission || !canvasRef.current) return;
+    
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    const draw = () => {
+      animationRef.current = requestAnimationFrame(draw);
+      
+      const width = canvas.width;
+      const height = canvas.height;
+      
+      ctx.clearRect(0, 0, width, height);
+      
+      const numSegments = 24;
+      const columnWidth = 400; // Wider column for better visibility
+      const segmentHeight = (height / numSegments) * 0.7;
+      const segmentGap = (height / numSegments) * 0.3;
+      
+      const x = (width - columnWidth) / 2;
+      
+      let level = 0;
+      
+      if (!denied && analyserRef.current) {
+        const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount);
+        analyserRef.current.getByteFrequencyData(dataArray);
+        
+        // Calculate average volume from lower/mid frequencies
+        let sum = 0;
+        const binsToAverage = 20;
+        for (let i = 0; i < binsToAverage; i++) {
+          sum += dataArray[i];
+        }
+        const avg = sum / binsToAverage;
+        const percent = avg / 255;
+        
+        // Apply gain/scaling so it looks active
+        level = Math.min(1, percent * 1.5);
+      } else {
+        // Fallback visualizer (pseudo-random simulated volume)
+        const time = Date.now() / 200;
+        const noise = Math.sin(time) * 0.3 + 0.5 + (Math.random() * 0.2);
+        level = Math.min(1, Math.max(0.05, noise));
+      }
+      
+      // Update peak hold with decay
+      peakLevelRef.current = Math.max(level, peakLevelRef.current - 0.015);
+      
+      for (let i = 0; i < numSegments; i++) {
+        // i = 0 is the bottom segment, numSegments - 1 is the top
+        const threshold = i / numSegments;
+        const isLit = level > threshold;
+        const isPeak = Math.floor(peakLevelRef.current * numSegments) === i;
+        
+        // Calculate y from top to bottom. i=0 should be near the bottom of canvas.
+        const y = height - (i * (height / numSegments)) - segmentHeight - (segmentGap / 2);
+        
+        if (isLit || isPeak) {
+          // Glow and bright
+          const intensity = i / numSegments; // 0 at bottom, 1 at top
+          // Subtle color shift from deeper green to brighter green, staying in Monster palette
+          ctx.fillStyle = '#92d020';
+          if (intensity > 0.8) ctx.fillStyle = '#b2f030';
+          
+          ctx.shadowColor = '#92d020';
+          ctx.shadowBlur = 25;
+        } else {
+          // Dim / unlit state
+          ctx.fillStyle = '#1a2608'; // Very dark Monster green
+          ctx.shadowBlur = 0;
+        }
+        
+        // Draw rounded rectangle for the segment
+        const radius = segmentHeight / 2;
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + columnWidth - radius, y);
+        ctx.quadraticCurveTo(x + columnWidth, y, x + columnWidth, y + radius);
+        ctx.lineTo(x + columnWidth, y + segmentHeight - radius);
+        ctx.quadraticCurveTo(x + columnWidth, y + segmentHeight, x + columnWidth - radius, y + segmentHeight);
+        ctx.lineTo(x + radius, y + segmentHeight);
+        ctx.quadraticCurveTo(x, y + segmentHeight, x, y + segmentHeight - radius);
+        ctx.lineTo(x, y + radius);
+        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.closePath();
+        ctx.fill();
+      }
+    };
+    
+    draw();
+    
+    return () => {
+      cancelAnimationFrame(animationRef.current);
+    };
+  }, [hasPermission, denied]);
+
+  useEffect(() => {
+    return () => {
+      // Cleanup on unmount
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop());
+      }
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        audioContextRef.current.close();
+      }
+      cancelAnimationFrame(animationRef.current);
+    };
+  }, []);
+
+  if (!hasPermission) {
+    return (
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="flex flex-col items-center justify-center h-full min-h-full w-full bg-black relative"
+      >
+        <img
+          src={logo}
+          alt="Beast Beats Logo"
+          className="w-48 object-contain mb-8"
+          style={{ filter: 'drop-shadow(0 0 20px rgba(146, 208, 32, 0.4))' }}
+        />
+        <h1 className="text-6xl text-primary mb-12" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow)' }}>BEAST BAR</h1>
+        <button
+          onClick={requestMic}
+          className="flex items-center gap-3 bg-primary/20 border-2 border-primary text-primary px-8 py-4 rounded-full text-xl hover:bg-primary/30 transition-all shadow-[0_0_20px_rgba(146,208,32,0.4)]"
+        >
+          <Mic className="w-6 h-6" />
+          <span className="font-bold tracking-widest">ENABLE MIC FOR LIVE METER</span>
+        </button>
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="flex flex-col h-full min-h-full w-full bg-black relative overflow-hidden pb-12 pt-12 px-8"
+    >
+      <div className="flex flex-col items-center z-10 shrink-0 mb-8">
+        <img
+          src={logo}
+          alt="Beast Beats Logo"
+          className="w-32 md:w-48 object-contain mb-4"
+          style={{ filter: 'drop-shadow(0 0 20px rgba(146, 208, 32, 0.4))' }}
+        />
+        <h1 className="text-6xl md:text-8xl text-primary" style={{ fontFamily: 'Rocketbrush', textShadow: 'var(--green-glow-strong)' }}>
+          BEAST BAR
+        </h1>
+        {denied && (
+          <div className="flex items-center gap-2 mt-4 px-4 py-1.5 rounded-full bg-red-500/20 border border-red-500/50 text-red-500 text-xs">
+            <MicOff className="w-3 h-3" />
+            <span className="tracking-widest uppercase">Mic Unavailable - Simulated Mode</span>
+          </div>
+        )}
+      </div>
+      
+      <div className="flex-1 w-full relative flex items-end justify-center px-4">
+        <canvas 
+          ref={canvasRef} 
+          className="w-full h-full max-h-[600px]"
+          width={1000} 
+          height={600}
+        />
+      </div>
     </motion.div>
   );
 }

@@ -43,6 +43,10 @@ export interface BroadcastState {
     | 'countdown-timer'
     | 'warning-screen'
     | 'judges-cards'
+    | 'judge-zaza'
+    | 'judge-shahyn'
+    | 'judge-alyloka'
+    | 'judge-shehab'
     | 'round-1-intro'
     | 'minute-timer'
     | 'round-2-intro'
@@ -51,7 +55,8 @@ export interface BroadcastState {
     | 'round-3-intro'
     | 'finalists-vs'
     | 'final-scoring-grid'
-    | 'winner-graphic';
+    | 'winner-graphic'
+    | 'beast-bar';
   currentRapperId: string | null;
   nextRapperId: string | null;
   showScore: boolean;

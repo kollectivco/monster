@@ -5,7 +5,7 @@ import logo from '../../imports/logo.webp';
 import StageBackground from './StageBackground';
 import { motion, AnimatePresence } from 'motion/react';
 import type { ConnectionStatus, SyncDiagnostics } from '../hooks/useRelationalSync';
-import { GeneralVisuals, RoundIntros, FinalistsVisuals } from './VisualModes';
+import { GeneralVisuals, RoundIntros, FinalistsVisuals, BeastBarVisual } from './VisualModes';
 
 const photos = import.meta.glob('../../styles/photos/*.webp', { query: '?url', import: 'default', eager: true }) as Record<string, string>;
 
@@ -231,13 +231,13 @@ export default function StageDisplay({
     'intro-logos', 'countdown-timer', 'warning-screen', 'judges-cards', 
     'round-1-intro', 'minute-timer', 'round-2-intro', 'wild-card', 
     'top-4-visual', 'round-3-intro', 'finalists-vs', 'winner-graphic', 'final-scoring-grid',
-    'judge-zaza', 'judge-shahyn', 'judge-alyloka', 'judge-shehab'
+    'judge-zaza', 'judge-shahyn', 'judge-alyloka', 'judge-shehab', 'beast-bar'
   ].includes(broadcastState.mode);
 
   // Hide equalizer during general visuals
   const isGeneralVisual = [
     'intro-logos', 'countdown-timer', 'warning-screen', 'judges-cards',
-    'judge-zaza', 'judge-shahyn', 'judge-alyloka', 'judge-shehab'
+    'judge-zaza', 'judge-shahyn', 'judge-alyloka', 'judge-shehab', 'beast-bar'
   ].includes(broadcastState.mode);
 
   if (['winner-graphic', 'podium', 'final-scoring-grid'].includes(broadcastState.mode) && !r3Complete) {
@@ -344,9 +344,15 @@ export default function StageDisplay({
         <AnimatePresence mode="wait">
           {isSpecialVisualMode ? (
             <motion.div key={broadcastState.mode} className="w-full h-full flex flex-col items-center justify-center">
-              <GeneralVisuals state={broadcastState} rappers={rappers} teams={teams} />
-              <RoundIntros state={broadcastState} rappers={rappers} teams={teams} />
-              <FinalistsVisuals state={broadcastState} rappers={rappers} teams={teams} winner={championResults[0]} topFour={topFourAfterR2} />
+              {broadcastState.mode === 'beast-bar' ? (
+                <BeastBarVisual />
+              ) : (
+                <>
+                  <GeneralVisuals state={broadcastState} rappers={rappers} teams={teams} />
+                  <RoundIntros state={broadcastState} rappers={rappers} teams={teams} />
+                  <FinalistsVisuals state={broadcastState} rappers={rappers} teams={teams} winner={championResults[0]} topFour={topFourAfterR2} />
+                </>
+              )}
             </motion.div>
           ) : (
             <motion.div key="standard-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full max-h-full flex flex-col px-6 md:px-16 lg:px-32 py-2 md:py-6 mx-auto min-h-0">
