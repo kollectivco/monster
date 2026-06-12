@@ -11,7 +11,7 @@ const INITIAL_RAPPERS: Rapper[] = [
   { id: '5', name: 'Dezel elgenral', team: 'Shahyn Team', sort_order: 2 },
   { id: '1', name: 'Rajab', team: 'Shahyn Team', sort_order: 3 },
   // ZIAD ZAZA Team
-  { id: '7', name: 'TheRealDopie™️', team: 'ZIAD ZAZA Team', sort_order: 4 },
+  { id: '7', name: 'ZIG ZVG', team: 'ZIAD ZAZA Team', sort_order: 4 },
   { id: '3', name: 'KOPRA', team: 'ZIAD ZAZA Team', sort_order: 5 },
   // Shehab Team
   { id: '2', name: 'XykoKing', team: 'Shehab Team', sort_order: 6 },

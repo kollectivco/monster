@@ -16,6 +16,7 @@ const getRapperPngImage = (name: string) => {
   const normalizedName = name.toLowerCase().replace(/[^a-z0-9]/g, '');
   const customMap: Record<string, string> = {
     'therealdopie': 'therealdopie',
+    'zigzvg': 'therealdopie',
     'dezelelgenral': 'dezel',
     'hazemhany': 'hazem',
     'xykoking': 'xykoking',
